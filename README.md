@@ -10,3 +10,11 @@ Analysis of clinical documentation is critical for many digital health projects 
 # Goals
 ![ExpectedOutcomes.png](https://imgpile.com/images/hNyBe1.png)
 
+# Branching
+## Quick Legend
+|Instance|Branch|Description|
+|:--:|:--:|:--:|
+|Stable|main|Accepts merges from Sprint1-3|
+|Working|sprint1|Always branch off Stable|
+|Sprint2|sprint2|Always branch off Stable|
+|Sprint3|sprint3|Always branch off Stable|
