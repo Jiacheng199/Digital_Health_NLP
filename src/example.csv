@@ -1,0 +1,176 @@
+raw,result
+Sinusitis,Chronic sinusitis
+Tonsillitis,Tonsillitis
+Skin infection,Non-Match
+LRTI,Non-Match
+Bacterial vaginosis,Non-Match
+Review,Non-Match
+???UTI,Non-Match
+Dental prophylaxis,Non-Match
+Infective exacerbation of asthma,Infective tenosynovitis
+Atypical pneumonia,Non-Match
+Travel advice,Deworming
+"""Sinusitis, frontal""",Chronic sinusitis
+Perioral dermatitis,Perioral dermatitis
+Administrative procedure,Non-Match
+Prescription,Non-Match
+Perianal abscess,Deworming
+Probable Hypertension - Borderline,Non-Match
+Travel vaccination,Deworming
+"""Cough, post infective""",Pertussis prophylaxis
+STI screen,Non-Match
+Vaginal discharge - episiotomy.,Vulvovaginal candidiasis
+"""Cellulitis, leg""",Non-Match
+Diverticulitis,Diverticulitis
+URTI,Non-Match
+Left Eye injury,"Surgical prophylaxis, dental / maxillofacial procedure"
+"""URTI, viral""",Non-Match
+Left Otitis media,"Surgical prophylaxis, dental / maxillofacial procedure"
+Keratoacanthoma,Non-Match
+Pharyngitis,Pharyngitis
+Paronychia,Acute paronychia
+Giardiasis,Giardiasis
+HSV1 Infection,Non-Match
+Viral illness,Non-Match
+"""Pharyngitis, bacterial""",Pharyngitis
+Bronchitis,Croup
+Cellulitis,Non-Match
+Stye,Stye
+Influenza like illness,Non-Match
+Vulvo-vaginitis,"Vulvovaginitis, other pathogen(s)"
+Bronchiectasis,"Bronchiectasis, acute exacerbation"
+Eye discomfort,Non-Match
+Oral candidiasis,Non-Match
+T2DM,Non-Match
+Nipple candidiasis,"Surgical prophylaxis, breast procedure"
+Otitis externa,Non-Match
+Right Ingrown toenail,Acute paronychia
+"Dermatitis, ALlergic?",Deworming
+Scalp dermatitis,Tinea capitis
+Chlamydia trachomatis infection,Non-Match
+"""Sinusitis, maxillary / URTI""",Chronic sinusitis
+Right Otitis media,Non-Match
+Seborrhoeic dermatitis,Seborrhoeic dermatitis
+"""PrEP, HIV""",Pre exposure prophylaxis for human immunodeficiency virus
+Sore throat,Non-Match
+Otitis media,Non-Match
+Irregular menses,Non-Match
+Cystitis,Non-Match
+"""Thrush, vaginal""",Oesophageal candidiasis
+Thrush,Oesophageal candidiasis
+"""Sebaceous cyst, infected""",Infected sebaceous cyst
+Wound breakdown,Non-Match
+Cough,Pertussis prophylaxis
+Gingivitis,Gingivitis
+Herpes zoster,Non-Match
+"""UTI, recurrent""",Non-Match
+Left Parotitis,"Surgical prophylaxis, dental / maxillofacial procedure"
+Gout,Non-Match
+Abdominal pain,Non-Match
+"""Lesion, skin""",Non-Match
+Right Shoulder impingement syndrome,Non-Match
+"""Conjunctivitis, bacterial""",Bacterial conjunctivitis
+"""Sinusitis, maxillary""",Chronic sinusitis
+"""Moderate, Chronic  Right Otitis media""",Non-Match
+Pilonidal abscess,Pilonidal sinus
+Orchitis,Epididymo-orchitis
+Nausea,Non-Match
+Rosacea,Rosacea
+Infected eczema,Non-Match
+Diarrhoea,Non-Match
+Periorbital cellulitis,Periorbital cellulitis
+Genital warts,Non-Match
+Hay fever,Non-Match
+Hysterectomy,"Surgical prophylaxis, gynaecological procedure"
+Hypothyroidism,Non-Match
+Oral thrush,Non-Match
+"""Bronchitis, acute""",Croup
+Acute Chlamydia Infection,Non-Match
+"""Script written, no consultation""",Non-Match
+Impetigo,Impetigo
+Compartment syndrome,Non-Match
+Acute Bilateral Infected earlobe - piercing,Non-Match
+Boil,Stye
+Urinary tract infection,Non-Match
+GORD,Non-Match
+Abscess,Non-Match
+Molluscum contagiosum,Molluscum contagiosum
+Lymphadenitis,"Cervical lymphadenitis, suppurative"
+Eczema,Seborrhoeic dermatitis
+Asthma,"Asthma, infective exacerbation"
+Constipation,Non-Match
+Chest infection,"Pneumonia, community acquired, tropical Australia, pathogen unknown"
+Iron deficiency,Post exposure prophylaxis for bloodborne viruses
+Pertussis prophylaxis,Pertussis prophylaxis
+Chronic Left Varicose veins,Non-Match
+Wisdom tooth pain,Tooth avulsion
+Prostatitis,Acute prostatitis
+"""Mild, Acute Right Paronychia""",Non-Match
+Tarsal cyst,Meibomian abscess / chalazion
+Wound dehiscence,Non-Match
+Facial rash,"Surgical prophylaxis, dental / maxillofacial procedure"
+Carbuncle,Boils or carbuncles
+Travel advice and vaccination.,Deworming
+"""Abscess, skin""",Non-Match
+Blepharitis,Blepharitis
+Colonoscopy - referral,Non-Match
+Staphylococcal scalded skin syndrome,Pneumonia: Staphylococcus aureus
+Results follow up - left message,Bacterial prophylaxis following lung transplant
+"""Pharyngitis, streptococcal""",Pharyngitis
+Abscess - left lower conjunctiva,Non-Match
+Acute Left Skin infection - ear,Non-Match
+Viral URTI,Non-Match
+Refill,Non-Match
+Vaginal discharge,Vulvovaginal candidiasis
+"""Fever, prolonged""",Non-Match
+Bilateral Hearing aid,Human immunodeficiency virus infection
+Right Ganglion foot,Diabetic foot infection
+Left Tonsillitis,"Surgical prophylaxis, dental / maxillofacial procedure"
+Onychomycosis,Onychomycosis
+Vulval lesion,Non-Match
+Herpes Simplex genitalis,Non-Match
+Referral letter,Non-Match
+Migraine with aura,Prevention of infection in patients with cirrhosis and gastrointestinal bleeding
+STD fear,Non-Match
+Fibromyalgia,Non-Match
+"""Warts, genital""",Anogenital warts
+Left Paronychia,"Surgical prophylaxis, dental / maxillofacial procedure"
+malar rash,Malaria prophylaxis
+Mycoplasma genitalium cervicitis,Mycoplasma genitalium
+Folliculitis,Folliculitis
+Acute  Submandibular space infection,Non-Match
+Ischio-rectal abscess,Perianal / anorectal abscess
+Bacteuria,Non-Match
+Wound care,Non-Match
+Acute Left Otitis media,Non-Match
+"""Moderate, Acute Bilateral Barotrauma to ear""",Non-Match
+"""Sebaceous cyst, infected? - early""",Infected sebaceous cyst
+Follow up,Bacterial prophylaxis following lung transplant
+Glandular fever ?,Epstein-Barr virus
+Rash,Nappy rash
+Nose pain,Non-Match
+Areolar gland blockage,Meibomian abscess / chalazion
+Skin lesion,Non-Match
+Chronic Bilateral Tinnitus,Non-Match
+Right Otitis externa,Non-Match
+Tenesmus,Non-Match
+Hair loss,Head lice
+Malaria prophylaxis,Malaria prophylaxis
+"""Acute UTI, recurrent""",Non-Match
+Furuncle,Stye
+Check up,Non-Match
+Wrist injury,Corneal abrasion
+Streptococcal pharyngitis,Non-Match
+Right Stye,Stye
+HSV2 Infection,Non-Match
+Genital herpes type 1,Non-Match
+Lower Respiratory Tract Infection,Non-Match
+Vrial infection,Non-Match
+Shingles ?,Herpes (varicella) zoster virus keratitis
+Conjunctivitis,Bacterial conjunctivitis
+Hypertension,Non-Match
+Bilateral Conjunctivitis,Bacterial conjunctivitis
+"""Bilateral Sinusitis, maxillary""",Chronic sinusitis
+"""Moderate, Acute Folliculitis""",Non-Match
+Chronic Balanitis,Non-Match
+Chlamydia Infection,Non-Match
