@@ -6,11 +6,31 @@
 
 </head>
 <body>
-    <svg width="960" height="600"></svg>
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>Raw</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <svg id="data-visuals" width="960" height="600"></svg>
 
     <script>
-        d3.csv("http://localhost:8000/demo_data.csv", function(data) {
-            console.log(data);
+        d3.csv("http://localhost:8000/demo_data.csv").then(function(data) {
+            // Select the table body
+            const tbody = d3.select("#data-table tbody");
+
+            // Append table rows for each data item
+            data.forEach(function(d) {
+                const row = tbody.append("tr");
+                row.append("td").text(d.raw);
+                row.append("td").text(d.result);
+            });
         });
     </script>
 </body>
