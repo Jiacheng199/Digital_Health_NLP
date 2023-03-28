@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>CSV to Table</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    table, th, td {
+      border: 1px solid rgb(231, 135, 135);
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 5px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <table id="data-table">
+    <thead>
+      <tr>
+        <th>Raw</th>
+        <th>Result</th>
+      </tr>
+    </thead>
+  </table>
+
+  <script>
+    //read demo csv file
+    d3.csv("demo.csv", function(data) {
+      //create table
+      var table = d3.select("#data-table").append("tbody");
+      //create table rows
+      var rows = table.selectAll("tr")
+        .data(data)
+        .enter()
+        .append("tr");
+      //create table cells
+      var cells = rows.selectAll("td")
+        .data(function(row) {
+          return Object.values(row);
+        })
+        .enter()
+        .append("td")
+        .text(function(d) {
+          return d;
+        });
+    });
+  </script>
+
+</body>
+</html>
