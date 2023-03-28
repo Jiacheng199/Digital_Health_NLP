@@ -25,7 +25,9 @@ def read_raw():
                     if ('a' <= each_alp <= 'z' or 'A' <= each_alp <= 'Z' or each_alp == ' ' or '0'<each_alp<'9') and each_alp != ' ':
                         new_line += each_alp.lower()
                 
-                tmp_line.append([new_line])
+                # print(new_line)
+                if new_line:
+                    tmp_line.append([new_line])
 
         
          
@@ -34,6 +36,5 @@ def read_raw():
 
 
     return example
-
 
 # print(read_raw())

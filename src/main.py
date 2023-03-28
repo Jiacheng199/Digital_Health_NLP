@@ -5,86 +5,138 @@ from collections import Counter
 raw_plain = read_raw()
 uil_list = read_uil_list()
 result_mapping = []
+
+def search(i, statement_check):
+    str1 = ""
+    str2 = ""
+    str3 = ""
+    str4 = ""
+    for word1 in uil_list[i][0]:
+        str1 += word1.lower()
+
+    for word1 in uil_list[i][1]:
+        str2 += word1.lower()
+
+    for word1 in uil_list[i][2]:
+        str3 += word1.lower()
+
+    for word1 in uil_list[i][4]:
+        str4 += word1.lower()
+
+    if target in str1:
+        # print("find")
+        statement_check = True
+        result=uil_list[i][0]
+        if result not in result_dict.keys():
+            result_dict[result] = 1
+        else:
+            result_dict[result] += 1
+
+    if target in str2:
+        # print("find")
+        statement_check = True
+        result=uil_list[i][0]
+        if result not in result_dict.keys():
+            result_dict[result] = 1
+        else:
+            result_dict[result] += 1
+
+    if target in str3:
+        # print("find")
+        statement_check = True
+        result=uil_list[i][0]
+        if result not in result_dict.keys():
+            result_dict[result] = 1
+        else:
+            result_dict[result] += 1
+
+    if target in str4:
+        # print("find")
+        statement_check = True
+        result=uil_list[i][0]
+        if result not in result_dict.keys():
+            result_dict[result] = 1
+        else:
+            result_dict[result] += 1
+    
+    return statement_check, result_dict
+
+def find_comb(target, statement_check):
+    for i in range(len(uil_list)):
+        # print(123)
+        str1 = ""
+        str2 = ""
+        str3 = ""
+        str4 = ""
+        for word1 in uil_list[i][0]:
+            str1 += word1.lower()
+
+        for word1 in uil_list[i][1]:
+            str2 += word1.lower()
+
+        for word1 in uil_list[i][2]:
+            str3 += word1.lower()
+
+        for word1 in uil_list[i][4]:
+            str4 += word1.lower()
+
+        if target in str1:
+            statement_check = True
+            result=uil_list[i][0]
+            if result not in result_dict.keys():
+                result_dict[result] = 1
+            else:
+                result_dict[result] += 1
+        if target in str2:
+            statement_check = True
+            result=uil_list[i][0]
+            if result not in result_dict.keys():
+                result_dict[result] = 1
+            else:
+                result_dict[result] += 1
+
+        if target in str3:
+            statement_check = True
+            result=uil_list[i][0]
+            if result not in result_dict.keys():
+                result_dict[result] = 1
+            else:
+                result_dict[result] += 1
+
+        if target in str4:
+            # print("find")
+            statement_check = True
+            result=uil_list[i][0]
+            if result not in result_dict.keys():
+                result_dict[result] = 1
+            else:
+                result_dict[result] += 1
+        
+    return statement_check, result_dict
+
 for finding in raw_plain.keys():
+    # print(finding)
     statement_check = False
     pre_data = raw_plain[finding]['processed']
     result_dict = {}
     result = ""
-    # print(pre_data)
-    # full_match = ""
-    # for tmp in pre_data:
-    #     full_match += tmp[0]
-    #     full_match += " "
-    
-    # print(full_match- " ")
+    basic_length = 2
+    if len(pre_data) >= 2:
+        for i in range(len(pre_data)):
+            if i + basic_length <= len(pre_data):
+                tmp_finding = pre_data[i:i+basic_length]
+                tmp_string = ""
+                for each_in_combine in tmp_finding:
+                    tmp_string += str(each_in_combine[0])
+                    tmp_string += " "
+                statement_check, result_dict = find_comb(tmp_string[:-1],statement_check)
+    print(Counter(result_dict))
     for target in pre_data:
         target = target[0]
-        # print(target)
-        if statement_check:
-            break
-
        
         for i in range(len(uil_list)):
-            str1 = ""
-            str2 = ""
-            str3 = ""
-            str4 = ""
-            for word1 in uil_list[i][0]:
-                str1 += word1.lower()
+            statement_check, result_dict = search(i,statement_check)
 
-            for word1 in uil_list[i][1]:
-                str2 += word1.lower()
-
-            for word1 in uil_list[i][2]:
-                str3 += word1.lower()
-
-            for word1 in uil_list[i][4]:
-                str4 += word1.lower()
-
-            if target in str1:
-                # print("find")
-                statement_check = True
-                result=uil_list[i][0]
-                if result not in result_dict.keys():
-                    result_dict[result] = 1
-                else:
-                    result_dict[result] += 1
-                # result_mapping.append([finding, result])
-                # break
-            elif target in str2:
-                # print("find")
-                statement_check = True
-                result=uil_list[i][0]
-                if result not in result_dict.keys():
-                    result_dict[result] = 1
-                else:
-                    result_dict[result] += 1
-                # result_mapping.append([finding, result])
-                # break
-            elif target in str3:
-                # print("find")
-                statement_check = True
-                result=uil_list[i][0]
-                if result not in result_dict.keys():
-                    result_dict[result] = 1
-                else:
-                    result_dict[result] += 1
-                # result_mapping.append([finding, result])
-                # break
-            elif target in str4:
-                # print("find")
-                statement_check = True
-                result=uil_list[i][0]
-                if result not in result_dict.keys():
-                    result_dict[result] = 1
-                else:
-                    result_dict[result] += 1
-                # result_mapping.append([finding, result])
-                # break
-        # print(result_dict)
-        # # print(len(Counter(result_dict)))
-        # print(Counter(result_dict).most_common(1)[0][1])
-    # print(result_dict)
     if statement_check:
         if len(Counter(result_dict)) >= 7 and Counter(result_dict).most_common(1)[0][1] == 1:
             result_mapping.append([finding, "Non-Match"])
@@ -96,25 +148,7 @@ for finding in raw_plain.keys():
         result_mapping.append([finding, result])
     
 
-
+# print(123)
 import pandas
-# print(raw)
-# print(result_mapping)
 dataframe = pandas.DataFrame(result_mapping, columns=['raw', 'result'])
 dataframe.to_csv('example.csv', index=False)
-
-
-    # print(result)
-    # print(finding)
-    # print(targets)
-    # if statement_check:
-    #     print(result)
-    
-
-        # file.write(finding)
-        # file.write("           ")
-        # if statement_check:
-        #     file.write(result)
-        # else:
-        #     file.write("Not Match")
-        # file.write("'/n")
