@@ -67,7 +67,16 @@
                     cell.attr("contenteditable", "true");
                 });
             });
+
+            //download modified data and save it to CSV
+            d3.select("#download-csv").on("click", function() {
+                const modifiedData = d3.select("#data-table tbody").selectAll("tr").data();
+                const csvContent = "data:text/csv;charset=utf-8," + "Raw,Result\n" + modifiedData.map(d => `${d.raw},${d.result}`).join("\n");
+                //log the modified data
+                console.log(modifiedData);
+            });
         });
+    
     </script>
 </body>
 </html>
