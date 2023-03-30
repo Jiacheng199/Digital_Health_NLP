@@ -10,12 +10,20 @@
             overflow-y: auto;
             border: 1px solid black;
             margin-bottom: 20px;
-            position: relative; /* added */
+            position: relative;
         }
 
         table td {
             border: 1px solid black;
             padding: 5px;
+        }
+
+        .changed {
+            background-color: #fdd;
+        }
+
+        .saved {
+            background-color: #afa;
         }
 
         #download-csv {
@@ -29,10 +37,10 @@
             font-size: 16px;
             cursor: pointer;
             position: fixed;
-            bottom: 20px;
+            bottom: 60px;
             right: 20px;
         }
-        
+
         #save-button {
             background-color: #5b4caf;
             border: none;
@@ -44,11 +52,9 @@
             font-size: 16px;
             cursor: pointer;
             position: fixed;
-            bottom: 70px;
+            bottom: 20px;
             right: 20px;
         }
-
-
     </style>
 </head>
 <body>
@@ -65,12 +71,16 @@
     </table>
 
     <button id="download-csv">Download</button>
-    <button id="save-button" class="button">Save</button>
+    <button id="save-button">Save</button>
 
     <svg id="data-visuals" width="960" height="600"></svg>
 
     <script>
-        //download table data as CSV file
+
+        let originalData  = [];
+        const modifiedData = {};
+
+        // download csv
         function downloadCSV(data, filename) {
             let csvContent = "data:text/csv;charset=utf-8,";
             data.forEach(row => {
@@ -86,54 +96,53 @@
             document.body.removeChild(link);
         }
 
-        //save changes to CSV file
+        // save changes to original data
         function saveChanges() {
-            const tableData = [];
-            const header = ["Raw", "Result"];
-            tableData.push(header);
-
             for (const raw in modifiedData) {
-                tableData.push([raw, modifiedData[raw]]);
+                const row = originalData.find(d => d.raw === raw);
+                if (row) {
+                    row.result = modifiedData[raw];
+                }
             }
 
-            downloadCSV(tableData, "modified_data.csv");
+            d3.selectAll(".changed")
+                .classed("changed", false)
+                .classed("saved", true);
         }
 
+        //load data and display
         d3.csv("http://localhost:8000/demo_data.csv").then(function(data) {
-            // Select the table body
+            originalData = data;
             const tbody = d3.select("#data-table tbody");
 
-            // Append table rows for each data item
             data.forEach(function(d) {
                 const row = tbody.append("tr");
                 const rawCell = row.append("td").text(d.raw);
                 const resultCell = row.append("td").text(d.result);
-
-                // Make result editable
                 [resultCell].forEach(function(cell) {
-                    cell.attr("contenteditable", "true");
+                cell.attr("contenteditable", "true");
+                cell.on("input", function() {
+                    modifiedData[d.raw] = d3.select(this).text();
+                    d3.select(this.parentNode).classed("changed", true).classed("saved", false);
                 });
-            });
-
-            //download modified data and save it to CSV
-            d3.select("#download-csv").on("click", function() {
-                const tableData = [];
-                const rows = d3.select("#data-table tbody").selectAll("tr");
-                //select all rows from table
-                rows.each(function() {
-                    const row = d3.select(this);
-                    const rowData = [];
-                    row.selectAll("td").each(function() {
-                        rowData.push(d3.select(this).text());
-                    });
-                    tableData.push(rowData);
-                });
-                //add header
-                tableData.unshift(["Raw", "Result"]);
-                downloadCSV(tableData, "mapping_result.csv");
             });
         });
-    
-    </script>
-</body>
-</html>
+
+        // download csv
+        d3.select("#download-csv").on("click", function() {
+            const tableData = [];
+            const header = ["Raw", "Result"];
+            tableData.push(header);
+
+            originalData.forEach(function(row) {
+                tableData.push([row.raw, row.result]);
+            });
+
+            downloadCSV(tableData, "mapping_result.csv");
+        });
+
+        d3.select("#save-button").on("click", function() {
+            saveChanges();
+        });
+    });
+</script>
