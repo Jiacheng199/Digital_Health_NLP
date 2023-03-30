@@ -57,10 +57,10 @@ Otitis media,Acute otitis media
 Irregular menses,Non-Match
 Cystitis,Dacryocystitis
 """Thrush, vaginal""",Vulvovaginal candidiasis
-Thrush,Oesophageal candidiasis
+Thrush,Non-Match
 """Sebaceous cyst, infected""",Infected sebaceous cyst
 Wound breakdown,Post-traumatic wound infection
-Cough,Pertussis prophylaxis
+Cough,Non-Match
 Gingivitis,Gingivitis
 Herpes zoster,Herpes (varicella) zoster virus keratitis
 """UTI, recurrent""","Recurrent boils, Staphylococcus aureus"
@@ -157,7 +157,7 @@ Tenesmus,Non-Match
 Hair loss,Head lice
 Malaria prophylaxis,Malaria prophylaxis
 """Acute UTI, recurrent""","Acute pyelonephritis / urosepsis, pathogen unknown"
-Furuncle,Stye
+Furuncle,Non-Match
 Check up,Chronic suppurative otitis media
 Wrist injury,Penetrating eye injury
 Streptococcal pharyngitis,Pharyngitis

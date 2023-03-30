@@ -2,6 +2,7 @@ from read_raw import read_raw, read_return_raw
 from read_uil import read_uil_list
 from collections import Counter
 import nltk
+from writing_csv import writing
 # import synonyms
 
 class map_sys:
@@ -50,7 +51,7 @@ class map_sys:
                     statement_check, result_dict = self.search(i,statement_check)
 
             if statement_check:
-                if len(Counter(result_dict)) >= 7 and Counter(result_dict).most_common(1)[0][1] == 1:
+                if len(Counter(result_dict)) >= 3 and Counter(result_dict).most_common(1)[0][1] == 1:
                     self.result_mapping.append([left_mapping_text, "Non-Match"])
                 else:
                     self.result_mapping.append([left_mapping_text, Counter(result_dict).most_common(1)[0][0]])
@@ -60,7 +61,7 @@ class map_sys:
                 self.result_mapping.append([left_mapping_text, result])
             
             
-
+        writing(self.result_mapping)
         # print(123)
         return self.result_mapping
 
