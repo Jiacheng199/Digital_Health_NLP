@@ -15,6 +15,7 @@
 
         table td {
             border: 1px solid black;
+            padding: 5px;
         }
 
         #download-csv {
@@ -62,8 +63,8 @@
                 const rawCell = row.append("td").text(d.raw);
                 const resultCell = row.append("td").text(d.result);
 
-                // Make cells editable
-                [rawCell, resultCell].forEach(function(cell) {
+                // Make result editable
+                [resultCell].forEach(function(cell) {
                     cell.attr("contenteditable", "true");
                 });
             });
