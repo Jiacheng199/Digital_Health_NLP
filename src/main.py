@@ -1,10 +1,13 @@
-from read_raw import read_raw
+from read_raw import read_raw, read_return_raw
 from read_uil import read_uil_list
 from collections import Counter
-
+import nltk
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
 raw_plain = read_raw()
 uil_list = read_uil_list()
 result_mapping = []
+Non_process_text = read_return_raw()
 
 def search(i, statement_check):
     str1 = ""
@@ -114,8 +117,12 @@ def find_comb(target, statement_check):
         
     return statement_check, result_dict
 
+
+raw_text_counter = 0
 for finding in raw_plain.keys():
-    # print(finding)
+    # nltk.word_tokenize()
+    left_mapping_text = Non_process_text[raw_text_counter]
+    raw_text_counter += 1
     statement_check = False
     pre_data = raw_plain[finding]['processed']
     result_dict = {}
@@ -130,8 +137,9 @@ for finding in raw_plain.keys():
                     tmp_string += str(each_in_combine[0])
                     tmp_string += " "
                 statement_check, result_dict = find_comb(tmp_string[:-1],statement_check)
-    print(Counter(result_dict))
+    # print(Counter(result_dict))
     for target in pre_data:
+        # print(nltk.pos_tag(nltk.word_tokenize(target[0])))
         target = target[0]
        
         for i in range(len(uil_list)):
@@ -139,16 +147,17 @@ for finding in raw_plain.keys():
 
     if statement_check:
         if len(Counter(result_dict)) >= 7 and Counter(result_dict).most_common(1)[0][1] == 1:
-            result_mapping.append([finding, "Non-Match"])
+            result_mapping.append([left_mapping_text, "Non-Match"])
         else:
-            result_mapping.append([finding, Counter(result_dict).most_common(1)[0][0]])
-        # result_mapping.append([])
+            result_mapping.append([left_mapping_text, Counter(result_dict).most_common(1)[0][0]])
+
     if not statement_check:
         result = "Non-Match"
-        result_mapping.append([finding, result])
+        result_mapping.append([left_mapping_text, result])
+    
     
 
 # print(123)
 import pandas
 dataframe = pandas.DataFrame(result_mapping, columns=['raw', 'result'])
-dataframe.to_csv('example.csv', index=False)
+dataframe.to_csv('example.csv', index= False)
