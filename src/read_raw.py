@@ -1,8 +1,8 @@
 import re
 
-def read_raw(): 
+def read_raw(file): 
     example = {}
-    with open('ReasonExample.txt', 'r') as ex:
+    with open(file, 'r') as ex:
         while True:
             current_line = ex.readline().strip()
             # print(current_line)
@@ -33,9 +33,9 @@ def read_raw():
     return example
 
 # print(read_raw())
-def read_return_raw():
+def read_return_raw(file):
     example = []
-    with open('ReasonExample.txt', 'r') as ex:
+    with open(file, 'r') as ex:
         while True:
             
             current_line = ex.readline().strip()

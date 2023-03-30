@@ -4,14 +4,16 @@ from collections import Counter
 import nltk
 
 class map_sys:
-    def __init__(self):
-        self.raw_plain = read_raw()
+    def __init__(self, file_name):
+        self.file = file_name
+        self.raw_plain = read_raw(file_name)
         self.uil_list = read_uil_list()
         self.result_mapping = []
-        self.Non_process_text = read_return_raw()
+        self.Non_process_text = read_return_raw(file_name)
         self.raw_text_counter = 0
         self.result_dict = {}
         self.target = ""
+        
 
     def mapping(self):
         nltk.download('punkt')
@@ -59,6 +61,8 @@ class map_sys:
         import pandas
         dataframe = pandas.DataFrame(self.result_mapping, columns=['raw', 'result'])
         dataframe.to_csv('example.csv', index= False)
+
+        
 
     def search(self,i, statement_check):
         str1 = ""
