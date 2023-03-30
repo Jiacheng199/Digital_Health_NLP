@@ -32,6 +32,23 @@
             bottom: 20px;
             right: 20px;
         }
+        
+        #save-button {
+            background-color: #5b4caf;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            position: fixed;
+            bottom: 70px;
+            right: 20px;
+        }
+
+
     </style>
 </head>
 <body>
@@ -48,10 +65,12 @@
     </table>
 
     <button id="download-csv">Download</button>
+    <button id="save-button" class="button">Save</button>
 
     <svg id="data-visuals" width="960" height="600"></svg>
 
     <script>
+        //download table data as CSV file
         function downloadCSV(data, filename) {
             let csvContent = "data:text/csv;charset=utf-8,";
             data.forEach(row => {
@@ -67,6 +86,18 @@
             document.body.removeChild(link);
         }
 
+        //save changes to CSV file
+        function saveChanges() {
+            const tableData = [];
+            const header = ["Raw", "Result"];
+            tableData.push(header);
+
+            for (const raw in modifiedData) {
+                tableData.push([raw, modifiedData[raw]]);
+            }
+
+            downloadCSV(tableData, "modified_data.csv");
+        }
 
         d3.csv("http://localhost:8000/demo_data.csv").then(function(data) {
             // Select the table body
