@@ -2,7 +2,7 @@ from read_raw import read_raw, read_return_raw
 from read_uil import read_uil_list
 from collections import Counter
 import nltk
-import synonyms
+# import synonyms
 
 class map_sys:
     def __init__(self, file_name):
@@ -175,10 +175,12 @@ class map_sys:
         return statement_check, self.result_dict
     
     def nltk_mapping(self):
-        print(nltk.pos_tag(nltk.word_tokenize(self.target)))
+        pass
+        # print(nltk.pos_tag(nltk.word_tokenize(self.target)))
 
     def syn_match(self):
-        print(synonyms.nearby(self.target))
+        pass
+        # print(synonyms.nearby(self.target))
 
     def history_dictionary(self):
         pass
