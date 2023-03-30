@@ -1,9 +1,9 @@
 from matching import map_sys
-
+from writing_csv import writing
 
 map = map_sys('ReasonExample.txt')
-map.mapping()
-
+result = map.mapping()
+writing(result)
 
 
 

@@ -39,6 +39,7 @@ class map_sys:
                         statement_check, result_dict = self.find_comb(tmp_string[:-1],statement_check)
             # print(Counter(result_dict))
             for target in pre_data:
+                self.nltk_mapping()
                 # print(nltk.pos_tag(nltk.word_tokenize(target[0])))
                 self.target = target[0]
             
@@ -58,9 +59,7 @@ class map_sys:
             
 
         # print(123)
-        import pandas
-        dataframe = pandas.DataFrame(self.result_mapping, columns=['raw', 'result'])
-        dataframe.to_csv('example.csv', index= False)
+        return self.result_mapping
 
         
 
@@ -171,5 +170,8 @@ class map_sys:
                     self.result_dict[result] += 1
             
         return statement_check, self.result_dict
+    
+    def nltk_mapping(self):
+        print(nltk.pos_tag(nltk.word_tokenize(self.target)))
 
 
