@@ -2,6 +2,7 @@ from read_raw import read_raw, read_return_raw
 from read_uil import read_uil_list
 from collections import Counter
 import nltk
+import synonyms
 
 class map_sys:
     def __init__(self, file_name):
@@ -39,9 +40,11 @@ class map_sys:
                         statement_check, result_dict = self.find_comb(tmp_string[:-1],statement_check)
             # print(Counter(result_dict))
             for target in pre_data:
-                self.nltk_mapping()
+                
                 # print(nltk.pos_tag(nltk.word_tokenize(target[0])))
                 self.target = target[0]
+                self.nltk_mapping()
+                # self.syn_match()
             
                 for i in range(len(self.uil_list)):
                     statement_check, result_dict = self.search(i,statement_check)
@@ -173,5 +176,11 @@ class map_sys:
     
     def nltk_mapping(self):
         print(nltk.pos_tag(nltk.word_tokenize(self.target)))
+
+    def syn_match(self):
+        print(synonyms.nearby(self.target))
+
+    def history_dictionary(self):
+        pass
 
 
