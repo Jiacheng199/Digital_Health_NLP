@@ -52,6 +52,21 @@
     <svg id="data-visuals" width="960" height="600"></svg>
 
     <script>
+        function downloadCSV(data, filename) {
+            let csvContent = "data:text/csv;charset=utf-8,";
+            data.forEach(row => {
+                csvContent += row.join(",");
+                csvContent += "\n";
+            });
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", filename);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
 
         d3.csv("http://localhost:8000/demo_data.csv").then(function(data) {
             // Select the table body
@@ -71,10 +86,20 @@
 
             //download modified data and save it to CSV
             d3.select("#download-csv").on("click", function() {
-                const modifiedData = d3.select("#data-table tbody").selectAll("tr").data();
-                const csvContent = "data:text/csv;charset=utf-8," + "Raw,Result\n" + modifiedData.map(d => `${d.raw},${d.result}`).join("\n");
-                //log the modified data
-                console.log(modifiedData);
+                const tableData = [];
+                const rows = d3.select("#data-table tbody").selectAll("tr");
+                //select all rows from table
+                rows.each(function() {
+                    const row = d3.select(this);
+                    const rowData = [];
+                    row.selectAll("td").each(function() {
+                        rowData.push(d3.select(this).text());
+                    });
+                    tableData.push(rowData);
+                });
+                //add header
+                tableData.unshift(["Raw", "Result"]);
+                downloadCSV(tableData, "mapping_result.csv");
             });
         });
     
