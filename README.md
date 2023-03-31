@@ -8,6 +8,11 @@ make corrections, and feed these back to re-train the system. This tool will be 
 Analysis of clinical documentation is critical for many digital health projects but extracting information from free-text clinical notes can be difficult. Typically, the rationale for prescribing a particular medication – the reason for prescription – is commonly provided by clinical practitioners in short free-text strings. We are interested in normalising those short strings by mapping them onto a knowledge base of canonical clinical terms, known as SNOMED CT (https://www.snomed.org/).
 When a patient sees a doctor, the doctor records the patient's symptoms. However, doctors will abbreviate or modify it for the convenience of recording according to personal habits. The description of the symptoms that led to these symptoms is not part of the Universal Indication List. This makes it difficult to count and analyze symptoms. Therefore, it is necessary to turn the original file into a Universal Indication List.
 
+# Running Enriovemnt
+pip install nltk
+pip install spacy
+pip install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.1/en_ner_bionlp13cg_md-0.5.1.tar.gz
+
 # Goals
 ![ExpectedOutcomes.png](https://imgpile.com/images/hNyBe1.png)
 The core functionality of the project is to allow users to upload CSV files, algorithmically map the raw data files (CSV) to a list of common indications, and host this functionality through a local interface. The customer wishes to implement the system in two modes. One model is for researchers to directly upload data and then download transformed data from the system. Another mode is that after the researchers upload the data, they modify the wrongly mapped data through the interface to improve the system algorithm. In order to ensure that only relevant researchers can use the system, user login and registration are required. But only a handful of researchers will use the system, so it requires no administrators.
