@@ -8,7 +8,7 @@ Review,Non-Match
 ???UTI,Non-Match
 Dental prophylaxis,Non-Match
 Infective exacerbation of asthma,"Asthma, infective exacerbation"
-Atypical pneumonia,Non-
+Atypical pneumonia,Non-Match
 Travel advice,Non-Match
 """Sinusitis, frontal""",Non-Match
 Perioral dermatitis,Perioral dermatitis
@@ -29,7 +29,7 @@ Left Otitis media,Non-Match
 Keratoacanthoma,Non-Match
 Pharyngitis,Non-Match
 Paronychia,Acute paronychia
-Giardiasis,Giardiasis
+Giardiasis,
 HSV1 Infection,Non-Match
 Viral illness,Systemic illness of unknown origin
 """Pharyngitis, bacterial""",Non-Match
