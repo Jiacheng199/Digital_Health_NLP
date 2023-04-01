@@ -21,60 +21,67 @@ class map_sys:
         self.nlp = spacy.load("en_ner_bionlp13cg_md")
         self.parent = ""
         self.write_file_name = write_file_name
+        self.mod_dict = self.reading.read_his()
         
 
     def mapping(self):
         nltk.download('punkt')
         nltk.download('averaged_perceptron_tagger')
         for finding in self.raw_plain.keys():
-
             left_mapping_text = self.Non_process_text[self.raw_text_counter]
-            self.spacy_pos(left_mapping_text)
             self.raw_text_counter += 1
+            self.spacy_pos(left_mapping_text)             
             statement_check = False
             pre_data = self.raw_plain[finding]['processed']
             self.result_dict = {}
             result = ""
             basic_length = 2
             tmp_parent = ""
+
             for simgle_word in self.parent:
                 tmp_parent += simgle_word.lower()
 
             self.parent = tmp_parent
             statement_check, result_dict = self.find_parent(self.parent,statement_check)
-            if len(pre_data) >= 2:
-                for i in range(len(pre_data)):
-                    if i + basic_length <= len(pre_data):
-                        tmp_finding = pre_data[i:i+basic_length]
-                        tmp_string = ""
-                        for each_in_combine in tmp_finding:
-                            tmp_string += str(each_in_combine[0])
-                            tmp_string += " "
-                        statement_check, result_dict = self.find_comb(tmp_string[:-1],statement_check)
- 
-            for target in pre_data:
+            if finding in self.mod_dict.keys():
+                print(self.mod_dict[finding])
+                self.result_mapping.append([left_mapping_text, self.mod_dict[finding]])
+            else:
                 
-                self.target = target[0]
-                self.nltk_mapping()
-                # self.syn_match()
-            
-                for i in range(len(self.uil_list)):
-                    statement_check, result_dict = self.search(i,statement_check)
+                
+                if len(pre_data) >= 2:
+                    for i in range(len(pre_data)):
+                        if i + basic_length <= len(pre_data):
+                            tmp_finding = pre_data[i:i+basic_length]
+                            tmp_string = ""
+                            for each_in_combine in tmp_finding:
+                                tmp_string += str(each_in_combine[0])
+                                tmp_string += " "
+                            statement_check, result_dict = self.find_comb(tmp_string[:-1],statement_check)
+    
+                for target in pre_data:
+                    
+                    self.target = target[0]
+                    self.nltk_mapping()
+                    # self.syn_match()
+                
+                    for i in range(len(self.uil_list)):
+                        statement_check, result_dict = self.search(i,statement_check)
 
-            if statement_check:
-                if len(Counter(result_dict)) >= 2 and Counter(result_dict).most_common(2)[0][1] == Counter(result_dict).most_common(2)[1][1]:
-                    self.result_mapping.append([left_mapping_text, "Non-Match"])
-                else:
-                    self.result_mapping.append([left_mapping_text, Counter(result_dict).most_common(1)[0][0]])
+                if statement_check:
+                    if len(Counter(result_dict)) >= 2 and Counter(result_dict).most_common(2)[0][1] == Counter(result_dict).most_common(2)[1][1]:
+                        self.result_mapping.append([left_mapping_text, "Non-Match"])
+                    else:
+                        self.result_mapping.append([left_mapping_text, Counter(result_dict).most_common(1)[0][0]])
 
-            if not statement_check:
-                result = "Non-Match"
-                self.result_mapping.append([left_mapping_text, result])
+                if not statement_check:
+                    result = "Non-Match"
+                    self.result_mapping.append([left_mapping_text, result])
             
             
-        return self.writing.writing(self.result_mapping, self.write_file_name)
+        self.writing.writing(self.result_mapping, self.write_file_name)
         
-        # return self.result_mapping
+        return self.result_mapping
 
         
 

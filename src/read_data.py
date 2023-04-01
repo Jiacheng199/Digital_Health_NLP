@@ -1,6 +1,7 @@
 import re
 import pandas as pd
 import copy
+import csv
 
 class read_data:
     def __init__(self):
@@ -62,3 +63,15 @@ class read_data:
         data=df.values
         # print(data[0][3])
         return data
+    
+    def read_his(self):
+        result_dic = {}
+        csv_reader = csv.reader(open('./modify.csv'))
+        for line in csv_reader:
+            result_dic[line[0]] = line[1]
+
+        return result_dic
+
+
+readings = read_data()
+# print(readings.read_his()  )          
