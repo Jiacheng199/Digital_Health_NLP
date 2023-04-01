@@ -63,5 +63,3 @@ def read_return_raw(file):
             example.append(line)
 
     return example
-
-# print(read_raw())

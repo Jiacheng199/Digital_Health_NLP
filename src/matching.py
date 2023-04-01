@@ -72,9 +72,9 @@ class map_sys:
                 self.result_mapping.append([left_mapping_text, result])
             
             
-        writing(self.result_mapping, self.write_file_name)
+        return writing(self.result_mapping, self.write_file_name)
         
-        return self.result_mapping
+        # return self.result_mapping
 
         
 
