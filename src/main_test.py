@@ -1,12 +1,10 @@
 from matching import map_sys
-from writing_csv import writing
-from load_compare import read_comp
+from read_data import read_data
 
-map = map_sys('src/ReasonExample.txt', 'src/example.csv')
+map = map_sys('ReasonExample.txt', 'example.csv')
 result = map.mapping()
-# writing(result)
-
-true_value = read_comp()
+reading_compare = read_data()
+true_value = reading_compare.read_comp()
 
 
 not_match_total = 0

@@ -1,18 +1,20 @@
-from read_raw import read_raw, read_return_raw
-from read_uil import read_uil_list
+# from read_raw import read_raw, read_return_raw
+# from read_uil import read_uil_list
+from read_data import read_data
+from writing import writing
 from collections import Counter
 import nltk
 import spacy
-from writing_csv import writing
-# import synonyms
 
 class map_sys:
     def __init__(self, file_name, write_file_name):
         self.file = file_name
-        self.raw_plain = read_raw(file_name)
-        self.uil_list = read_uil_list()
+        self.reading = read_data()
+        self.writing = writing()
+        self.raw_plain = self.reading.read_raw(file_name)
+        self.uil_list = self.reading.read_uil_list()
         self.result_mapping = []
-        self.Non_process_text = read_return_raw(file_name)
+        self.Non_process_text = self.reading.read_return_raw(file_name)
         self.raw_text_counter = 0
         self.result_dict = {}
         self.target = ""
@@ -62,8 +64,6 @@ class map_sys:
             if statement_check:
                 if len(Counter(result_dict)) >= 2 and Counter(result_dict).most_common(2)[0][1] == Counter(result_dict).most_common(2)[1][1]:
                     self.result_mapping.append([left_mapping_text, "Non-Match"])
-                # elif len(Counter(result_dict)) >= 3 and Counter(result_dict).most_common(1)[0][1] <= 2:
-                #     self.result_mapping.append([left_mapping_text, "Non-Match"])
                 else:
                     self.result_mapping.append([left_mapping_text, Counter(result_dict).most_common(1)[0][0]])
 
@@ -72,7 +72,7 @@ class map_sys:
                 self.result_mapping.append([left_mapping_text, result])
             
             
-        return writing(self.result_mapping, self.write_file_name)
+        return self.writing.writing(self.result_mapping, self.write_file_name)
         
         # return self.result_mapping
 
