@@ -60,10 +60,10 @@ class map_sys:
                     statement_check, result_dict = self.search(i,statement_check)
 
             if statement_check:
-                if len(Counter(result_dict)) >= 2 and Counter(result_dict).most_common(1)[0][1] == 1:
+                if len(Counter(result_dict)) >= 2 and Counter(result_dict).most_common(2)[0][1] == Counter(result_dict).most_common(2)[1][1]:
                     self.result_mapping.append([left_mapping_text, "Non-Match"])
-                elif len(Counter(result_dict)) >= 3 and Counter(result_dict).most_common(1)[0][1] <= 2:
-                    self.result_mapping.append([left_mapping_text, "Non-Match"])
+                # elif len(Counter(result_dict)) >= 3 and Counter(result_dict).most_common(1)[0][1] <= 2:
+                #     self.result_mapping.append([left_mapping_text, "Non-Match"])
                 else:
                     self.result_mapping.append([left_mapping_text, Counter(result_dict).most_common(1)[0][0]])
 
@@ -145,23 +145,23 @@ class map_sys:
                 result=self.uil_list[i][0]
                 if result not in self.result_dict.keys():
                     self.result_dict[result] = 1
-                else:
-                    self.result_dict[result] += 1
+                # else:
+                #     self.result_dict[result] += 1
             if target in str2:
                 statement_check = True
                 result=self.uil_list[i][0]
                 if result not in self.result_dict.keys():
                     self.result_dict[result] = 1
-                else:
-                    self.result_dict[result] += 1
+                # else:
+                #     self.result_dict[result] += 1
 
             if target in str3:
                 statement_check = True
                 result=self.uil_list[i][0]
                 if result not in self.result_dict.keys():
                     self.result_dict[result] = 1
-                else:
-                    self.result_dict[result] += 1
+                # else:
+                #     self.result_dict[result] += 1
 
             if target in str4:
                 # print("find")
@@ -169,8 +169,8 @@ class map_sys:
                 result=self.uil_list[i][0]
                 if result not in self.result_dict.keys():
                     self.result_dict[result] = 1
-                else:
-                    self.result_dict[result] += 1
+                # else:
+                #     self.result_dict[result] += 1
             
         return statement_check, self.result_dict
     
