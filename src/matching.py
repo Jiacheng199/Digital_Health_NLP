@@ -1,5 +1,3 @@
-# from read_raw import read_raw, read_return_raw
-# from read_uil import read_uil_list
 from read_data import read_data
 from writing import writing
 from collections import Counter
@@ -79,9 +77,9 @@ class map_sys:
                     self.result_mapping.append([left_mapping_text, result])
             
             
-        self.writing.writing(self.result_mapping, self.write_file_name)
+        return self.writing.writing(self.result_mapping, self.write_file_name)
         
-        return self.result_mapping
+        # return self.result_mapping
 
         
 
