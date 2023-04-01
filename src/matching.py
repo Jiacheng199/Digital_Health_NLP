@@ -1,6 +1,7 @@
 from read_data import read_data
 from writing import writing
 from collections import Counter
+from snomed_ct import snomed
 import nltk
 import spacy
 
@@ -20,6 +21,8 @@ class map_sys:
         self.parent = ""
         self.write_file_name = write_file_name
         self.mod_dict = self.reading.read_his()
+        self.statement_check = False
+        self.check_ct = False
         
 
     def mapping(self):
@@ -30,23 +33,40 @@ class map_sys:
             self.raw_text_counter += 1
             self.spacy_pos(left_mapping_text)             
             statement_check = False
+            self.statement_check = False
             pre_data = self.raw_plain[finding]['processed']
             self.result_dict = {}
             result = ""
             basic_length = 2
             tmp_parent = ""
+            self.check_ct = False
 
+            string_for_ct = ""
+            for ct_i in pre_data:
+                string_for_ct += ct_i[0]
+                string_for_ct += " "
+            string_for_ct[:-1]
+            ct = snomed(string_for_ct[:-1])
+            ct_result = ct.ct_search()
+            # print(self.result_dict)
             for simgle_word in self.parent:
                 tmp_parent += simgle_word.lower()
 
-            self.parent = tmp_parent
-            statement_check, result_dict = self.find_parent(self.parent,statement_check)
+            if ct_result != "Not Find":
+                self.ct_search(ct_result)
+                if self.result_dict:
+                    for rr in self.result_dict.keys():
+                        self.result_mapping.append([left_mapping_text, rr])
+                        self.check_ct = True
+                        break
+            
+            # modify
             if finding in self.mod_dict.keys():
-                print(self.mod_dict[finding])
-                self.result_mapping.append([left_mapping_text, self.mod_dict[finding]])
-            else:
-                
-                
+                self.result_mapping.append([left_mapping_text, self.mod_dict[finding]]) 
+            
+            elif self.check_ct == False:
+                self.parent = tmp_parent
+                statement_check, result_dict = self.find_parent(self.parent,statement_check)
                 if len(pre_data) >= 2:
                     for i in range(len(pre_data)):
                         if i + basic_length <= len(pre_data):
@@ -76,11 +96,29 @@ class map_sys:
                     result = "Non-Match"
                     self.result_mapping.append([left_mapping_text, result])
             
-            
+        # self.writing.writing(self.result_mapping, self.write_file_name)
         return self.writing.writing(self.result_mapping, self.write_file_name)
         
         # return self.result_mapping
+    
+    def ct_search(self,string_name):
+        tmp_string = ""
+        for ct_i in string_name:
+            tmp_string += ct_i.lower()
+        for i in range(len(self.uil_list)):
+            str1 = ""
+            for word1 in self.uil_list[i][0]:
+                str1 += word1.lower()
 
+            if tmp_string == str1:
+                # print("111111111111111111111111111111111111111111111111")
+                result=self.uil_list[i][0]
+                if result in self.result_dict.keys():
+                    self.result_dict[result] += 1
+                    self.statement_check = True
+                else:
+                    self.result_dict[result] = 1
+                    self.statement_check = True
         
 
     def search(self,i, statement_check):

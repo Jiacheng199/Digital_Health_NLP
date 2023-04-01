@@ -1,0 +1,39 @@
+version: '3'
+volumes:
+  onto:
+    driver: local
+  pgdata:
+    driver: local
+services:
+  db:
+    image: postgres:12
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+  ontoserver:
+    image: quay.io/aehrc/ontoserver:ctsa-6
+    container_name: ontoserver
+    security_opt:
+      - no-new-privileges
+    depends_on:
+      - db
+    ports:
+      - "8443:8443"
+      - "8080:8080"
+    environment:
+      - spring.datasource.url=jdbc:postgresql://db/postgres
+# These two lines are specific to deployment in Australia only
+      - authentication.oauth.endpoint.client_id.0=6jd5talq6n6h75b66t9vk8q2l4
+      - authentication.oauth.endpoint.client_secret.0=c3bbqaioiqmc647nn876lefas55cip481hc55g9rn0dashhrg35
+      - JAVA_OPTS=-Xmx2G        # Minimum
+#      - JAVA_OPTS=-Xmx8G      # Preferred
+    volumes:
+      - onto:/var/onto
+      - /tmp
+      - /var/log

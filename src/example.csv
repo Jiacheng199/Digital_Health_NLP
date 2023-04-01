@@ -27,14 +27,14 @@ Left Eye injury,Penetrating eye injury
 """URTI, viral""",Non-Match
 Left Otitis media,Non-Match
 Keratoacanthoma,Non-Match
-Pharyngitis,Non-Match
+Pharyngitis,Pharyngitis
 Paronychia,Acute paronychia
 Giardiasis,Giardiasis
 HSV1 Infection,Non-Match
 Viral illness,Systemic illness of unknown origin
 """Pharyngitis, bacterial""",Non-Match
 Bronchitis,Bronchitis
-Cellulitis,Non-Match
+Cellulitis,Cellulitis
 Stye,Stye
 Influenza like illness,Non-Match
 Vulvo-vaginitis,Non-Match
@@ -61,7 +61,7 @@ Thrush,Non-Match
 """Sebaceous cyst, infected""",Infected sebaceous cyst
 Wound breakdown,Non-Match
 Cough,Non-Match
-Gingivitis,Non-Match
+Gingivitis,Gingivitis
 Herpes zoster,Non-Match
 """UTI, recurrent""","Recurrent boils, Staphylococcus aureus"
 Left Parotitis,Salivary (parotid) gland infection
