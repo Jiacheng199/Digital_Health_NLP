@@ -4,8 +4,8 @@ import requests
 from urllib3.exceptions import InsecureRequestWarning
 
 class snomed:
-    def __init__(self, input_name):
-        self.name = input_name
+    def __init__(self):
+        self.name = ""
         self.url = "https://localhost:8443/fhir/ValueSet/$expand?url=http://snomed.info/sct?fhir_vs=refset/32570071000036102&count=10&filter="
         self.payload={}
         self.headers = {
@@ -15,7 +15,6 @@ class snomed:
 
     def ct_search(self): 
         url = self.url + self.name
-
         old_merge_environment_settings = requests.Session.merge_environment_settings
         @contextlib.contextmanager
         def no_ssl_verification():
@@ -25,29 +24,33 @@ class snomed:
                 settings = old_merge_environment_settings(self, url, proxies, stream, verify, cert)
                 settings['verify'] = False
                 return settings
-
             requests.Session.merge_environment_settings = merge_environment_settings
-
             try:
                 with warnings.catch_warnings():
                     warnings.simplefilter('ignore', InsecureRequestWarning)
                     yield
             finally:
                 requests.Session.merge_environment_settings = old_merge_environment_settings
-
                 for adapter in opened_adapters:
                     try:
                         adapter.close()
                     except:
                         pass
             
-
         with no_ssl_verification():
             response = requests.get(url)
             if "contains" in response.json()["expansion"].keys():
                 return response.json()["expansion"]["contains"][0]['display']
             else:
                 return "Not Find"
+
+    def ct_string_process(self, pre_data):
+        string_for_ct = ""
+        for ct_i in pre_data:
+            string_for_ct += ct_i[0]
+            string_for_ct += " "
+        self.name = string_for_ct[:-1]
+        return self.ct_search()
 
 
 # ct = snomed("Cough")
