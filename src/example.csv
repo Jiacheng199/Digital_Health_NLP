@@ -6,7 +6,7 @@ LRTI,Lower respiratory tract infection
 Bacterial vaginosis,Bacterial vaginosis
 Review,Non-Match
 ???UTI,Lower urinary tract infectious disease
-Dental prophylaxis,Prophylaxis for endocarditis for dental procedure
+Dental prophylaxis,Non-Match
 Infective exacerbation of asthma,"Asthma, infective exacerbation"
 Atypical pneumonia,Atypical pneumonia
 Travel advice,Non-Match
@@ -17,7 +17,7 @@ Prescription,Lost prescription
 Perianal abscess,Perianal abscess
 Probable Hypertension - Borderline,Non-Match
 Travel vaccination,Identified as high risk for travel vaccination
-"""Cough, post infective""",Post-traumatic wound infection
+"""Cough, post infective""",Non-Match
 STI screen,Non-Match
 Vaginal discharge - episiotomy.,Non-Match
 """Cellulitis, leg""",Cellulitis of lower leg
@@ -30,7 +30,7 @@ Keratoacanthoma,Non-Match
 Pharyngitis,Pharyngitis
 Paronychia,Paronychia
 Giardiasis,Giardiasis
-HSV1 Infection,Bartonella henselae infection (cat scratch)
+HSV1 Infection,Non-Match
 Viral illness,Viral infection
 """Pharyngitis, bacterial""",Acute bacterial pharyngitis
 Bronchitis,Bronchitis
@@ -48,7 +48,7 @@ Right Ingrown toenail,Ingrowing nail of toe of right foot
 "Dermatitis, ALlergic?",Allergic contact dermatitis
 Scalp dermatitis,Atopic dermatitis of scalp
 Chlamydia trachomatis infection,Chlamydia trachomatis infection
-"""Sinusitis, maxillary / URTI""",Complicated acute rhinosinusitis
+"""Sinusitis, maxillary / URTI""",Non-Match
 Right Otitis media,Acute right otitis media
 Seborrhoeic dermatitis,Seborrhoeic dermatitis
 """PrEP, HIV""",Pre exposure prophylaxis for human immunodeficiency virus
@@ -68,7 +68,7 @@ Left Parotitis,Salivary (parotid) gland infection
 Gout,Non-Match
 Abdominal pain,Abdominal pain
 """Lesion, skin""",Skin lesion
-Right Shoulder impingement syndrome,Cushing syndrome
+Right Shoulder impingement syndrome,Non-Match
 """Conjunctivitis, bacterial""",Bacterial conjunctivitis
 """Sinusitis, maxillary""",Maxillary sinusitis
 """Moderate, Chronic  Right Otitis media""",Chronic suppurative otitis media
@@ -128,7 +128,7 @@ Right Ganglion foot,Ganglion cyst of right foot
 Left Tonsillitis,Tonsillitis
 Onychomycosis,Onychomycosis
 Vulval lesion,Non-Match
-Herpes Simplex genitalis,Herpes simplex virus oesophagitis
+Herpes Simplex genitalis,Non-Match
 Referral letter,Patient declines copy of referral letter
 Migraine with aura,Migraine with aura
 STD fear,Fear of contracting sexually transmitted infection
@@ -138,7 +138,7 @@ Left Paronychia,Paronychia of toe of left foot
 malar rash,Butterfly rash
 Mycoplasma genitalium cervicitis,Mycoplasma genitalium
 Folliculitis,Folliculitis
-Acute  Submandibular space infection,Acute otitis media
+Acute  Submandibular space infection,Non-Match
 Ischio-rectal abscess,Perianal / anorectal abscess
 Bacteuria,Non-Match
 Wound care,Demonstrates knowledge of wound care
@@ -149,23 +149,23 @@ Follow up,Non-Match
 Glandular fever ?,Glandular fever pharyngitis
 Rash,Rash
 Nose pain,Pain of nose
-Areolar gland blockage,Salivary (parotid) gland infection
+Areolar gland blockage,Non-Match
 Skin lesion,Skin lesion
 Chronic Bilateral Tinnitus,Non-Match
 Right Otitis externa,Right diffuse otitis externa
 Tenesmus,Non-Match
 Hair loss,Loss of hair
 Malaria prophylaxis,Malaria prophylaxis
-"""Acute UTI, recurrent""","Chronic obstructive pulmonary disease (COPD), acute exacerbation"
+"""Acute UTI, recurrent""",Non-Match
 Furuncle,Furuncle
 Check up,Repeat prescription card checked/updated
 Wrist injury,Injury of wrist
 Streptococcal pharyngitis,Streptococcal sore throat
 Right Stye,Stye
-HSV2 Infection,Bartonella henselae infection (cat scratch)
+HSV2 Infection,Non-Match
 Genital herpes type 1,Genital Herpes simplex type 1 infection
 Lower Respiratory Tract Infection,Lower respiratory tract infection
-Vrial infection,Bartonella henselae infection (cat scratch)
+Vrial infection,Non-Match
 Shingles ?,Herpes zoster
 Conjunctivitis,Conjunctivitis
 Hypertension,Non-Match

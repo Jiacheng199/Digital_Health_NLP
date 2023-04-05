@@ -97,26 +97,43 @@ class map_sys:
                         # print(target)
                         self.target = target[0]
                         self.search(1)
-                # print(self.result_dict)
+                # print(Counter(self.result_dict))
+                # print(self.ct_find)
                 if self.statement_check:
-                    if 2<=len(Counter(self.result_dict)) <=4  and Counter(self.result_dict).most_common(2)[0][0] != Counter(self.result_dict).most_common(2)[1][1]:
+                    # highest uil finding
+                    if 2<=len(Counter(self.result_dict)) <=4  and Counter(self.result_dict).most_common(2)[0][1] != Counter(self.result_dict).most_common(2)[1][1]:
                         self.result_mapping.append([left_mapping_text, Counter(self.result_dict).most_common(1)[0][0]])
+                        print("highest uil finding")
 
+                    # finding lots of in uil also finding in snomed ct
                     elif len(Counter(self.result_dict)) >=4 and self.ct_find:
                         self.result_mapping.append([left_mapping_text, ct_result])
-                    elif len(self.result_dict) > 0:
+                        print("finding lots of in uil also finding in snomed ct")
+                    
+                    # lots of matched but not snomed ct
+                    elif len(self.result_dict) > 2 and Counter(self.result_dict).most_common(2)[0][1] == Counter(self.result_dict).most_common(2)[1][1] and not self.ct_find:
+                        self.result_mapping.append([left_mapping_text, "Non-Match"])
+                        print("lots of matched but not snomed ct")
+
+                    # find on uil but not find in snomed ct
+                    elif len(self.result_dict) > 0 and self.ct_find == False:
                         self.result_mapping.append([left_mapping_text, Counter(self.result_dict).most_common(1)[0][0]])
+                        print(Counter(self.result_dict).most_common(2)[0][1])
+                        print("find on uil")
+
+                    # find in snomed ct
                     elif self.ct_find:
                         self.result_mapping.append([left_mapping_text, ct_result])
+                        print("find in snomed ct")
                     else:
                         self.result_mapping.append([left_mapping_text, "Non-Match"])
-                        print(123)
-
+                
+                # find in snomed ct but not relationship with uil
                 elif self.ct_find and self.ct_available_check:
+                    print(ct_result)
                     self.result_mapping.append([left_mapping_text, ct_result])
+                    print("find in snomed ct but relationship with uil")
                 else:
-                    # print(312)
-                    # print(self.ct_available_check)
                     result = "Non-Match"
                     self.result_mapping.append([left_mapping_text, result])
             
