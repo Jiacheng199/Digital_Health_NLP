@@ -14,10 +14,16 @@ pip install spacy
 pip install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.1/en_ner_bionlp13cg_md-0.5.1.tar.gz
 
 # OntoServer install
-docker login quay.io
+Download the Docker Desktop
+
+docker login quay.io 
+
 user name: unimelbproject2023
+
 password: 20232023di
+
 docker-compose up -d
+
 docker exec ontoserver /index.sh -v 20230328
 
 # Goals
