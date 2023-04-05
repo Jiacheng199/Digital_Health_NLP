@@ -13,6 +13,13 @@ pip install nltk
 pip install spacy
 pip install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.1/en_ner_bionlp13cg_md-0.5.1.tar.gz
 
+# OntoServer install
+docker login quay.io
+user name: unimelbproject2023
+password: 20232023di
+docker-compose up -d
+docker exec ontoserver /index.sh -v 20230328
+
 # Goals
 ![ExpectedOutcomes.png](https://imgpile.com/images/hNyBe1.png)
 The core functionality of the project is to allow users to upload CSV files, algorithmically map the raw data files (CSV) to a list of common indications, and host this functionality through a local interface. The customer wishes to implement the system in two modes. One model is for researchers to directly upload data and then download transformed data from the system. Another mode is that after the researchers upload the data, they modify the wrongly mapped data through the interface to improve the system algorithm. In order to ensure that only relevant researchers can use the system, user login and registration are required. But only a handful of researchers will use the system, so it requires no administrators.
