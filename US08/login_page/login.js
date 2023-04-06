@@ -4,8 +4,7 @@ document.getElementById('login-form').addEventListener('submit', function(event)
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
 
-    // Perform login logic here, e.g., send data to server, validate user, etc.
-
+    //to to be connected to the backend
     console.log('Username:', username);
     console.log('Password:', password);
 });
