@@ -5,7 +5,7 @@ class writing:
         pass
 
     def writing(self, result_mapping, file):
-        dataframe = pandas.DataFrame(result_mapping, columns=['raw', 'result'])
+        dataframe = pandas.DataFrame(result_mapping, columns=['raw', 'result', 'Flag'])
         dataframe.to_csv(file, index= False)
         processed_csv = dataframe.to_csv(index=False)
         return processed_csv

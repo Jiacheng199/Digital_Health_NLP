@@ -29,7 +29,9 @@ class map_sys:
         
 
     def mapping(self):
+        finding_id = 0
         for finding in self.raw_plain.keys():
+            finding_id += 1
             # print(finding)
             self.statement_check = False
             self.check_ct = False
@@ -61,13 +63,13 @@ class map_sys:
                     # print(self.result_dict)
                     # print("Find by SNOMED CT")
                     for rr in self.result_dict.keys():
-                        self.result_mapping.append([left_mapping_text, rr])
+                        self.result_mapping.append([left_mapping_text, rr, "SNOMED CT"])
                         self.check_ct = True
                         break
             
             # modify
             if finding in self.mod_dict.keys():
-                self.result_mapping.append([left_mapping_text, self.mod_dict[finding]]) 
+                self.result_mapping.append([left_mapping_text, self.mod_dict[finding], "UIL"]) 
             
             elif self.check_ct == False:
                 self.parent = tmp_parent
@@ -102,45 +104,45 @@ class map_sys:
                 if self.statement_check:
                     # highest uil finding
                     if 2<=len(Counter(self.result_dict)) <=4  and Counter(self.result_dict).most_common(2)[0][1] != Counter(self.result_dict).most_common(2)[1][1]:
-                        self.result_mapping.append([left_mapping_text, Counter(self.result_dict).most_common(1)[0][0]])
+                        self.result_mapping.append([left_mapping_text, Counter(self.result_dict).most_common(1)[0][0], "UIL"])
                         print("highest uil finding")
 
                     # finding lots of in uil also finding in snomed ct
                     elif len(Counter(self.result_dict)) >=4 and self.ct_find:
-                        self.result_mapping.append([left_mapping_text, ct_result])
+                        self.result_mapping.append([left_mapping_text, ct_result, "SNOMED CT"])
                         print("finding lots of in uil also finding in snomed ct")
                     
                     # lots of matched but not snomed ct
                     elif len(self.result_dict) > 2 and Counter(self.result_dict).most_common(2)[0][1] == Counter(self.result_dict).most_common(2)[1][1] and not self.ct_find:
-                        self.result_mapping.append([left_mapping_text, "Non-Match"])
+                        self.result_mapping.append([left_mapping_text, "Non-Match", "UIL"])
                         print("lots of matched but not snomed ct")
 
                     # find on uil but not find in snomed ct
                     elif len(self.result_dict) > 0 and self.ct_find == False:
-                        self.result_mapping.append([left_mapping_text, Counter(self.result_dict).most_common(1)[0][0]])
+                        self.result_mapping.append([left_mapping_text, Counter(self.result_dict).most_common(1)[0][0], "UIL"])
                         print(Counter(self.result_dict).most_common(2)[0][1])
                         print("find on uil")
 
                     # find in snomed ct
                     elif self.ct_find:
-                        self.result_mapping.append([left_mapping_text, ct_result])
+                        self.result_mapping.append([left_mapping_text, ct_result, "SNOMED CT"])
                         print("find in snomed ct")
                     else:
-                        self.result_mapping.append([left_mapping_text, "Non-Match"])
+                        self.result_mapping.append([left_mapping_text, "Non-Match", "UIL"])
                 
                 # find in snomed ct but not relationship with uil
                 elif self.ct_find and self.ct_available_check:
                     print(ct_result)
-                    self.result_mapping.append([left_mapping_text, ct_result])
+                    self.result_mapping.append([left_mapping_text, ct_result, "SNOMED CT"])
                     print("find in snomed ct but relationship with uil")
                 else:
                     result = "Non-Match"
-                    self.result_mapping.append([left_mapping_text, result])
+                    self.result_mapping.append([left_mapping_text, result, "UIL"])
             
-        self.writing.writing(self.result_mapping, self.write_file_name)
+        return self.writing.writing(self.result_mapping, self.write_file_name)
         # return self.writing.writing(self.result_mapping, self.write_file_name)
         
-        return self.result_mapping
+        # return self.result_mapping
     
     def ct_search(self,string_name):
         tmp_string = ""
@@ -337,6 +339,9 @@ class map_sys:
                         # print(12)
                         self.statement_check = True
                         self.result_dict[result] += 1
+                    else:
+                        self.statement_check = True
+                        self.result_dict[result] = 1
             if target in str2:
                 
                 result=self.uil_list[i][0]
@@ -345,6 +350,9 @@ class map_sys:
                         # print(13)
                         self.statement_check = True
                         self.result_dict[result] += 1
+                    else:
+                        self.statement_check = True
+                        self.result_dict[result] = 1
 
             if target in str3:
                 result=self.uil_list[i][0]
@@ -353,6 +361,9 @@ class map_sys:
                         # print(14)
                         self.statement_check = True
                         self.result_dict[result] += 1
+                    else:
+                        self.statement_check = True
+                        self.result_dict[result] = 1
 
             if target in str4:
                 result=self.uil_list[i][0]
@@ -361,6 +372,9 @@ class map_sys:
                         # print(15)
                         self.statement_check = True
                         self.result_dict[result] += 1
+                    else:
+                        self.statement_check = True
+                        self.result_dict[result] = 1
 
         # print("In Combine")
         # print(self.result_dict)
