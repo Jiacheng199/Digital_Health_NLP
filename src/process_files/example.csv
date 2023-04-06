@@ -1,0 +1,176 @@
+raw,result
+Sinusitis,Non-Match
+Tonsillitis,Tonsillitis
+Skin infection,"Skin and soft tissue infection, other"
+LRTI,Non-Match
+Bacterial vaginosis,Bacterial vaginosis
+Review,Non-Match
+???UTI,Non-Match
+Dental prophylaxis,Non-Match
+Infective exacerbation of asthma,"Asthma, infective exacerbation"
+Atypical pneumonia,Non-Match
+Travel advice,Non-Match
+"""Sinusitis, frontal""",Non-Match
+Perioral dermatitis,Perioral dermatitis
+Administrative procedure,"Surgical prophylaxis, gynaecological procedure"
+Prescription,Non-Match
+Perianal abscess,Perianal / anorectal abscess
+Probable Hypertension - Borderline,Non-Match
+Travel vaccination,Non-Match
+"""Cough, post infective""",Non-Match
+STI screen,Non-Match
+Vaginal discharge - episiotomy.,Non-Match
+"""Cellulitis, leg""",Non-Match
+Diverticulitis,Diverticulitis
+URTI,Non-Match
+Left Eye injury,Penetrating eye injury
+"""URTI, viral""",Non-Match
+Left Otitis media,Non-Match
+Keratoacanthoma,Non-Match
+Pharyngitis,Non-Match
+Paronychia,Acute paronychia
+Giardiasis,Giardiasis
+HSV1 Infection,Non-Match
+Viral illness,Systemic illness of unknown origin
+"""Pharyngitis, bacterial""",Non-Match
+Bronchitis,Bronchitis
+Cellulitis,Non-Match
+Stye,Stye
+Influenza like illness,Non-Match
+Vulvo-vaginitis,Non-Match
+Bronchiectasis,Non-Match
+Eye discomfort,Non-Match
+Oral candidiasis,Oral candidiasis
+T2DM,Non-Match
+Nipple candidiasis,Nipple candidiasis
+Otitis externa,Chronic otitis externa
+Right Ingrown toenail,Acute paronychia
+"Dermatitis, ALlergic?",Non-Match
+Scalp dermatitis,Non-Match
+Chlamydia trachomatis infection,Non-Match
+"""Sinusitis, maxillary / URTI""",Non-Match
+Right Otitis media,Non-Match
+Seborrhoeic dermatitis,Seborrhoeic dermatitis
+"""PrEP, HIV""",Pre exposure prophylaxis for human immunodeficiency virus
+Sore throat,Non-Match
+Otitis media,Non-Match
+Irregular menses,Non-Match
+Cystitis,Non-Match
+"""Thrush, vaginal""",Vulvovaginal candidiasis
+Thrush,Non-Match
+"""Sebaceous cyst, infected""",Infected sebaceous cyst
+Wound breakdown,Non-Match
+Cough,Non-Match
+Gingivitis,Non-Match
+Herpes zoster,Non-Match
+"""UTI, recurrent""","Recurrent boils, Staphylococcus aureus"
+Left Parotitis,Salivary (parotid) gland infection
+Gout,Non-Match
+Abdominal pain,Non-Match
+"""Lesion, skin""",Non-Match
+Right Shoulder impingement syndrome,Non-Match
+"""Conjunctivitis, bacterial""",Bacterial conjunctivitis
+"""Sinusitis, maxillary""",Non-Match
+"""Moderate, Chronic  Right Otitis media""",Chronic suppurative otitis media
+Pilonidal abscess,Non-Match
+Orchitis,Non-Match
+Nausea,Non-Match
+Rosacea,Rosacea
+Infected eczema,Infected eczema
+Diarrhoea,Travellers diarrhoea
+Periorbital cellulitis,Periorbital cellulitis
+Genital warts,Anogenital warts
+Hay fever,Non-Match
+Hysterectomy,"Surgical prophylaxis, gynaecological procedure"
+Hypothyroidism,Non-Match
+Oral thrush,Oral candidiasis
+"""Bronchitis, acute""",Bronchitis
+Acute Chlamydia Infection,Chlamydia genitourinary infection
+"""Script written, no consultation""",Non-Match
+Impetigo,Impetigo
+Compartment syndrome,Non-Match
+Acute Bilateral Infected earlobe - piercing,Non-Match
+Boil,Non-Match
+Urinary tract infection,Catheter associated urinary tract infection
+GORD,Non-Match
+Abscess,Non-Match
+Molluscum contagiosum,Molluscum contagiosum
+Lymphadenitis,Non-Match
+Eczema,Non-Match
+Asthma,"Asthma, infective exacerbation"
+Constipation,Non-Match
+Chest infection,Non-Match
+Iron deficiency,Non-Match
+Pertussis prophylaxis,Pertussis prophylaxis
+Chronic Left Varicose veins,Non-Match
+Wisdom tooth pain,Tooth avulsion
+Prostatitis,Non-Match
+"""Mild, Acute Right Paronychia""",Acute paronychia
+Tarsal cyst,Non-Match
+Wound dehiscence,Non-Match
+Facial rash,Nappy rash
+Carbuncle,Boils or carbuncles
+Travel advice and vaccination.,Non-Match
+"""Abscess, skin""",Skin and soft tissue abscess
+Blepharitis,Blepharitis
+Colonoscopy - referral,Non-Match
+Staphylococcal scalded skin syndrome,Staphylococcal scalded skin syndrome
+Results follow up - left message,Bacterial prophylaxis following lung transplant
+"""Pharyngitis, streptococcal""",Pharyngitis
+Abscess - left lower conjunctiva,Left ventricular assist device infection
+Acute Left Skin infection - ear,"Skin and soft tissue infection, other"
+Viral URTI,Non-Match
+Refill,Non-Match
+Vaginal discharge,Non-Match
+"""Fever, prolonged""",Non-Match
+Bilateral Hearing aid,Non-Match
+Right Ganglion foot,Non-Match
+Left Tonsillitis,Tonsillitis
+Onychomycosis,Onychomycosis
+Vulval lesion,Non-Match
+Herpes Simplex genitalis,Non-Match
+Referral letter,Non-Match
+Migraine with aura,Non-Match
+STD fear,Non-Match
+Fibromyalgia,Non-Match
+"""Warts, genital""",Anogenital warts
+Left Paronychia,Acute paronychia
+malar rash,Nappy rash
+Mycoplasma genitalium cervicitis,Mycoplasma genitalium
+Folliculitis,Folliculitis
+Acute  Submandibular space infection,Non-Match
+Ischio-rectal abscess,Perianal / anorectal abscess
+Bacteuria,Non-Match
+Wound care,"Bacterial meningitis / ventriculitis, healthcare associated, pathogen unknown"
+Acute Left Otitis media,Acute otitis media
+"""Moderate, Acute Bilateral Barotrauma to ear""",Non-Match
+"""Sebaceous cyst, infected? - early""",Infected sebaceous cyst
+Follow up,Bacterial prophylaxis following lung transplant
+Glandular fever ?,Non-Match
+Rash,Nappy rash
+Nose pain,Non-Match
+Areolar gland blockage,Non-Match
+Skin lesion,Non-Match
+Chronic Bilateral Tinnitus,Non-Match
+Right Otitis externa,Chronic otitis externa
+Tenesmus,Non-Match
+Hair loss,Laryngitis
+Malaria prophylaxis,Malaria prophylaxis
+"""Acute UTI, recurrent""",Non-Match
+Furuncle,Non-Match
+Check up,Non-Match
+Wrist injury,Non-Match
+Streptococcal pharyngitis,Pharyngitis
+Right Stye,Stye
+HSV2 Infection,Non-Match
+Genital herpes type 1,Non-Match
+Lower Respiratory Tract Infection,Non-Match
+Vrial infection,Non-Match
+Shingles ?,Varicella (herpes) zoster virus - shingles
+Conjunctivitis,Non-Match
+Hypertension,Non-Match
+Bilateral Conjunctivitis,Non-Match
+"""Bilateral Sinusitis, maxillary""",Non-Match
+"""Moderate, Acute Folliculitis""",Folliculitis
+Chronic Balanitis,Balanitis
+Chlamydia Infection,Chlamydia genitourinary infection
