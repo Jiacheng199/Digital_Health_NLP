@@ -2,7 +2,14 @@ import warnings
 import contextlib
 import requests
 from urllib3.exceptions import InsecureRequestWarning
-
+from read_data import read_data
+from mpi4py import MPI
+comm = MPI.COMM_WORLD
+rank = comm.Get_rank()
+size = comm.Get_size()
+import time
+start_time = time.time()
+import csv
 class snomed:
     def __init__(self):
         self.name = ""
@@ -50,16 +57,45 @@ class snomed:
             string_for_ct += ct_i[0]
             string_for_ct += " "
         self.name = string_for_ct[:-1]
+        # print(self.)
         return self.ct_search()
 
+import sys
+file_name = sys.argv[1]
+ex = sys.argv[2]
+import pandas as pd
+read_raw = read_data()
+ct = snomed()
+raw = read_raw.read_raw(ex)
+count = 0
+final_result = {}
+for i in raw.keys():
+    count += 1
+    if count % size != rank:
+        continue
+    pre_data = raw[i]['processed']
+    final_result[i] = ct.ct_string_process(pre_data)
 
-# ct = snomed("Cough")
+final_result_to = comm.gather(final_result, root = 0)
+writing_result = []
+if rank == 0:
+    datas = []
+    for i in range(12):
+        for all_keys in final_result_to[i].keys():
+            tmp = {}
+            tmp['left'] = all_keys
+            tmp['right'] = final_result_to[i][all_keys]
+            writing_result.append(tmp)
+    
+    name = file_name+'.csv'
+    with open(name,'w',encoding='utf8', newline='') as f: 
+        w = csv.writer(f) 
+        w.writerow(writing_result[0].keys()) 
+        for x in writing_result: 
+            w.writerow(x.values())
 
-# print(ct.ct_search())
 
 
-# ct = snomed("Modolliculitis")
 
-# print(ct.ct_search())
 
 

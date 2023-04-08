@@ -56,6 +56,28 @@ class read_data:
     def read_uil_list(self):
         df = pd.read_excel('uil.xlsx')
         data=df.values
+        for i in range(len(data)):
+                str1 = ""
+                str2 = ""
+                str3 = ""
+                str4 = ""
+                for word1 in data[i][0]:
+                    str1 += word1.lower()
+                data[i][0] = str1
+
+                for word1 in data[i][1]:
+                    str2 += word1.lower()
+                data[i][1] = str2
+
+                for word1 in data[i][2]:
+                    str3 += word1.lower()
+                data[i][2] = str3
+
+                for word1 in data[i][4]:
+                    str4 += word1.lower()
+                data[i][4] = str4
+
+        # print(data)
         return data
     
     def read_comp(self):
@@ -67,6 +89,14 @@ class read_data:
     def read_his(self):
         result_dic = {}
         csv_reader = csv.reader(open('./modify.csv'))
+        for line in csv_reader:
+            result_dic[line[0]] = line[1]
+
+        return result_dic
+    
+    def read_tmp_ct(self, file):
+        result_dic = {}
+        csv_reader = csv.reader(open(file))
         for line in csv_reader:
             result_dic[line[0]] = line[1]
 

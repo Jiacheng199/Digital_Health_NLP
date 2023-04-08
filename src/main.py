@@ -69,6 +69,8 @@ def modify_file():
 
 @app.route("/process", methods=["POST"])
 def process_file():
+    # cmd = 'mpiexec -n 12 python snomed_ct.py'
+    # os.system(cmd)
     data = request.get_json()
     filename = data.get("filename")
     if not filename:
