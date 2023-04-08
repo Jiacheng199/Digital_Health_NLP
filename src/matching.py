@@ -5,7 +5,8 @@ from collections import Counter
 import spacy
 import re
 from ct_test import snomed_ct_dict
-# from numba import njit, prange
+# from autoModel import autoModel
+
 
 class map_sys:
     def __init__(self, file_name, write_file_name):
@@ -32,6 +33,7 @@ class map_sys:
     def mapping(self):
         ct_result = snomed_ct_dict(self.file)
         finding_id = 0
+        # autoModel(self.mod_dict,self.Non_process_text)
         for finding in self.raw_plain.keys():
             # curr_ct = ct_result[left_mapping_text]
             finding_id += 1
@@ -52,20 +54,12 @@ class map_sys:
             basic_length = 2
             tmp_parent = ""
             
-            # ct = snomed()
-            
             for simgle_word in self.parent:
                 tmp_parent += simgle_word.lower()
-
-            # if ct_result == "Not Find":
-            #     print("Not")
             if curr_ct != "Not Find":
                 self.ct_find = True
-                # print(ct_result)
                 self.ct_search(curr_ct)
                 if self.result_dict:
-                    # print(self.result_dict)
-                    # print("Find by SNOMED CT")
                     for rr in self.result_dict.keys():
                         self.result_mapping.append([left_mapping_text, rr, "SNOMED CT"])
                         self.check_ct = True
@@ -153,11 +147,7 @@ class map_sys:
         for ct_i in string_name:
             tmp_string += ct_i.lower()
         for i in range(len(self.uil_list)):
-            str1 = ""
-            for word1 in self.uil_list[i][0]:
-                str1 += word1.lower()
-
-            if tmp_string == str1:
+            if tmp_string == self.uil_list[i][0]:
                 result=self.uil_list[i][0]
                 if result in self.result_dict.keys():
                     self.result_dict[result] += 1
@@ -165,6 +155,15 @@ class map_sys:
                 else:
                     self.result_dict[result] = 1
                     self.statement_check = True
+
+            # if tmp_string in self.uil_list[i][0]:
+            #     result=self.uil_list[i][0]
+            #     if result in self.result_dict.keys():
+            #         self.result_dict[result] += 1
+            #         self.statement_check = True
+            #     else:
+            #         self.result_dict[result] = 1
+            #         self.statement_check = True
         
 
     def search(self, status):
