@@ -64,7 +64,7 @@ Cough,Cough,SNOMED CT
 Gingivitis,gingivitis,SNOMED CT
 Herpes zoster,Herpes zoster,SNOMED CT
 """UTI, recurrent""",Recurrent urinary tract infection,SNOMED CT
-Left Parotitis,salivary (parotid) gland infection,UIL
+Left Parotitis,Non-Match,UIL
 Gout,Non-Match,UIL
 Abdominal pain,Abdominal pain,SNOMED CT
 """Lesion, skin""",Skin lesion,SNOMED CT
@@ -105,7 +105,7 @@ Pertussis prophylaxis,pertussis prophylaxis,UIL
 Chronic Left Varicose veins,Non-Match,UIL
 Wisdom tooth pain,tooth avulsion,UIL
 Prostatitis,Prostatitis,SNOMED CT
-"""Mild, Acute Right Paronychia""",acute paronychia,UIL
+"""Mild, Acute Right Paronychia""",Non-Match,UIL
 Tarsal cyst,Chalazion,SNOMED CT
 Wound dehiscence,Wound dehiscence,SNOMED CT
 Facial rash,Facial Afro-Caribbean childhood rash,SNOMED CT
@@ -115,7 +115,7 @@ Travel advice and vaccination.,Non-Match,UIL
 Blepharitis,blepharitis,SNOMED CT
 Colonoscopy - referral,Non-Match,UIL
 Staphylococcal scalded skin syndrome,staphylococcal scalded skin syndrome,SNOMED CT
-Results follow up - left message,bacterial prophylaxis following lung transplant,UIL
+Results follow up - left message,Non-Match,UIL
 """Pharyngitis, streptococcal""",Streptococcal sore throat,SNOMED CT
 Abscess - left lower conjunctiva,left ventricular assist device infection,UIL
 Acute Left Skin infection - ear,"skin and soft tissue infection, other",UIL
@@ -161,7 +161,7 @@ Furuncle,Furuncle,SNOMED CT
 Check up,Repeat prescription card checked/updated,SNOMED CT
 Wrist injury,Injury of wrist,SNOMED CT
 Streptococcal pharyngitis,Streptococcal sore throat,SNOMED CT
-Right Stye,stye,UIL
+Right Stye,Non-Match,UIL
 HSV2 Infection,Non-Match,UIL
 Genital herpes type 1,Genital Herpes simplex type 1 infection,SNOMED CT
 Lower Respiratory Tract Infection,Lower respiratory tract infection,SNOMED CT
@@ -171,6 +171,6 @@ Conjunctivitis,Conjunctivitis,SNOMED CT
 Hypertension,Non-Match,UIL
 Bilateral Conjunctivitis,Bilateral chlamydial conjunctivitis,SNOMED CT
 """Bilateral Sinusitis, maxillary""",Non-Match,UIL
-"""Moderate, Acute Folliculitis""",folliculitis,UIL
+"""Moderate, Acute Folliculitis""",Non-Match,UIL
 Chronic Balanitis,Chronic infective balanitis,SNOMED CT
 Chlamydia Infection,Chlamydial infection,SNOMED CT

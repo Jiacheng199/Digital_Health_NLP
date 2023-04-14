@@ -15,3 +15,4 @@ def snomed_ct_dict(exa):
     os.remove(str(myuuid)+ '.csv')
     return result
 
+snomed_ct_dict("ReasonExample.txt")

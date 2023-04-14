@@ -103,5 +103,5 @@ class read_data:
         return result_dic
 
 
-readings = read_data()
+# readings = read_data()
 # print(readings.read_his()  )          

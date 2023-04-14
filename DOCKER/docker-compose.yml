@@ -27,12 +27,11 @@ services:
       - "8443:8443"
       - "8080:8080"
     environment:
-      - spring.datasource.url=jdbc:postgresql://db/postgres
 # These two lines are specific to deployment in Australia only
-      - authentication.oauth.endpoint.client_id.0=6jd5talq6n6h75b66t9vk8q2l4
-      - authentication.oauth.endpoint.client_secret.0=c3bbqaioiqmc647nn876lefas55cip481hc55g9rn0dashhrg35
-      - JAVA_OPTS=-Xmx2G        # Minimum
-#      - JAVA_OPTS=-Xmx8G      # Preferred
+      - authentication.oauth.endpoint.client_id.0=7hfb44obsntes5v6rk7kvhjc8g
+      - authentication.oauth.endpoint.client_secret.0=r6rkf4jv6ccd2asfrduuv0l93c16k2i3qr9vqbfqcs7ao85m1kn
+      # - JAVA_OPTS=-Xmx2G        # Minimum
+      - JAVA_OPTS=-Xmx8G      # Preferred
     volumes:
       - onto:/var/onto
       - /tmp

@@ -1,11 +1,10 @@
 from read_data import read_data
 from writing import writing
 from collections import Counter
-# from snomed_ct import snomed
 import spacy
 import re
 from ct_test import snomed_ct_dict
-# from autoModel import autoModel
+from autoModel import autoModel
 
 
 class map_sys:
@@ -35,6 +34,8 @@ class map_sys:
         finding_id = 0
         # autoModel(self.mod_dict,self.Non_process_text)
         for finding in self.raw_plain.keys():
+            # print(finding)
+            self.result_dict = []
             # curr_ct = ct_result[left_mapping_text]
             finding_id += 1
             # print(finding)
@@ -56,6 +57,8 @@ class map_sys:
             
             for simgle_word in self.parent:
                 tmp_parent += simgle_word.lower()
+
+            # print(curr_ct)
             if curr_ct != "Not Find":
                 self.ct_find = True
                 self.ct_search(curr_ct)
@@ -99,7 +102,16 @@ class map_sys:
                         self.search(1)
                 # print(Counter(self.result_dict))
                 # print(self.ct_find)
+                # print(self.result_mapping)
                 if self.statement_check:
+                    
+                    # best, score = autoModel(left_mapping_text, self.result_dict)
+                    # print(best)
+                    # print(score)
+                    # if score >= 0.85:
+                    #     self.result_mapping.append([left_mapping_text, best, "UIL"])
+                    # else:
+                    #     self.result_mapping.append([left_mapping_text, "Non-Match", "UIL"])
                     # highest uil finding
                     if len(self.result_dict)>= 2 and Counter(self.result_dict).most_common(2)[0][1] != Counter(self.result_dict).most_common(2)[1][1]:
                         self.result_mapping.append([left_mapping_text, Counter(self.result_dict).most_common(1)[0][0], "UIL"])
@@ -117,7 +129,12 @@ class map_sys:
 
                     # find on uil but not find in snomed ct
                     elif len(self.result_dict) > 0 and self.ct_find == False:
-                        self.result_mapping.append([left_mapping_text, Counter(self.result_dict).most_common(1)[0][0], "UIL"])
+                        n, s = autoModel([left_mapping_text, Counter(self.result_dict).most_common(1)[0][0]])
+                        # print(s)
+                        if float(s) > 0.5:
+                            self.result_mapping.append([left_mapping_text, Counter(self.result_dict).most_common(1)[0][0], "UIL"])
+                        else:
+                            self.result_mapping.append([left_mapping_text, "Non-Match", "UIL"])
                         # print(Counter(self.result_dict).most_common(2)[0][1])
                         # print("find on uil")
 
@@ -155,15 +172,6 @@ class map_sys:
                 else:
                     self.result_dict[result] = 1
                     self.statement_check = True
-
-            # if tmp_string in self.uil_list[i][0]:
-            #     result=self.uil_list[i][0]
-            #     if result in self.result_dict.keys():
-            #         self.result_dict[result] += 1
-            #         self.statement_check = True
-            #     else:
-            #         self.result_dict[result] = 1
-            #         self.statement_check = True
         
 
     def search(self, status):
@@ -329,6 +337,7 @@ class map_sys:
         doc = self.nlp(strings)
         for i in doc:
             self.parent = i.head.text
+            print(self.parent)
             break
 
 
