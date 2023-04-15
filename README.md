@@ -9,7 +9,7 @@ Analysis of clinical documentation is critical for many digital health projects 
 When a patient sees a doctor, the doctor records the patient's symptoms. However, doctors will abbreviate or modify it for the convenience of recording according to personal habits. The description of the symptoms that led to these symptoms is not part of the Universal Indication List. This makes it difficult to count and analyze symptoms. Therefore, it is necessary to turn the original file into a Universal Indication List.
 
 # Running Enriovemnt
-pip install nltk
+pip install nltk pymysql bcrypt jwt torch scipy
 pip install spacy
 pip install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.1/en_ner_bionlp13cg_md-0.5.1.tar.gz
 
@@ -25,6 +25,11 @@ password: 20232023di
 docker-compose up -d
 
 docker exec ontoserver /index.sh -v 20230328
+
+# Running setup 
+serve -s dist
+
+python main.py
 
 # Goals
 ![ExpectedOutcomes.png](https://imgpile.com/images/hNyBe1.png)
