@@ -45,38 +45,3 @@ def autoModel(inputs):
     # print(max_record)
 
     return max_name, max_record
-
-
-
-# import sys
-# ex = sys.argv[1]
-# import pandas as pd
-# read_raw = read_data()
-# raw = read_raw.read_raw(ex)
-# final_result = {}
-# traget_list = []
-
-# for i in raw.keys():
-#     pre_data = raw[i]['processed']
-#     tmp = ""
-#     for j in pre_data:
-#         tmp+=j[0]
-#         tmp+=" "
-#     traget_list.append(tmp[:-1])
-
-# uil_list = read_raw.read_uil_list()
-# all_uil = []
-# for i in uil_list:
-#     all_uil.append(i[0])
-
-# pending_list = []
-# for tmp_list in traget_list:
-
-#     pending_list.append(tmp_list)
-#     for all_uil_tmp in all_uil:
-#         pending_list.append(all_uil_tmp)
-#     break
-
-# autoModel(pending_list)
-
-# autoModel(["Results follow up - left message","bacterial prophylaxis following lung transplant"])

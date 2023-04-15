@@ -1,0 +1,176 @@
+raw,result,Flag
+Sinusitis,Sinusitis,SNOMED CT
+Tonsillitis,tonsillitis,SNOMED CT
+Skin infection,Infection of skin,SNOMED CT
+LRTI,Lower respiratory tract infection,SNOMED CT
+Bacterial vaginosis,bacterial vaginosis,SNOMED CT
+Review,Non-Match,UIL
+???UTI,Lower urinary tract infectious disease,SNOMED CT
+Dental prophylaxis,Non-Match,UIL
+Infective exacerbation of asthma,"asthma, infective exacerbation",UIL
+Atypical pneumonia,Atypical pneumonia,SNOMED CT
+Travel advice,Non-Match,UIL
+"""Sinusitis, frontal""",Frontal sinusitis,SNOMED CT
+Perioral dermatitis,perioral dermatitis,SNOMED CT
+Administrative procedure,Complication of administrative procedure,SNOMED CT
+Prescription,Lost prescription,SNOMED CT
+Perianal abscess,Perianal abscess,SNOMED CT
+Probable Hypertension - Borderline,Non-Match,UIL
+Travel vaccination,Identified as high risk for travel vaccination,SNOMED CT
+"""Cough, post infective""",Non-Match,UIL
+STI screen,Non-Match,UIL
+Vaginal discharge - episiotomy.,Non-Match,UIL
+"""Cellulitis, leg""",Cellulitis of lower leg,SNOMED CT
+Diverticulitis,diverticulitis,SNOMED CT
+URTI,Upper respiratory tract infection,SNOMED CT
+Left Eye injury,Closed blunt force injury to left eye,SNOMED CT
+"""URTI, viral""",Viral upper respiratory tract infection,SNOMED CT
+Left Otitis media,Acute left otitis media,SNOMED CT
+Keratoacanthoma,Non-Match,UIL
+Pharyngitis,pharyngitis,SNOMED CT
+Paronychia,Paronychia,SNOMED CT
+Giardiasis,giardiasis,SNOMED CT
+HSV1 Infection,Non-Match,UIL
+Viral illness,Viral infection,SNOMED CT
+"""Pharyngitis, bacterial""",Acute bacterial pharyngitis,SNOMED CT
+Bronchitis,bronchitis,SNOMED CT
+Cellulitis,cellulitis,SNOMED CT
+Stye,stye,SNOMED CT
+Influenza like illness,Influenza-like illness,SNOMED CT
+Vulvo-vaginitis,Non-Match,UIL
+Bronchiectasis,Bronchiectasis,SNOMED CT
+Eye discomfort,Visual discomfort of left eye,SNOMED CT
+Oral candidiasis,Neonatal oral candidiasis,SNOMED CT
+T2DM,Type 2 diabetes mellitus,SNOMED CT
+Nipple candidiasis,Candidiasis of nipple,SNOMED CT
+Otitis externa,Otitis externa,SNOMED CT
+Right Ingrown toenail,Ingrowing nail of toe of right foot,SNOMED CT
+"Dermatitis, ALlergic?",Allergic contact dermatitis,SNOMED CT
+Scalp dermatitis,Atopic dermatitis of scalp,SNOMED CT
+Chlamydia trachomatis infection,Chlamydia trachomatis infection,SNOMED CT
+"""Sinusitis, maxillary / URTI""",Non-Match,UIL
+Right Otitis media,Acute right otitis media,SNOMED CT
+Seborrhoeic dermatitis,seborrhoeic dermatitis,SNOMED CT
+"""PrEP, HIV""",pre exposure prophylaxis for human immunodeficiency virus,UIL
+Sore throat,Sore throat - chronic,SNOMED CT
+Otitis media,Otitis media,SNOMED CT
+Irregular menses,Non-Match,UIL
+Cystitis,Cystitis,SNOMED CT
+"""Thrush, vaginal""",Candidiasis of vagina,SNOMED CT
+Thrush,Candidiasis,SNOMED CT
+"""Sebaceous cyst, infected""",Infection of sebaceous cyst,SNOMED CT
+Wound breakdown,Postoperative wound breakdown,SNOMED CT
+Cough,Cough,SNOMED CT
+Gingivitis,gingivitis,SNOMED CT
+Herpes zoster,Herpes zoster,SNOMED CT
+"""UTI, recurrent""",Recurrent urinary tract infection,SNOMED CT
+Left Parotitis,salivary (parotid) gland infection,UIL
+Gout,Non-Match,UIL
+Abdominal pain,Abdominal pain,SNOMED CT
+"""Lesion, skin""",Skin lesion,SNOMED CT
+Right Shoulder impingement syndrome,Non-Match,UIL
+"""Conjunctivitis, bacterial""",bacterial conjunctivitis,SNOMED CT
+"""Sinusitis, maxillary""",Maxillary sinusitis,SNOMED CT
+"""Moderate, Chronic  Right Otitis media""",chronic suppurative otitis media,UIL
+Pilonidal abscess,Pilonidal abscess,SNOMED CT
+Orchitis,Orchitis,SNOMED CT
+Nausea,Non-Match,UIL
+Rosacea,rosacea,SNOMED CT
+Infected eczema,infected eczema,SNOMED CT
+Diarrhoea,Diarrhoea,SNOMED CT
+Periorbital cellulitis,periorbital cellulitis,SNOMED CT
+Genital warts,Genital warts,SNOMED CT
+Hay fever,Allergic rhinitis due to pollen,SNOMED CT
+Hysterectomy,Non-Match,UIL
+Hypothyroidism,Non-Match,UIL
+Oral thrush,Candidiasis of mouth,SNOMED CT
+"""Bronchitis, acute""",Acute bronchitis,SNOMED CT
+Acute Chlamydia Infection,Acute genitourinary Chlamydia trachomatis infection,SNOMED CT
+"""Script written, no consultation""",Non-Match,UIL
+Impetigo,impetigo,SNOMED CT
+Compartment syndrome,Compartment syndrome,SNOMED CT
+Acute Bilateral Infected earlobe - piercing,Non-Match,UIL
+Boil,Furuncle,SNOMED CT
+Urinary tract infection,Urinary tract infection,SNOMED CT
+GORD,Gastroesophageal reflux disease,SNOMED CT
+Abscess,Abscess,SNOMED CT
+Molluscum contagiosum,Blepharoconjunctivitis caused by Molluscum contagiosum,SNOMED CT
+Lymphadenitis,Lymphadenitis,SNOMED CT
+Eczema,Eczema,SNOMED CT
+Asthma,Asthma,SNOMED CT
+Constipation,Non-Match,UIL
+Chest infection,Lower respiratory tract infection,SNOMED CT
+Iron deficiency,Iron deficiency,SNOMED CT
+Pertussis prophylaxis,pertussis prophylaxis,UIL
+Chronic Left Varicose veins,Non-Match,UIL
+Wisdom tooth pain,tooth avulsion,UIL
+Prostatitis,Prostatitis,SNOMED CT
+"""Mild, Acute Right Paronychia""",acute paronychia,UIL
+Tarsal cyst,Chalazion,SNOMED CT
+Wound dehiscence,Wound dehiscence,SNOMED CT
+Facial rash,Facial Afro-Caribbean childhood rash,SNOMED CT
+Carbuncle,Carbuncle,SNOMED CT
+Travel advice and vaccination.,Non-Match,UIL
+"""Abscess, skin""",Abscess of skin and/or subcutaneous tissue,SNOMED CT
+Blepharitis,blepharitis,SNOMED CT
+Colonoscopy - referral,Non-Match,UIL
+Staphylococcal scalded skin syndrome,staphylococcal scalded skin syndrome,SNOMED CT
+Results follow up - left message,bacterial prophylaxis following lung transplant,UIL
+"""Pharyngitis, streptococcal""",Streptococcal sore throat,SNOMED CT
+Abscess - left lower conjunctiva,left ventricular assist device infection,UIL
+Acute Left Skin infection - ear,"skin and soft tissue infection, other",UIL
+Viral URTI,Viral upper respiratory tract infection,SNOMED CT
+Refill,Non-Match,UIL
+Vaginal discharge,Vaginal discharge,SNOMED CT
+"""Fever, prolonged""",Prolonged fever,SNOMED CT
+Bilateral Hearing aid,Non-Match,UIL
+Right Ganglion foot,Ganglion cyst of right foot,SNOMED CT
+Left Tonsillitis,tonsillitis,UIL
+Onychomycosis,onychomycosis,SNOMED CT
+Vulval lesion,Non-Match,UIL
+Herpes Simplex genitalis,Non-Match,UIL
+Referral letter,Patient declines copy of referral letter,SNOMED CT
+Migraine with aura,Migraine with aura,SNOMED CT
+STD fear,Fear of contracting sexually transmitted infection,SNOMED CT
+Fibromyalgia,Non-Match,UIL
+"""Warts, genital""",Genital warts,SNOMED CT
+Left Paronychia,Paronychia of toe of left foot,SNOMED CT
+malar rash,Butterfly rash,SNOMED CT
+Mycoplasma genitalium cervicitis,mycoplasma genitalium,UIL
+Folliculitis,folliculitis,SNOMED CT
+Acute  Submandibular space infection,Non-Match,UIL
+Ischio-rectal abscess,perianal / anorectal abscess,UIL
+Bacteuria,Non-Match,UIL
+Wound care,Demonstrates knowledge of wound care,SNOMED CT
+Acute Left Otitis media,Acute left otitis media,SNOMED CT
+"""Moderate, Acute Bilateral Barotrauma to ear""",Non-Match,UIL
+"""Sebaceous cyst, infected? - early""",infected sebaceous cyst,UIL
+Follow up,Non-Match,UIL
+Glandular fever ?,Glandular fever pharyngitis,SNOMED CT
+Rash,Rash,SNOMED CT
+Nose pain,Pain of nose,SNOMED CT
+Areolar gland blockage,Non-Match,UIL
+Skin lesion,Skin lesion,SNOMED CT
+Chronic Bilateral Tinnitus,Non-Match,UIL
+Right Otitis externa,Right diffuse otitis externa,SNOMED CT
+Tenesmus,Non-Match,UIL
+Hair loss,Loss of hair,SNOMED CT
+Malaria prophylaxis,malaria prophylaxis,UIL
+"""Acute UTI, recurrent""",Non-Match,UIL
+Furuncle,Furuncle,SNOMED CT
+Check up,Repeat prescription card checked/updated,SNOMED CT
+Wrist injury,Injury of wrist,SNOMED CT
+Streptococcal pharyngitis,Streptococcal sore throat,SNOMED CT
+Right Stye,stye,UIL
+HSV2 Infection,Non-Match,UIL
+Genital herpes type 1,Genital Herpes simplex type 1 infection,SNOMED CT
+Lower Respiratory Tract Infection,Lower respiratory tract infection,SNOMED CT
+Vrial infection,Non-Match,UIL
+Shingles ?,Herpes zoster,SNOMED CT
+Conjunctivitis,Conjunctivitis,SNOMED CT
+Hypertension,Non-Match,UIL
+Bilateral Conjunctivitis,Bilateral chlamydial conjunctivitis,SNOMED CT
+"""Bilateral Sinusitis, maxillary""",Non-Match,UIL
+"""Moderate, Acute Folliculitis""",folliculitis,UIL
+Chronic Balanitis,Chronic infective balanitis,SNOMED CT
+Chlamydia Infection,Chlamydial infection,SNOMED CT

@@ -62,6 +62,7 @@ class snomed:
 
 import sys
 file_name = sys.argv[1]
+
 ex = sys.argv[2]
 import pandas as pd
 read_raw = read_data()
@@ -90,12 +91,7 @@ if rank == 0:
     name = file_name+'.csv'
     with open(name,'w',encoding='utf8', newline='') as f: 
         w = csv.writer(f) 
+        
         w.writerow(writing_result[0].keys()) 
         for x in writing_result: 
             w.writerow(x.values())
-
-
-
-
-
-

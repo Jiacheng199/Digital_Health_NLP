@@ -101,7 +101,3 @@ class read_data:
             result_dic[line[0]] = line[1]
 
         return result_dic
-
-
-# readings = read_data()
-# print(readings.read_his()  )          

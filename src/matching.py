@@ -8,13 +8,14 @@ from autoModel import autoModel
 
 
 class map_sys:
-    def __init__(self, file_name, write_file_name):
+    def __init__(self, file_name, write_file_name,pending_check):
         self.file = file_name
         self.reading = read_data()
         self.writing = writing()
         self.raw_plain = self.reading.read_raw(file_name)
         self.uil_list = self.reading.read_uil_list()
         self.result_mapping = []
+        self.pending_check = pending_check
         self.Non_process_text = self.reading.read_return_raw(file_name)
         self.raw_text_counter = 0
         
@@ -154,7 +155,7 @@ class map_sys:
                     result = "Non-Match"
                     self.result_mapping.append([left_mapping_text, result, "UIL"])
             
-        return self.writing.writing(self.result_mapping, self.write_file_name)
+        return self.writing.writing(self.result_mapping, self.write_file_name,self.pending_check)
         # return self.writing.writing(self.result_mapping, self.write_file_name)
         
         # return self.result_mapping
@@ -337,7 +338,5 @@ class map_sys:
         doc = self.nlp(strings)
         for i in doc:
             self.parent = i.head.text
-            print(self.parent)
+            # print(self.parent)
             break
-
-
