@@ -1,10 +1,14 @@
 <template>
     <div>
+        <!-- Nav bar -->
         <el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect">
+            <!-- Menu items -->
             <el-menu-item index="1">Mapping System</el-menu-item>
             <el-menu-item index="2">Mappings</el-menu-item>
             <div style="float:right; line-height: 60px; margin-right:20px;">
+                <!-- Display user name in nav bar -->
                 <span style="margin-right:10px">{{ "Hi, "+userinfo.username }}</span>
+                <!-- Dropdown for sign out and view user profile -->
                 <el-dropdown>
                     <i class="el-icon-setting" style="margin-right: 15px"></i>
                     <el-dropdown-menu slot="dropdown">
@@ -14,7 +18,7 @@
                 </el-dropdown>
             </div>
         </el-menu>
-        
+        <!-- two pie charts show mapping result and mapping source -->
         <el-row>
             <el-col :span="12">
                 <div class="grid-content bg-purple">
@@ -30,12 +34,16 @@
             </el-col>
         </el-row>
         <el-row>
+            <!-- table shows mapping details -->
+            <!-- set which column can be searched  -->
             <el-table 
             :data="tableData.filter(data => !search || data.raw.toLowerCase().includes(search.toLowerCase()) || data.result.toLowerCase().includes(search.toLowerCase()))"
             style="width: 100%" border height="800" stripe>
+            <!-- bind with data -->
             <el-table-column align="center" label="id" prop="index"></el-table-column>
             <el-table-column align="center" label="Raw Text" prop="raw"></el-table-column>
             <el-table-column align="center" label="Target Text" prop="result"></el-table-column>
+            <!-- set column for filtering -->
             <el-table-column align="center" prop="Flag" label="Source" width="120"
             :filters="[{ text: 'SNOMED CT', value: 'SNOMED CT' }, { text: 'UIL', value: 'UIL' }]"
             :filter-method="filterTag"
@@ -46,6 +54,7 @@
                     disable-transitions>{{scope.row.Flag}}</el-tag>
                 </template>
             </el-table-column>
+            <!-- operation buttons for edit and delete -->
             <el-table-column align="center">
                 <template slot="header" slot-scope="scope">
                     <el-input v-model="search" size="mini" placeholder="Type to search"/>
@@ -61,6 +70,7 @@
             </el-table-column>
             </el-table>
         </el-row>
+        <!-- dialog for edit mapping details -->
         <el-dialog title="Edit" :visible.sync="editDialogVisible" width="30%" :before-close="handleClose">
             <el-form :model="form">
                 <el-form-item label="Raw Text" :label-width="formLabelWidth">
@@ -77,13 +87,14 @@
                         <el-option label="UIL" value="UIL"></el-option>
                     </el-select>
                 </el-form-item>
-                
+            <!-- cancel and confirm button for edit dialog -->
             </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="editDialogVisible = false; cancelEdit()">Cancel</el-button>
                 <el-button type="primary" @click="editDialogVisible = false; editmapping()">Confirm</el-button>
             </span>
         </el-dialog>
+        <!-- confirm dialog for delete operation-->
         <el-dialog
         title="Warning"
         :visible.sync="deleteDialogVisible"
@@ -105,7 +116,6 @@ export default{
     name: "ViewMapping",
     created(){
         this.checktoken();
-        // this.getinfo();
         this.getmapresult();
     },
     data(){
@@ -156,6 +166,7 @@ export default{
             localStorage.removeItem('token');
             this.$router.push("/login");
         },
+        // get mapping details and set charts data
         getmapresult(){
             const tokenStr = localStorage.getItem('token');
             const tokenObj = JSON.parse(tokenStr);
@@ -256,21 +267,25 @@ export default{
                 console.log(error);
             });
         },
+        // click edit button to update edit form
         handleEdit(index, row) {
             this.form = row;
             console.log(index, row);
         },
+        // click delete button to update delete form
         handleDelete(index, row) {
             this.form = row;
             console.log(index, row);
         },
+        // set filter tag for table
         filterTag(value, row) {
             return row.Flag === value;
         },
+        // set index for table
         indexMethod(index) {
             return index+1;
         },
-        // dialog
+        // dialog for cancel edit
         handleClose(done) {
             this.$confirm('Are you sure to cancel the edit?')
             .then(_ => {
@@ -280,17 +295,11 @@ export default{
             .catch(_ => {});
             
         },
+        // update mapping details data if cancel edit
         cancelEdit(event){
             this.getmapresult();
-            // const path = 'http://127.0.0.1:5000/getmapresult/'+localStorage.getItem('userid') + '/'+localStorage.getItem('mapid');
-            // axios.get(path)
-            // .then(response => {
-            //     this.tableData = response.data;
-            // })
-            // .catch(error => {
-            //     console.log(error);
-            // });
         },
+        // update mapping details data if edit success
         editmapping(event){
             const path = 'http://127.0.0.1:5000/editmapping';
             axios.post(path, {
@@ -306,6 +315,7 @@ export default{
                 console.log(error);
             });
         },
+        // update mapping details data if delete success
         deletemapping(event){
             const path = 'http://127.0.0.1:5000/deletemapping';
             axios.post(path, {
@@ -321,10 +331,11 @@ export default{
                 console.log(error);
             });
         },
+        // handle menu select
         handleSelect(key, keyPath) {
-        console.log(key, keyPath);
-        if (key == 1) this.$router.push("/home");
-        else if (key == 2) this.$router.push("/mapping");
+            console.log(key, keyPath);
+            if (key == 1) this.$router.push("/home");
+            else if (key == 2) this.$router.push("/mapping");
         }
     }
 }

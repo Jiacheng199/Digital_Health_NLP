@@ -44,6 +44,7 @@ export default {
     };
   },
   methods: {
+    // after clicking process button, send request to server for processing
     process(){
       console.log(JSON.parse(localStorage.getItem('file'))[0]);
       console.log(JSON.parse(localStorage.getItem('token')).userinfo.userid);
@@ -63,6 +64,7 @@ export default {
         console.log(error);
       }
     },
+    // after clicking download button, send request to server for downloading
     downloadFile(event) {
       axios({
         method: 'post',
@@ -83,27 +85,35 @@ export default {
       })
 
     },
+    
     handlePreview(file) {
       console.log(file);
     },
+    // submit the file to server
     submitUpload() {
       localStorage.setItem('file', '[]');
       this.$refs.upload.submit();
     },
+    // handle the file list change after uploading
     handleChange(file, fileList) {
       console.log(file);
       this.fileList = fileList;
     },
+    // before removing the file, ask for confirmation
     beforeRemove(file, fileList) {
       return this.$confirm(`Cancel the transfert of ${ file.name } ?`);
     },
+    // handle the file list change after removing
     handleRemove(file, fileList) {
       console.log(file, fileList);
       this.fileList = fileList;
     },
+    // handle the file list change after exceeding the limit
+    // can delete
     handleExceed(files, fileList) {
       this.$message.warning(`Only 1 file can be uploaded at a time.`);
     },
+    // handle the file list change after uploading successfully
     handleSuccess(response, file, fileList) {
       console.log(response);
       this.file_id = response.file_id;
@@ -116,6 +126,5 @@ export default {
   }
 };
 </script>
-
 <style>
 </style>

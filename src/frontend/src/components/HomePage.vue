@@ -1,13 +1,17 @@
 <template>
   <el-container>
+    <!-- Nav bar -->
     <el-header>
+      <!-- Menu items -->
       <el-menu
       :default-active="activeIndex"
       mode="horizontal" @select="handleSelect">
       <el-menu-item index="1">Mapping System</el-menu-item>
       <el-menu-item index="2">Mappings</el-menu-item>
+      <!-- Display user name in nav bar -->
       <div style="float:right; line-height: 60px; margin-right:20px;">
         <span style="margin-right:10px">{{ "Hi, "+userinfo.username }}</span>
+        <!-- Dropdown for sign out and view user profile -->
         <el-dropdown>
           <i class="el-icon-user" style="margin-right: 15px"></i>
           <el-dropdown-menu slot="dropdown">
@@ -18,6 +22,7 @@
       </div>
       </el-menu>
     </el-header>
+    <!-- Main content includes upload components-->
     <el-main class="main-content" style="margin-top: 20%;">
       <Upload></Upload>
     </el-main>
@@ -26,6 +31,7 @@
 
 <script scoped>
 import axios from 'axios';
+// upload component
 import Upload from './Upload.vue'
 
 export default {
@@ -38,12 +44,15 @@ export default {
   },
   data() {
     return {
+      // menu active display index
       activeIndex: '1',
-      message: "",
+      // store user info after login success
       userinfo: {}
     };
   },
   methods: {
+    // check token and login status if token is expired or not
+    // if token is expired, redirect to login page
     checktoken(event){
       const tokenStr = localStorage.getItem('token');
       localStorage.removeItem('file');
@@ -68,50 +77,16 @@ export default {
       localStorage.removeItem('token');
       this.$router.push("/login");
     },
+    // handle menu select
     handleSelect(key, keyPath) {
     console.log(key, keyPath);
     if (key == 1) this.$router.push("/home");
     else if (key == 2) this.$router.push("/mapping");
     }
-    // getmappinginfo(){
-    //     console.log(localStorage.getItem('userid'));
-    //     const path = 'http://127.0.0.1:5000/getmaps';
-    //     axios.get(path,{
-    //         headers:{
-    //             'Getmapping': 'Bearer ' + localStorage.getItem('userid')
-    //         }
-    //     })
-    //     .then(response => {
-    //         console.log(response.data.map);
-    //         this.mappings = response.data.map;
-    //     })
-    //     .catch(error => {
-    //         this.mappings=[];
-    //         console.log(error);
-    //     });
-    // },
-    // deleteMapping(id){
-    //     const temp = id.toString()
-    //     console.log(temp)
-    //     const path = 'http://127.0.0.1:5000/deletemap/'+temp;
-    //     axios.delete(path)
-    //     .then(response => {
-    //         console.log(response.message);
-    //         this.getmappinginfo();
-    //     })
-    //     .catch(error => {
-    //         console.log(error.message);
-    //         console.log(error);
-    //     });
-    // },
-    // viewMapping(id){
-    //   localStorage.setItem('mapid', id);
-    //   this.$router.push("/viewmapping");
-    // }
   }
 };
 </script>
-
+<!-- scoped disable global css -->
 <style scoped>
 .main-content {
   display: flex;
