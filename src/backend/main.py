@@ -136,10 +136,10 @@ def process():
     save_path = os.path.join(app.config["PROCESS_FOLDER"], userid)
     if not os.path.exists(save_path):
         os.makedirs(save_path)
-    pending_check = False
+    # pending_check = False
     for i in fileid:
-        map = map_sys('uploads/'+userid+'/'+i+'.txt', 'process/'+userid+'/'+i+'.csv', pending_check)
-        res,pending_check = map.mapping()
+        map = map_sys('uploads/'+userid+'/'+i+'.txt', 'process/'+userid+'/'+i+'.csv')
+        map.mapping()
         cursor.execute('INSERT INTO Mappings(id,user_id,username,Editdate) VALUES(%s, %s,%s, %s)', (i, userid, username, time.strftime('%Y-%m-%d %H:%M:%S')))
         con.commit()
         os.remove(os.path.join(app.config["UPLOAD_FOLDER"], userid, i+'.txt'))
