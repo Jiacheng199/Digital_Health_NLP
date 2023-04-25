@@ -20,8 +20,8 @@ class snomed:
             'Content-Type': 'application/fhir+json'
         }
 
-    def ct_search(self): 
-        url = self.url + self.name
+    def ct_search(self, name): 
+        url = self.url + name
         old_merge_environment_settings = requests.Session.merge_environment_settings
         @contextlib.contextmanager
         def no_ssl_verification():
@@ -58,7 +58,7 @@ class snomed:
             string_for_ct += " "
         self.name = string_for_ct[:-1]
         # print(self.)
-        return self.ct_search()
+        return self.ct_search(self.name)
 
 import sys
 file_name = sys.argv[1]
