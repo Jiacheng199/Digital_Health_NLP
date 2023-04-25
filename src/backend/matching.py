@@ -75,7 +75,7 @@ class map_sys:
                         self.check_ct = True
                         break
             
-            # modify
+            # modify is the highest level
             if finding in self.mod_dict.keys():
                 self.result_mapping.append([left_mapping_text, self.mod_dict[finding], "UIL"]) 
                 self.new_dict_incl_distance.append([left_mapping_text, self.mod_dict[finding], 0, candid_result_in_condition, [curr_ct], "UIL"])
@@ -86,6 +86,7 @@ class map_sys:
                 else:
                     self.find_parent(self.parent)
                 # tmp_string_left = ""
+                # combine searach
                 if len(pre_data) >= 2:
                     for i in range(len(pre_data)):
                         if i + basic_length <= len(pre_data):
@@ -95,6 +96,8 @@ class map_sys:
                                 tmp_string += str(each_in_combine[0])
                                 tmp_string += " "
                             self.find_comb(tmp_string[:-1])
+
+                # if finding in SNMONED CT
                 if self.ct_find:
                     for ct_tmp in re.split(' ', curr_ct):
                         tmp_low = ""
@@ -108,11 +111,10 @@ class map_sys:
                         # print(target)
                         self.target = target[0]
                         self.search(1)
-     
-                candid_result_in_condition = []
-                if self.statement_check:
 
-                    
+                candid_result_in_condition = []
+                # being search in some place
+                if self.statement_check:
                     # best, score = autoModel(left_mapping_text, self.result_dict)
                     # print(best)
                     # print(score)
@@ -122,11 +124,12 @@ class map_sys:
                     #     self.result_mapping.append([left_mapping_text, "Non-Match", "UIL"])
                     # highest uil finding
                     # print([curr_ct])
-                    
+                    # have at least one option
                     if len(self.result_dict) > 0:
                         for find_key_in_condition in self.result_dict.keys():
                             candid_result_in_condition.append(find_key_in_condition)
 
+                    # mutiple and find in SNOMED CT
                     if len(self.result_dict)>= 2 and Counter(self.result_dict).most_common(2)[0][1] != Counter(self.result_dict).most_common(2)[1][1]:
                         na, dist = self.cal_distance(pre_data)
                         # print("here")
@@ -194,9 +197,7 @@ class map_sys:
                             dist = self.quick_edit_distance(base_in_condition, curr_ct)
                             self.new_dict_incl_distance.append([left_mapping_text, curr_ct, dist, candid_result_in_condition, [curr_ct], "SNOMED CT"])
                             self.result_mapping.append([left_mapping_text,curr_ct, "SNOMED CT"])
-                        # print(na)
-                        # print(dist)
-                        # print("here")
+          
                     elif self.ct_find:
                         base_in_condition = self.re_organ(pre_data)
                         dist = self.quick_edit_distance(base_in_condition, curr_ct)
@@ -233,6 +234,7 @@ class map_sys:
         
         # return self.result_mapping
     
+    # getting feedback from snomed ct
     def ct_search(self,string_name):
         tmp_string = ""
         for ct_i in string_name:
@@ -247,7 +249,7 @@ class map_sys:
                     self.result_dict[result] = 1
                     self.statement_check = True
         
-
+    # normal search
     def search(self, status):
         if status == 1:
             for i in range(len(self.uil_list)):
