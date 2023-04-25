@@ -80,11 +80,11 @@ class read_data:
         # print(data)
         return data
     
-    def read_comp(self):
-        df = pd.read_excel('human_match.xlsx', header=None)
-        data=df.values
-        # print(data[0][3])
-        return data
+    # def read_comp(self):
+    #     df = pd.read_excel('human_match.xlsx', header=None)
+    #     data=df.values
+    #     # print(data[0][3])
+    #     return data
     
     def read_his(self):
         result_dic = {}
