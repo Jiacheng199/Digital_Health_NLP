@@ -10,6 +10,7 @@ import editdistance
 
 class map_sys:
     def __init__(self, file_name, write_file_name):
+        # inital tmp name
         self.file = file_name
         self.reading = read_data()
         self.writing = writing()
@@ -19,6 +20,7 @@ class map_sys:
         self.Non_process_text = self.reading.read_return_raw(file_name)
         self.raw_text_counter = 0
         
+        # inital tmp dictionary or function
         self.target = ""
         self.nlp = spacy.load("en_ner_bionlp13cg_md")
         self.parent = ""
@@ -32,16 +34,18 @@ class map_sys:
         self.new_dict_incl_distance = []
         
     def mapping(self):
+        # call snomed ct
         ct_result = snomed_ct_dict(self.file)
-        # print(ct_result)
+        
+        # line id
         finding_id = 0
-        # autoModel(self.mod_dict,self.Non_process_text)
+        
+        # starting mapping
         for finding in self.raw_plain.keys():
-            # print(finding)
+
+            # setting as default
             self.result_dict = []
-            # curr_ct = ct_result[left_mapping_text]
             finding_id += 1
-            # print(finding)
             self.statement_check = False
             self.check_ct = False
             pre_data = self.raw_plain[finding]['processed']
