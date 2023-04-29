@@ -26,3 +26,14 @@ accuracy = accuracy_score(y_test, y_pred)
 f1 = f1_score(y_test, y_pred, average='weighted')
 print('Accuracy: ', accuracy)
 print('F1 score: ', f1)
+
+
+#test on the demo data set
+demo_data = pd.read_csv('./Medical_data/demo_data.csv')
+demo_data_vec = vectorizer.transform(demo_data['raw'])
+#predict the label
+demo_data['label'] = clf.predict(demo_data_vec)
+#print the label 1 ratio
+print('Label 1 ratio: ', demo_data['label'].sum()/len(demo_data['label']))
+
+
