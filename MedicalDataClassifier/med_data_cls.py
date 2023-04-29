@@ -1,3 +1,4 @@
+#Description: This file is used to train the model and predict the label for the medical data, to classify whether the input raw text is legit medical text or not.
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import train_test_split
