@@ -10,29 +10,27 @@ import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.corpus import brown
-import gensim
-import re
 from rake_nltk import Rake
 
 nltk.download('brown')
-
 test = pd.read_csv('.\Medical_data\demo_data.csv')
 
+# Generate medical data
 def generate_medical_data():
     #Get the original notes
-    train = pd.read_excel('.\Medical_data\simpletabulation.xlsx')
+    medical_data = pd.read_excel('.\Medical_data\simpletabulation.xlsx')
     #take the 'Title' column only
-    train['tokens'] = train['Title'].apply(lambda x: word_tokenize(x))
-    train = train[['tokens']]
+    medical_data['tokens'] = medical_data['Title'].apply(lambda x: word_tokenize(x))
+    medical_data = medical_data[['tokens']]
     #remove the stop words
     stop_words = set(stopwords.words('english'))
-    train['tokens'] = train['tokens'].apply(lambda x: [item for item in x if item not in stop_words])
+    medical_data['tokens'] = medical_data['tokens'].apply(lambda x: [item for item in x if item not in stop_words])
     #remove the punctuation
-    train['tokens'] = train['tokens'].apply(lambda x: [item for item in x if item.isalpha()])
+    medical_data['tokens'] = medical_data['tokens'].apply(lambda x: [item for item in x if item.isalpha()])
 
-    return train
+    return medical_data
 
-
+# Generate non-medical data
 def generate_non_medical_data():
     # Using the brown corpus
     non_medical_sentences = brown.sents(categories=['news', 'hobbies', 'lore', 'belles_lettres', 'government', 'learned', 'fiction', 'mystery', 'science_fiction', 'adventure', 'romance', 'humor'])
@@ -43,11 +41,11 @@ def generate_non_medical_data():
 
     return non_medical_sentences
 
-
+# Generate keywords from sentences
 def generate_keywords(sentences, num_keywords=3, min_words=1, max_words=3):
     rake = Rake(min_length=min_words, max_length=max_words)
     keywords_list = []
-    
+
     for sentence in sentences:
         rake.extract_keywords_from_text(sentence)
         key_words = rake.get_ranked_phrases()[:num_keywords]
@@ -65,21 +63,37 @@ def generate_keywords(sentences, num_keywords=3, min_words=1, max_words=3):
         keywords_list.append(tokenized_key_words)
 
         #remove all the keywords that length is bigger than 4
-        keywords_list = [item for item in keywords_list if len(item) <= 4]
+        keywords_list = [item for item in keywords_list if len(item) <= 5]
 
     return keywords_list
 
-non_medical_sentences = generate_non_medical_data()
-keywords_list = generate_keywords(non_medical_sentences)
 
-print(keywords_list[0:20])
-#get the longest keyword
-max_len = max([len(item) for item in keywords_list])
-print(max_len)
 
-print(keywords_list[0:50])
+
 def save_to_csv(data, file_name):
     with open(file_name, 'w', newline='', encoding='utf-8') as csvfile:
         writer = csv.writer(csvfile)
         for row in data:
             writer.writerow(row)
+
+
+non_medical_words = generate_keywords(generate_non_medical_data())
+
+# Create a dictionary to store the tokens and labels
+data = {'tokens': non_medical_words, 'label': [0] * len(non_medical_words)}
+
+# Create df from non_medical_words and assign label 0
+non_medical_df = pd.DataFrame(data)
+
+# Assign label 1 to medical data
+medical_df = generate_medical_data()
+medical_df['label'] = 1
+
+#take 10000 rows from non_medical_df and 20000 rows from medical_df to form the training data
+non_medical_df = non_medical_df.sample(n=10000, random_state=1)
+medical_df = medical_df.sample(n=20000, random_state=1)
+combined_df = pd.concat([non_medical_df, medical_df], ignore_index=True)
+#shuffle the rows
+combined_df = combined_df.sample(frac=1).reset_index(drop=True)
+#save the combined_df to csv file
+save_to_csv(combined_df.values.tolist(), './Medical_data/combined_df.csv')
