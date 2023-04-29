@@ -1,3 +1,6 @@
+#Description: This code generates medical and non-medical text datasets and combines them together for training a classifier. It also includes functions for generating keywords from sentences using RAKE algorithm, and for saving data to CSV file.
+#Note: The model wont be trained in this file
+
 import pandas as pd
 import csv
 from sklearn.feature_extraction.text import CountVectorizer
@@ -13,8 +16,6 @@ from nltk.corpus import brown
 from rake_nltk import Rake
 
 nltk.download('brown')
-test = pd.read_csv('.\Medical_data\demo_data.csv')
-
 # Generate medical data
 def generate_medical_data():
     #Get the original notes
@@ -69,12 +70,13 @@ def generate_keywords(sentences, num_keywords=3, min_words=1, max_words=3):
 
 
 
-
+# Save data to CSV file, with columns: text, label
 def save_to_csv(data, file_name):
-    with open(file_name, 'w', newline='', encoding='utf-8') as csvfile:
-        writer = csv.writer(csvfile)
-        for row in data:
-            writer.writerow(row)
+    with open(file_name, 'w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(["text", "label"])
+        writer.writerows(data)
+
 
 
 non_medical_words = generate_keywords(generate_non_medical_data())
@@ -95,5 +97,5 @@ medical_df = medical_df.sample(n=20000, random_state=1)
 combined_df = pd.concat([non_medical_df, medical_df], ignore_index=True)
 #shuffle the rows
 combined_df = combined_df.sample(frac=1).reset_index(drop=True)
-#save the combined_df to csv file
-save_to_csv(combined_df.values.tolist(), './Medical_data/combined_df.csv')
+#save the combined_df to csv file, with columns: text, label
+save_to_csv(combined_df.values.tolist(), 'combined_data.csv')
