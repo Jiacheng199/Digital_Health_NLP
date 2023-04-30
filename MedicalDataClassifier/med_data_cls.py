@@ -25,7 +25,7 @@ def train_nb_classifier():
 
     #evaluate the model
     evaluate_model(clf, vectorizer, X_test, y_test)
-    
+
     return clf, vectorizer
 
 # Predict the label for a raw text
@@ -43,6 +43,8 @@ def evaluate_model(clf, vectorizer, X_test, y_test):
     f1 = f1_score(y_test, y_pred, average='weighted')
     print('Accuracy: ', accuracy)
     print('Weighted F1 score: ', f1)
+    print("marco f1 score: ", f1_score(y_test, y_pred, average='macro'))
+    print("micro f1 score: ", f1_score(y_test, y_pred, average='micro'))
 
     #confusion matrix
     print('Confusion matrix: ')
