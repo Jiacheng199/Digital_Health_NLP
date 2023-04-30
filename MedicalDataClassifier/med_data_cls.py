@@ -19,16 +19,13 @@ def train_nb_classifier():
     X_train_vec = vectorizer.fit_transform(X_train)
     X_test_vec = vectorizer.transform(X_test)
 
-    #using the Multinomial Naive Bayes classifier
+    #Use the Multinomial Naive Bayes classifier
     clf = MultinomialNB()
     clf.fit(X_train_vec, y_train)
 
-    y_pred = clf.predict(X_test_vec)
-    accuracy = accuracy_score(y_test, y_pred)
-    f1 = f1_score(y_test, y_pred, average='weighted')
-    print('Accuracy: ', accuracy)
-    print('F1 score: ', f1)
-
+    #evaluate the model
+    evaluate_model(clf, vectorizer, X_test, y_test)
+    
     return clf, vectorizer
 
 # Predict the label for a raw text
@@ -36,6 +33,27 @@ def predict_medical_text(clf, vectorizer, raw_text):
     raw_text_vec = vectorizer.transform([raw_text])
     label = clf.predict(raw_text_vec)
     return bool(label[0])
+
+def evaluate_model(clf, vectorizer, X_test, y_test):
+
+    X_test_vec = vectorizer.transform(X_test)
+    y_pred = clf.predict(X_test_vec)
+    accuracy = accuracy_score(y_test, y_pred)
+    #weighted average of the f1 score for each class
+    f1 = f1_score(y_test, y_pred, average='weighted')
+    print('Accuracy: ', accuracy)
+    print('Weighted F1 score: ', f1)
+
+    #confusion matrix
+    print('Confusion matrix: ')
+    print(confusion_matrix(y_test, y_pred))
+
+    #recall and precision
+    tn, fp, fn, tp = confusion_matrix(y_test, y_pred).ravel()
+    recall = tp / (tp + fn)
+    precision = tp / (tp + fp)
+    print('Recall: ', recall)
+    print('Precision: ', precision)
 
 # Usage example
 if __name__ == '__main__':

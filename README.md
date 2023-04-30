@@ -1,4 +1,4 @@
-# Development for sprint2(future sptrint3 possible)
+# Development for sprint2(will switch to sptrint3 after the end of sprint2)
 
 This branch is for developing mapping data modification,login/register pages for now(US05 and US08) and medical data classification using Naive Bayes classifier.
 
@@ -22,6 +22,3 @@ Use the predict_medical_text function to predict whether the input text is medic
 `result = predict_medical_text(classifier, text_vectorizer, test_text)`
 
 `print('Is the text medical-related? :', result)`
-
-## NOTE
-Part of this sprint is only a front-end project, but able to get the data from input. logical operation should not be implemented in this sprint branch,.
