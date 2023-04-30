@@ -1,3 +1,4 @@
+#Description: (MDTC 001 & 002)This is a demo to show how to use the classifier to predict whether a sentence is medical-related or not.
 import MedicalDataClassifier as mdc
 from MedicalDataClassifier.med_data_cls import train_nb_classifier, predict_medical_text
 
@@ -9,4 +10,3 @@ print('Is the Nice weather a medical-related sentence? :', result)
 test_text2 = "[pain chest]"
 result = predict_medical_text(classifier, text_vectorizer, test_text2)
 print('Is the pain chest a medical-related sentence? :', result)
-
