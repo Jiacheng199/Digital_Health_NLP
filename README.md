@@ -50,15 +50,17 @@ The core functionality of the project is to allow users to upload CSV files, alg
 
 ├── src/                       # src code
 
-    ├── src/backend                       # backend code and mapping algorithm
+├── src/backend    # backend code and mapping algorithm
     
-        ├── src/backend/dist                   # frontend packaging code
+├── src/dist     # frontend packaging code
     
-    ├── src/frontend                      # front end code for development
+├── src/frontend     # front end code for development
     
-    ├── src/Docker-setup                  # docker setup files
+├── src/Docker-setup   # docker setup files
     
-        ├── src/Docker-setup/Docker-Mysql                 # docker setup file for Mysql
+├── src/Docker-setup/Docker-Mysql    # docker setup file for Mysql
+
+├── src/Docker-setup/Docker-ontoserver    # docker setup file for ontoserver
 
 ├── prototypes/low fidelity/     # low fidelity files (prototype screens)
 

@@ -1,13 +1,10 @@
 <template>
   <div class="login-container">
     <div class="login-box">
-      <!-- login alert shows if login success or not -->
       <el-alert style="margin-bottom: 10px;" v-if="loginMessage" :title="loginMessage" :type="`${loginError ? 'error':'success'}`" show-icon></el-alert>
-      <!-- login logo -->
       <a href="/home">
         <img src="../img/unimelb-logo.png"  alt="LOGO" class="uni-logo">
       </a>
-      <!-- Login Form -->
       <h3 class="title">Login</h3>
       <el-form ref="loginForm" :model="loginForm" class="login-form">
         <el-form-item label="User Name" prop="username">
@@ -44,13 +41,12 @@ export default {
   },
   data() {
     return {
-      // login alert message
       loginMessage: "",
-      // remeber me checkbox data
+      username: "",
+      password: "",
       remeberMe: false,
-      // login error status
       loginError: false,
-      // login form data username and password
+      //
       loginForm: {
         username: '',
         password: ''
@@ -58,21 +54,18 @@ export default {
     };
   },
   methods: {
-    // login form submit function
     async submitForm (event) {
       try {
         const response = await axios.post('http://127.0.0.1:5000/login', {
           username: this.loginForm.username,
           password: this.loginForm.password
         })
-        // remeber me function
         if (this.remeberMe) {
           localStorage.setItem('remeberuser', JSON.stringify(this.loginForm.username));
         }
-        // update login status to success and show login success alert
+        
         this.loginError = false
         this.loginMessage = response.data.message
-        //  set token to localstorage
         const expireTime = new Date().getTime() + 3600 * 1000*3;
         const tokenObj = {
           userinfo: response.data.userinfo,
@@ -80,25 +73,17 @@ export default {
         };
         localStorage.setItem('token', JSON.stringify(tokenObj));
         console.log(JSON.parse(localStorage.getItem('token')).userinfo)
-        // redirect to home page after 2s
         setTimeout(() => {
           this.$router.push("/home");
         }, 2000);
       } catch (error) {
-        // update login status to error and show login alert
         this.loginError = true
         this.loginMessage= error.response.data.message
-        // show login false alert for 2s
         setTimeout(() => {
         this.loginMessage = "";
         }, 2000);
       }
     },
-    // remeber me function check localstorage if has remeber user
-    // if has remeber user set remeber me checkbox to true
-    // and set login form username to remeber user
-    // if not set remeber me checkbox to false
-    // and set login form username to empty
     getinfo(){
       const userInfo = localStorage.getItem('remeberuser');
       if (userInfo) {
@@ -106,12 +91,19 @@ export default {
         this.remeberMe = true;
       }
     },
+    handleLogin() {
+      this.$refs.loginForm.validate(valid => {
+        if (valid) {
+          // 登录逻辑
+        } else {
+          return false;
+        }
+      });
+    }
   }
 };
 </script>
-<!-- scoped disable global css -->
 <style scoped>
-/* login form css */
 h3 {
     text-align: center;
     margin-bottom: 20px;
@@ -147,7 +139,6 @@ h3 {
   width: 100%;
 }
 
-/* Modify Element UI default CSS */
 .el-form-item__label {
   font-size: 14px;
 }

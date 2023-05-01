@@ -19,7 +19,7 @@ class writing:
         return json_data
         
     def data_list_to_csv(self,input_data, name):
-        columns = ["raw_data", "out_put_data", "distance", "uil_possible_list", "snomed_ct_possible_list", "result_from"]
+        columns = ["raw_data", "out_put_data", "result_from"]
         with open(name+".csv", "w", newline="", encoding="utf-8") as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(columns)
@@ -27,7 +27,7 @@ class writing:
                 writer.writerow(row)
 
     def writing_to_json(self,input_data,nn):
-        columns = ["raw_data", "out_put_data", "distance", "uil_possible_list", "snomed_ct_possible_list", "result_from"]
+        columns = ["raw_data", "out_put_data", "distance","uil_dist_list","sn_dist_list", "uil_possible_list", "snomed_ct_possible_list", "result_from", "history"]
         json_data = [dict(zip(columns, row)) for row in input_data]
         with open(nn+".json", "w", newline="", encoding="utf-8") as jsonfile:
             json.dump(json_data,jsonfile)
