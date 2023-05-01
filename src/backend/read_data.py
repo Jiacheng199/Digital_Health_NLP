@@ -56,29 +56,42 @@ class read_data:
     def read_uil_list(self):
         df = pd.read_excel('uil.xlsx')
         data=df.values
+        data2 = copy.deepcopy(df.values)
         for i in range(len(data)):
-                str1 = ""
-                str2 = ""
-                str3 = ""
-                str4 = ""
-                for word1 in data[i][0]:
-                    str1 += word1.lower()
-                data[i][0] = str1
+            str1 = ""
+            str2 = ""
+            str3 = ""
+            str4 = ""
+            str11 = ""
+            str22 = ""
+            str33 = ""
+            str44 = ""
+            for word1 in data[i][0]:
+                str1 += word1.lower()
+                str11 += word1
+            data[i][0] = str1
+            data2[i][0] = str11
 
-                for word1 in data[i][1]:
-                    str2 += word1.lower()
-                data[i][1] = str2
+            for word1 in data[i][1]:
+                str2 += word1.lower()
+                str22 += word1
+            data[i][1] = str2
+            data2[i][1] = str22
 
-                for word1 in data[i][2]:
-                    str3 += word1.lower()
-                data[i][2] = str3
+            for word1 in data[i][2]:
+                str3 += word1.lower()
+                str33 += word1
+            data[i][2] = str3
+            data2[i][2] = str33
 
-                for word1 in data[i][4]:
-                    str4 += word1.lower()
-                data[i][4] = str4
+            for word1 in data[i][4]:
+                str4 += word1.lower()
+                str44 += word1
+            data[i][4] = str4
+            data2[i][4] = str44
 
-        # print(data)
-        return data
+        # print(data2)
+        return data, data2
     
     # def read_comp(self):
     #     df = pd.read_excel('human_match.xlsx', header=None)

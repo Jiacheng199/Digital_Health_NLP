@@ -19,7 +19,7 @@ class writing:
         return json_data
         
     def data_list_to_csv(self,input_data, name):
-        columns = ["raw_data", "out_put_data", "result_from"]
+        columns = ["raw_data", "out_put_data", "distance", "result_from"]
         with open(name+".csv", "w", newline="", encoding="utf-8") as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(columns)
