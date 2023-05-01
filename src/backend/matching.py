@@ -6,7 +6,8 @@ import re
 from ct_test import snomed_ct_dict
 from autoModel import autoModel
 import editdistance
-
+import MedicalDataClassifier as mdc
+from MedicalDataClassifier.med_data_cls import train_nb_classifier, predict_medical_text
 
 class map_sys:
     def __init__(self, file_name, write_file_name):
@@ -19,6 +20,7 @@ class map_sys:
         self.result_mapping = []
         self.Non_process_text = self.reading.read_return_raw(file_name)
         self.raw_text_counter = 0
+        self.classifier, self.text_vectorizer = train_nb_classifier()
         
         # inital tmp dictionary or function
         self.target = ""
@@ -61,6 +63,9 @@ class map_sys:
             result = ""
             basic_length = 2
             tmp_parent = ""
+
+            word_check = self.medical_word_check(self.re_organ(pre_data))
+            # print(word_check)
             
             for simgle_word in self.parent:
                 tmp_parent += simgle_word.lower()
@@ -78,7 +83,10 @@ class map_sys:
             # modify is the highest level
             if finding in self.mod_dict.keys():
                 self.result_mapping.append([left_mapping_text, self.mod_dict[finding], "UIL"]) 
-                self.new_dict_incl_distance.append([left_mapping_text, self.mod_dict[finding], 0, candid_result_in_condition, [curr_ct], "UIL"])
+                if self.ct_find:                
+                    self.new_dict_incl_distance.append([left_mapping_text, self.mod_dict[finding], 0, [],[],[], [curr_ct], "UIL", ""])
+                else:
+                    self.new_dict_incl_distance.append([left_mapping_text, self.mod_dict[finding], 0, [],[],[], [], "UIL", ""])
             else:
                 self.parent = tmp_parent
                 if self.ct_find:
@@ -125,20 +133,21 @@ class map_sys:
                     # highest uil finding
                     # print([curr_ct])
                     # have at least one option
+                    re_cover_text = self.re_organ(pre_data)
                     if len(self.result_dict) > 0:
                         for find_key_in_condition in self.result_dict.keys():
                             candid_result_in_condition.append(find_key_in_condition)
-
+                    uil_distance_list, snm_distance_list = self.diction_list(candid_result_in_condition, curr_ct, re_cover_text)
                     # mutiple and find in SNOMED CT
                     if len(self.result_dict)>= 2 and Counter(self.result_dict).most_common(2)[0][1] != Counter(self.result_dict).most_common(2)[1][1]:
                         na, dist = self.cal_distance(pre_data)
                         # print("here")
                         if self.ct_find:
                            
-                            self.new_dict_incl_distance.append([left_mapping_text, na, dist, candid_result_in_condition, [curr_ct], "UIL"])
+                            self.new_dict_incl_distance.append([left_mapping_text, na, dist,uil_distance_list,snm_distance_list, candid_result_in_condition, [curr_ct], "UIL", ""])
                             self.result_mapping.append([left_mapping_text,na, "UIL"])
                         else:
-                            self.new_dict_incl_distance.append([left_mapping_text, na, dist, candid_result_in_condition, [], "UIL"])
+                            self.new_dict_incl_distance.append([left_mapping_text, na, dist,uil_distance_list,snm_distance_list, candid_result_in_condition, [], "UIL", ""])
                             self.result_mapping.append([left_mapping_text,na, "UIL"])
                         
                         # print("highest uil finding")
@@ -148,7 +157,7 @@ class map_sys:
                         # base_in_condition = self.re_organ(pre_data)
                         # dist = self.quick_edit_distance(base_in_condition, curr_ct)
                         na, dist = self.cal_distance(pre_data)
-                        self.new_dict_incl_distance.append([left_mapping_text, na, dist, candid_result_in_condition, [curr_ct], "UIL"])
+                        self.new_dict_incl_distance.append([left_mapping_text, na, dist,uil_distance_list,snm_distance_list, candid_result_in_condition, [curr_ct], "UIL", ""])
                         self.result_mapping.append([left_mapping_text,na, "UIL"])
                         # self.result_mapping.append([left_mapping_text, curr_ct, "SNOMED CT"])
                         # print("finding lots of in uil also finding in snomed ct")
@@ -157,7 +166,7 @@ class map_sys:
                     elif len(self.result_dict) > 2 and Counter(self.result_dict).most_common(2)[0][1] == Counter(self.result_dict).most_common(2)[1][1] and not self.ct_find:
                        
                         na, dist = self.cal_distance(pre_data)
-                        self.new_dict_incl_distance.append([left_mapping_text, "Non-Match", 999, candid_result_in_condition, [], "UIL"])
+                        self.new_dict_incl_distance.append([left_mapping_text, "Non-Match", 999,uil_distance_list,snm_distance_list, candid_result_in_condition, [], "UIL", ""])
                         self.result_mapping.append([left_mapping_text, "Non-Match", "UIL"])
                         # print("lots of matched but not snomed ct")
 
@@ -171,15 +180,15 @@ class map_sys:
                         # print(na)
                         # print(dist)
                         if float(s) > 0.5:
-                            self.new_dict_incl_distance.append([left_mapping_text, na, dist, candid_result_in_condition, [], "UIL"])
+                            self.new_dict_incl_distance.append([left_mapping_text, na, dist,uil_distance_list,snm_distance_list, candid_result_in_condition, [], "UIL", ""])
                             self.result_mapping.append([left_mapping_text, na, "UIL"])
                         else:
                         
                             if len(self.result_dict) == 1 and dist <= 15:
-                                self.new_dict_incl_distance.append([left_mapping_text, na, dist, candid_result_in_condition, [], "UIL"])
+                                self.new_dict_incl_distance.append([left_mapping_text, na, dist,uil_distance_list,snm_distance_list, candid_result_in_condition, [], "UIL", ""])
                                 self.result_mapping.append([left_mapping_text, na, "UIL"])
                             else:
-                                self.new_dict_incl_distance.append([left_mapping_text, "Non-Match", 999, candid_result_in_condition, [], "UIL"])
+                                self.new_dict_incl_distance.append([left_mapping_text, "Non-Match", 999,uil_distance_list,snm_distance_list, candid_result_in_condition, [], "UIL", ""])
                                 self.result_mapping.append([left_mapping_text,"Non-Match", "UIL"])
 
                             
@@ -190,47 +199,50 @@ class map_sys:
                     elif len(self.result_dict) > 0 and self.ct_find:
                         na, dist = self.cal_distance(pre_data)
                         if dist <=3:
-                            self.new_dict_incl_distance.append([left_mapping_text, na, dist, candid_result_in_condition, [curr_ct], "UIL"])
+                            self.new_dict_incl_distance.append([left_mapping_text, na, dist,uil_distance_list,snm_distance_list,candid_result_in_condition, [curr_ct], "UIL", ""])
                             self.result_mapping.append([left_mapping_text, na, "UIL"])
                         else:
                             base_in_condition = self.re_organ(pre_data)
                             dist = self.quick_edit_distance(base_in_condition, curr_ct)
-                            self.new_dict_incl_distance.append([left_mapping_text, curr_ct, dist, candid_result_in_condition, [curr_ct], "SNOMED CT"])
+                            self.new_dict_incl_distance.append([left_mapping_text, curr_ct, dist,uil_distance_list,snm_distance_list, candid_result_in_condition, [curr_ct], "SNOMED CT", ""])
                             self.result_mapping.append([left_mapping_text,curr_ct, "SNOMED CT"])
           
                     elif self.ct_find:
                         base_in_condition = self.re_organ(pre_data)
                         dist = self.quick_edit_distance(base_in_condition, curr_ct)
-                        self.new_dict_incl_distance.append([left_mapping_text, curr_ct, dist, candid_result_in_condition, [curr_ct], "SNOMED CT"])
+                        self.new_dict_incl_distance.append([left_mapping_text, curr_ct, dist,uil_distance_list,snm_distance_list, candid_result_in_condition, [curr_ct], "SNOMED CT", ""])
                         self.result_mapping.append([left_mapping_text, curr_ct, "SNOMED CT"])
                         # print("find in snomed ct")
                     else:
                         # print("Mapping")
                         base_in_condition = self.re_organ(pre_data)
                         # dist = self.quick_edit_distance(base_in_condition, curr_ct)
-                        self.new_dict_incl_distance.append([left_mapping_text, "Non-Match", 9999, candid_result_in_condition, [], "UIL"])
+                        self.new_dict_incl_distance.append([left_mapping_text, "Non-Match", 9999,uil_distance_list,snm_distance_list, candid_result_in_condition, [], "UIL", ""])
                         self.result_mapping.append([left_mapping_text, "Non-Match", "UIL"])
                 
                 # find in snomed ct but not relationship with uil
-                elif self.ct_find and self.ct_available_check:
+                elif self.ct_find and word_check:
+                    re_cover_text = self.re_organ(pre_data)
+                    uil_distance_list, snm_distance_list = self.diction_list(candid_result_in_condition, curr_ct, re_cover_text)
                     # print(curr_ct)
-                    base_in_condition = self.re_organ(pre_data)
-                    dist = self.quick_edit_distance(base_in_condition, curr_ct)
-                    self.new_dict_incl_distance.append([left_mapping_text, curr_ct, dist, candid_result_in_condition, [curr_ct], "SNOMED CT"])
+                    # base_in_condition = self.re_organ(pre_data)
+                    dist = self.quick_edit_distance(re_cover_text, curr_ct)
+                    self.new_dict_incl_distance.append([left_mapping_text, curr_ct, dist,uil_distance_list, snm_distance_list,candid_result_in_condition, [curr_ct], "SNOMED CT", ""])
                     self.result_mapping.append([left_mapping_text, curr_ct, "SNOMED CT"])
                     # print("find in snomed ct but relationship with uil")
                 else:
                     
                     na, dist = self.cal_distance(pre_data)
                     result = "Non-Match"
-                    self.new_dict_incl_distance.append([left_mapping_text, "Non-Match", 999, candid_result_in_condition, [], "UIL"])
+                    uil_distance_list, snm_distance_list = self.diction_list(candid_result_in_condition, curr_ct, re_cover_text)
+                    self.new_dict_incl_distance.append([left_mapping_text, "Non-Match", 999,uil_distance_list, snm_distance_list, candid_result_in_condition, [], "UIL", ""])
                     self.result_mapping.append([left_mapping_text, result, "UIL"])
                 # print(123)
         
-        # self.writing.data_list_to_csv(self.new_dict_incl_distance, self.write_file_name)
-        # self.writing.writing_to_json(self.new_dict_incl_distance, self.write_file_name)
+        self.writing.data_list_to_csv(self.result_mapping, self.write_file_name)
+        self.writing.writing_to_json(self.new_dict_incl_distance, self.write_file_name)
         # return 0
-        return self.writing.writing(self.result_mapping, self.write_file_name)
+        # return self.writing.writing(self.result_mapping, self.write_file_name)
         
         # return self.result_mapping
     
@@ -455,3 +467,19 @@ class map_sys:
     
     def quick_edit_distance(self, a, b):
         return editdistance.eval(a, b)
+    
+    def diction_list(self, uil_list, snm, target):
+        dis_li = []
+        snm_list = []
+        if len(uil_list) != 0:
+            for i in uil_list:
+                r = self.quick_edit_distance(i, target)
+                dis_li.append(r)
+        if snm != "Not Find":
+            snm_list.append(self.quick_edit_distance(snm, target))
+        return dis_li, snm_list
+    
+    def medical_word_check(self, word):
+        result = predict_medical_text(self.classifier, self.text_vectorizer, word)
+        return result
+        # print('Is the Nice weather a medical-related sentence? :', result)

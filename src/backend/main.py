@@ -13,6 +13,7 @@ import csv
 import json
 from matching import map_sys
 from read_data import read_data
+import json
 # app = Flask(__name__)
 app = Flask(__name__, static_folder='static', static_url_path='/static/dist')
 app.config.from_object(__name__)
@@ -112,14 +113,18 @@ def process():
     userid = data.get("userid")['userid']
     username = data.get("userid")['username']
     fileid = data.get("file_id")
+    comment = data.get("comment")
+    for i in fileid:
+        cursor.execute('INSERT INTO Mappings(id,user_id,username,Commt,Editdate,Status) VALUES(%s, %s,%s, %s,%s,%s)', (i, userid, username, comment, time.strftime('%Y-%m-%d %H:%M:%S'),'Pending'))
+        con.commit()
     save_path = os.path.join(app.config["PROCESS_FOLDER"], userid)
     if not os.path.exists(save_path):
         os.makedirs(save_path)
     # pending_check = False
     for i in fileid:
-        map = map_sys('uploads/'+userid+'/'+i+'.txt', 'process/'+userid+'/'+i+'.csv')
+        map = map_sys('uploads/'+userid+'/'+i+'.txt', 'process/'+userid+'/'+i)
         map.mapping()
-        cursor.execute('INSERT INTO Mappings(id,user_id,username,Editdate) VALUES(%s, %s,%s, %s)', (i, userid, username, time.strftime('%Y-%m-%d %H:%M:%S')))
+        cursor.execute('UPDATE Mappings SET Status=%s WHERE id=%s', ('Completed', i))
         con.commit()
         os.remove(os.path.join(app.config["UPLOAD_FOLDER"], userid, i+'.txt'))
     return jsonify({'message': 'File processed successfully'}), 200
@@ -132,7 +137,7 @@ def getmap():
     temp = []
     if result:
         for i in result:
-            temp.append({'mapid':i[0],'userid':i[1],'username':i[2],'comment':i[3],'editdate':i[4].strftime('%Y-%m-%d %H:%M:%S')})
+            temp.append({'mapid':i[0],'userid':i[1],'username':i[2],'comment':i[3],'editdate':i[4].strftime('%Y-%m-%d %H:%M:%S'),'status':i[5]})
         return jsonify({'message': 'Map found','map':temp}), 200
     else:
         return jsonify({'message': 'Map not found'}), 403
@@ -142,6 +147,8 @@ def deleteMap(mapping_id,user_id):
     # return jsonify({'message': mapping_id}), 200
     cursor.execute("DELETE FROM Mappings WHERE id = %s", mapping_id)
     con.commit()
+    file_path = os.path.join(app.config["PROCESS_FOLDER"], user_id,mapping_id+'.json')
+    os.remove(file_path)
     file_path = os.path.join(app.config["PROCESS_FOLDER"], user_id,mapping_id+'.csv')
     os.remove(file_path)
     return jsonify({'message': 'Map deleted successfully'}), 200
@@ -149,10 +156,13 @@ def deleteMap(mapping_id,user_id):
 
 @app.route("/getmapresult/<user_id>/<string:mapping_id>",methods=["GET"])
 def getmapresult(user_id,mapping_id):
-    path = os.path.join(app.config["PROCESS_FOLDER"], user_id, mapping_id+'.csv')
-    with open(path, mode='r') as csv_file:
-        csv_reader = csv.DictReader(csv_file)
-        data = json.dumps([row for row in csv_reader])
+    path = os.path.join(app.config["PROCESS_FOLDER"], user_id, mapping_id+'.json')
+    with open(path, 'r', encoding='utf-8') as file:
+        data = json.load(file)
+    # path = os.path.join(app.config["PROCESS_FOLDER"], user_id, mapping_id+'.csv')
+    # with open(path, mode='r') as csv_file:
+    #     csv_reader = csv.DictReader(csv_file)
+    #     data = json.dumps([row for row in csv_reader])
     return data, 200
 
 @app.route("/editmapping",methods=["POST"])
@@ -162,10 +172,20 @@ def editmapping():
     index = editinfo['index']
     userid = data.get("userid")
     mapid = data.get("mapid")
-    path = os.path.join(app.config["PROCESS_FOLDER"], userid, mapid+'.csv')
+    path = os.path.join(app.config["PROCESS_FOLDER"], userid, mapid+'.json')
 
+    with open(path, 'r', encoding='utf-8') as file:
+        data = json.load(file)
+    
+    data[index]['distance'] = editinfo['distance']
+    data[index]["out_put_data"] = editinfo["out_put_data"]
+    data[index]["result_from"] = editinfo["result_from"]
+    data[index]["history"] = editinfo["history"]
+    with open(path, 'w') as file:
+        json.dump(data, file, indent=4)
     # Edit data
-    newrow = [editinfo['raw'], editinfo['result'], editinfo['Flag']]
+    path = os.path.join(app.config["PROCESS_FOLDER"], userid, mapid+'.csv')
+    newrow = [editinfo['raw_data'], editinfo['out_put_data'], editinfo['result_from']]
     # Edit the process csv file
     with open(path, mode='r', newline='') as f:
         reader = csv.reader(f)

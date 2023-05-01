@@ -1,16 +1,12 @@
 <template>
     <div>
-        <!-- Nav bar -->
         <el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect">
-            <!-- Menu items -->
             <el-menu-item index="1">Mapping System</el-menu-item>
             <el-menu-item index="2">Mappings</el-menu-item>
             <div style="float:right; line-height: 60px; margin-right:20px;">
-                <!-- Display user name in nav bar -->
                 <span style="margin-right:10px">{{ "Hi, "+userinfo.username }}</span>
-                <!-- Dropdown for sign out and view user profile -->
                 <el-dropdown>
-                    <i class="el-icon-setting" style="margin-right: 15px"></i>
+                    <i class="el-icon-user" style="margin-right: 15px"></i>
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item>Profile</el-dropdown-item>
                         <el-dropdown-item><div @click="signout">Sign Out</div></el-dropdown-item>
@@ -18,43 +14,46 @@
                 </el-dropdown>
             </div>
         </el-menu>
-        <!-- two pie charts show mapping result and mapping source -->
+        
         <el-row>
-            <el-col :span="12">
+            <el-col :span="8">
                 <div class="grid-content bg-purple">
                     <div ref="pieChart" style="height: 400px; width:auto">
                     </div>
                 </div>
             </el-col>
-            <el-col :span="12">
+            <el-col :span="8">
                 <div class="grid-content bg-purple-light">
                     <div ref="sourcepieChart" style="height: 400px; width:auto">
                     </div>
                 </div>
             </el-col>
+            <el-col :span="8">
+                <div class="grid-content bg-purple-light">
+                    <div ref="distancepieChart" style="height: 400px; width:auto">
+                    </div>
+                </div>
+            </el-col>
         </el-row>
         <el-row>
-            <!-- table shows mapping details -->
-            <!-- set which column can be searched  -->
             <el-table 
-            :data="tableData.filter(data => !search || data.raw.toLowerCase().includes(search.toLowerCase()) || data.result.toLowerCase().includes(search.toLowerCase()))"
+            :data="tableData.filter(data => !search || data.raw_data.toLowerCase().includes(search.toLowerCase()) || data.out_put_data.toLowerCase().includes(search.toLowerCase()))"
             style="width: 100%" border height="800" stripe>
-            <!-- bind with data -->
             <el-table-column align="center" label="id" prop="index"></el-table-column>
-            <el-table-column align="center" label="Raw Text" prop="raw"></el-table-column>
-            <el-table-column align="center" label="Target Text" prop="result"></el-table-column>
-            <!-- set column for filtering -->
-            <el-table-column align="center" prop="Flag" label="Source" width="120"
+            <el-table-column align="center" label="Raw Text" prop="raw_data" sortable></el-table-column>
+            <el-table-column align="center" label="Target Text" prop="out_put_data" sortable></el-table-column>
+            <el-table-column align="center" label="Mapping Distance" prop="distance" sortable></el-table-column>
+            <el-table-column align="center" label="Modify History" prop="history" sortable></el-table-column>
+            <el-table-column align="center" prop="result_from" label="Source" width="120"
             :filters="[{ text: 'SNOMED CT', value: 'SNOMED CT' }, { text: 'UIL', value: 'UIL' }]"
             :filter-method="filterTag"
             filter-placement="bottom-end">
                 <template slot-scope="scope">
                     <el-tag
-                    :type="scope.row.Flag === 'SNOMED CT' ? 'primary' : 'success'"
-                    disable-transitions>{{scope.row.Flag}}</el-tag>
+                    :type="scope.row.result_from === 'SNOMED CT' ? 'primary' : 'success'"
+                    disable-transitions>{{scope.row.result_from}}</el-tag>
                 </template>
             </el-table-column>
-            <!-- operation buttons for edit and delete -->
             <el-table-column align="center">
                 <template slot="header" slot-scope="scope">
                     <el-input v-model="search" size="mini" placeholder="Type to search"/>
@@ -70,31 +69,36 @@
             </el-table-column>
             </el-table>
         </el-row>
-        <!-- dialog for edit mapping details -->
         <el-dialog title="Edit" :visible.sync="editDialogVisible" width="30%" :before-close="handleClose">
             <el-form :model="form">
-                <el-form-item label="Raw Text" :label-width="formLabelWidth">
-                    <!-- can add autocomplete later -->
-                    <el-input v-model="form.raw" autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item label="Target Text" :label-width="formLabelWidth">
-                    <!-- can add autocomplete later -->
-                    <el-input v-model="form.result" autocomplete="off"></el-input>
-                </el-form-item>
                 <el-form-item label="Source" :label-width="formLabelWidth">
-                    <el-select v-model="form.Flag">
+                    <el-input v-model="form.result_from" :disabled="true"></el-input>
+                    <!-- <el-select v-model="form.result_from">
                         <el-option label="SNOMED CT" value="SNOMED CT"></el-option>
                         <el-option label="UIL" value="UIL"></el-option>
-                    </el-select>
+                    </el-select> -->
                 </el-form-item>
-            <!-- cancel and confirm button for edit dialog -->
+                <el-form-item label="Distance" :label-width="formLabelWidth">
+                    <el-input v-model="form.distance" :disabled="true"></el-input>
+                </el-form-item>
+                <el-form-item label="Raw Text" :label-width="formLabelWidth">
+                    <!-- can add autocomplete later -->
+                    <el-input v-model="form.raw_data" :disabled="true"></el-input>
+                </el-form-item>
+                <el-form-item label="Target Text" :label-width="formLabelWidth">
+                    <el-autocomplete
+                    class="inline-input"
+                    v-model="form.out_put_data"
+                    :fetch-suggestions="querySearch"
+                    @select="handleSelectedit"
+                    @input="handleInput"></el-autocomplete>
+                </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="editDialogVisible = false; cancelEdit()">Cancel</el-button>
                 <el-button type="primary" @click="editDialogVisible = false; editmapping()">Confirm</el-button>
             </span>
         </el-dialog>
-        <!-- confirm dialog for delete operation-->
         <el-dialog
         title="Warning"
         :visible.sync="deleteDialogVisible"
@@ -116,6 +120,7 @@ export default{
     name: "ViewMapping",
     created(){
         this.checktoken();
+        // this.getinfo();
         this.getmapresult();
     },
     data(){
@@ -130,6 +135,14 @@ export default{
             chartData1: [
             { value: 0, name: 'UIL' },
             { value: 0, name: 'SNOMED CT' },
+            ],
+            chartData2: [
+            { value: 0, name: '0-5' },
+            { value: 0, name: '5-10'},
+            { value: 0, name: '10-20'},
+            { value: 0, name: '20-30'},
+            { value: 0, name: '30-50'},
+            { value: 0, name: '50+'},
             ],
             // dialog
             editDialogVisible: false,
@@ -166,7 +179,6 @@ export default{
             localStorage.removeItem('token');
             this.$router.push("/login");
         },
-        // get mapping details and set charts data
         getmapresult(){
             const tokenStr = localStorage.getItem('token');
             const tokenObj = JSON.parse(tokenStr);
@@ -174,29 +186,62 @@ export default{
             axios.get(path)
             .then(response => {
                 this.tableData = response.data;
+                
                 this.chartData[0].value = 0;
                 this.chartData[1].value = 0;
                 this.chartData1[0].value = 0;
                 this.chartData1[1].value = 0;
+                this.chartData2[0].value = 0;
+                this.chartData2[1].value = 0;
+                this.chartData2[2].value = 0;
+                this.chartData2[3].value = 0;
+                this.chartData2[4].value = 0;
+                this.chartData2[5].value = 0;
+
                 for (var i = 0; i < this.tableData.length; i++){
                     this.tableData[i].index = i;
-                    if (this.tableData[i].result == 'Non-Match')
+                    if (this.tableData[i].out_put_data == 'Non-Match')
                     {
                         this.chartData[0].value += 1;
                     }
                     else{
                         this.chartData[1].value += 1;
                     }
-                    if(this.tableData[i].Flag == 'UIL')
+                    if(this.tableData[i].result_from == 'UIL')
                     {
                         this.chartData1[0].value += 1;
                     }
                     else{
                         this.chartData1[1].value += 1;
                     }
+                    if (this.tableData[i].distance <=5 && this.tableData[i].distance>=0)
+                    {
+                        this.chartData2[0].value += 1;
+                    }
+                    else if (this.tableData[i].distance <=10 && this.tableData[i].distance>5)
+                    {
+                        this.chartData2[1].value += 1;
+                    }
+                    else if (this.tableData[i].distance <=20 && this.tableData[i].distance>10)
+                    {
+                        this.chartData2[2].value += 1;
+                    }
+                    else if (this.tableData[i].distance <=30 && this.tableData[i].distance>20)
+                    {
+                        this.chartData2[3].value += 1;
+                    }
+                    else if (this.tableData[i].distance <=50 && this.tableData[i].distance>30)
+                    {
+                        this.chartData2[4].value += 1;
+                    }
+                    else if (this.tableData[i].distance >50)
+                    {
+                        this.chartData2[5].value += 1;
+                    }
                 }
                 const pieChart = echarts.init(this.$refs.pieChart);
                 const sourcepieChart = echarts.init(this.$refs.sourcepieChart);
+                const distancepieChart = echarts.init(this.$refs.distancepieChart);
                 const options = {
                     title: {
                     text: 'Mapping Result',
@@ -260,6 +305,38 @@ export default{
                     ],
                     color:['#68b8d9','#f9c14e']
                 };
+                const distanceoptions = {
+                    title: {
+                    text: 'Mapping Distance',
+                    left: 'center',
+                    },
+                    tooltip: {
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b} : {c} ({d}%)',
+                    },
+                    legend: {
+                    orient: 'vertical',
+                    left: 'left',
+                    data: ['0-5', '5-10','10-20','20-30','30-50','50+'],
+                    },
+                    series: [
+                    {
+                        name: 'Mapping Distance',
+                        type: 'pie',
+                        radius: '55%',
+                        center: ['50%', '60%'],
+                        data: this.chartData2,
+                        emphasis: {
+                            itemStyle: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)',
+                            },
+                        },
+                    },
+                    ],
+                };
+                distancepieChart.setOption(distanceoptions);
                 sourcepieChart.setOption(sourceoptions);
                 pieChart.setOption(options);
             })
@@ -267,25 +344,34 @@ export default{
                 console.log(error);
             });
         },
-        // click edit button to update edit form
         handleEdit(index, row) {
             this.form = row;
-            console.log(index, row);
+            var temp = [];
+            for (var i = 0; i < row.snomed_ct_possible_list.length; i++)
+            {
+                temp.push({'value':row.snomed_ct_possible_list[i]});
+            }
+            for (var i = 0; i < row.uil_possible_list.length; i++)
+            {
+                temp.push({'value':row.uil_possible_list[i]});
+            }
+            temp.push({'value':'Non-Match'});
+            // temp = temp.concat(row.snomed_ct_possible_list);
+            // temp = temp.concat(row.uil_possible_list);
+            // temp = temp.concat("Non-Match");
+            this.$set(this.form,'allresult',temp);
         },
-        // click delete button to update delete form
         handleDelete(index, row) {
             this.form = row;
             console.log(index, row);
         },
-        // set filter tag for table
         filterTag(value, row) {
             return row.Flag === value;
         },
-        // set index for table
         indexMethod(index) {
             return index+1;
         },
-        // dialog for cancel edit
+        // dialog
         handleClose(done) {
             this.$confirm('Are you sure to cancel the edit?')
             .then(_ => {
@@ -295,16 +381,23 @@ export default{
             .catch(_ => {});
             
         },
-        // update mapping details data if cancel edit
         cancelEdit(event){
             this.getmapresult();
+            // const path = 'http://127.0.0.1:5000/getmapresult/'+localStorage.getItem('userid') + '/'+localStorage.getItem('mapid');
+            // axios.get(path)
+            // .then(response => {
+            //     this.tableData = response.data;
+            // })
+            // .catch(error => {
+            //     console.log(error);
+            // });
         },
-        // update mapping details data if edit success
         editmapping(event){
             const path = 'http://127.0.0.1:5000/editmapping';
+            this.form.history = this.userinfo.username;
             axios.post(path, {
                 editinfo: this.form,
-                userid: this.userinfo["userid"],
+                userid: localStorage.getItem('mapuserid'),
                 mapid: localStorage.getItem('mapid')
             })
             .then(response => {
@@ -315,7 +408,6 @@ export default{
                 console.log(error);
             });
         },
-        // update mapping details data if delete success
         deletemapping(event){
             const path = 'http://127.0.0.1:5000/deletemapping';
             axios.post(path, {
@@ -331,12 +423,77 @@ export default{
                 console.log(error);
             });
         },
-        // handle menu select
         handleSelect(key, keyPath) {
-            console.log(key, keyPath);
-            if (key == 1) this.$router.push("/home");
-            else if (key == 2) this.$router.push("/mapping");
-        }
+        console.log(key, keyPath);
+        if (key == 1) this.$router.push("/home");
+        else if (key == 2) this.$router.push("/mapping");
+        },
+        handleeditchange(){
+            if (this.form.out_put_data == 'Non-Match')
+            {
+                this.form.result_from = 'UIL';
+            }
+            else if (this.form.snomed_ct_possible_list.includes(this.form.out_put_data))
+            {
+                this.form.result_from = 'SNOMED CT';
+            }
+            else{
+                this.form.result_from = 'UIL';
+            }
+        },
+        querySearch(queryString, cb) {
+            var target_res = this.form.allresult;
+            var results = queryString ? target_res.filter(this.createFilter(queryString)) : target_res;
+            // call callback function to return suggestions
+            cb(results);
+        },
+        createFilter(queryString) {
+            return (target_res) => {
+            return (target_res.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+            };
+        },
+        handleInput(value) {
+            if (value == 'Non-Match')
+            {
+                this.form.result_from = 'UIL';
+                this.form.distance = 999;
+            }
+            else if (this.form.snomed_ct_possible_list.includes(value))
+            {
+                this.form.result_from = 'SNOMED CT';
+
+                this.form.distance = this.form.sn_dist_list[this.form.snomed_ct_possible_list.indexOf(value)]
+            }
+            else if (this.form.uil_possible_list.includes(value)){
+                this.form.result_from = 'UIL';
+                this.form.distance = this.form.uil_dist_list[this.form.uil_possible_list.indexOf(value)]
+            }
+            else
+            {
+                this.form.result_from = 'UIL';
+                this.form.distance = 0;
+            }
+        },
+        handleSelectedit(item) {
+            if (this.form.out_put_data == 'Non-Match')
+            {
+                this.form.result_from = 'UIL';
+            }
+            else if (this.form.snomed_ct_possible_list.includes(this.form.out_put_data))
+            {
+                this.form.result_from = 'SNOMED CT';
+                this.form.distance = this.form.sn_dist_list[this.form.snomed_ct_possible_list.indexOf(this.form.out_put_data)]
+            }
+            else if (this.form.uil_possible_list.includes(this.form.out_put_data)){
+                this.form.result_from = 'UIL';
+                this.form.distance = this.form.uil_dist_list[this.form.uil_possible_list.indexOf(this.form.out_put_data)]
+            }
+            else
+            {
+                this.form.result_from = 'UIL';
+                this.form.distance = 0;
+            }
+        },
     }
 }
 
