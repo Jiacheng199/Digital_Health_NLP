@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, jsonify,send_file
 from flask_cors import CORS
 from flask_cors import cross_origin
+import subprocess
 import pymysql
 import bcrypt
 import datetime
@@ -29,7 +30,7 @@ if not os.path.exists(app.config["PROCESS_FOLDER"]):
     os.makedirs(app.config["PROCESS_FOLDER"])
 pymysql.install_as_MySQLdb()
 con = pymysql.connect(
-    host='localhost',
+    host='mysql',
     port=3306,
     user='root',
     password='123456',
@@ -110,10 +111,14 @@ def process():
         os.makedirs(save_path)
     # pending_check = False
     for i in fileid:
-        cmd = 'mpiexec -n 12 python snomed_ct.py ' + str(i) + ' ' + 'uploads/'+userid+'/'+i+'.txt'
-        os.system(cmd)
-        map = map_sys('uploads/'+userid+'/'+i+'.txt', 'process/'+userid+'/'+i,str(i))
+        map = map_sys('uploads/'+userid+'/'+i+'.txt', 'process/'+userid+'/'+i)
         map.mapping()
+        # cmd = 'python snomed_ct.py ' + str(i) + ' ' + 'uploads/'+userid+'/'+i+'.txt'  
+      # cmd = 'mpiexec -n 12 python snomed_ct.py ' + str(i) + ' ' + 'uploads/'+userid+'/'+i+'.txt'
+        # result = subprocess.run(cmd)
+        # os.system(cmd)
+        # map = map_sys('uploads/'+userid+'/'+i+'.txt', 'process/'+userid+'/'+i,str(i))
+        # map.mapping()
         cursor.execute('UPDATE Mappings SET Status=%s WHERE id=%s', ('Completed', i))
         con.commit()
         os.remove(os.path.join(app.config["UPLOAD_FOLDER"], userid, i+'.txt'))
@@ -224,4 +229,4 @@ def download_file():
     return send_file(path, as_attachment=True)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='127.0.0.1', port='5000')
+    app.run(debug=True, host='0.0.0.0', port='5000')

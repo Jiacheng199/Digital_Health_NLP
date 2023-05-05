@@ -4,7 +4,7 @@ from collections import Counter
 import spacy
 import re
 # from ct_test import snomed_ct_dict
-from read_ct import read_ct_result
+from ct_test import snomed_ct_dict
 from autoModel import autoModel
 import editdistance
 import MedicalDataClassifier as mdc
@@ -12,7 +12,7 @@ from MedicalDataClassifier.med_data_cls import train_nb_classifier, predict_medi
 import copy
 
 class map_sys:
-    def __init__(self, file_name, write_file_name, uid):
+    def __init__(self, file_name, write_file_name):
         # inital tmp name
         self.file = file_name
         self.reading = read_data()
@@ -38,12 +38,12 @@ class map_sys:
         self.new_dict_incl_distance = []
 
         # ct
-        self.uid = uid
+        # self.uid = uid
         
     def mapping(self):
         # call snomed ct
         # ct_result = snomed_ct_dict(self.file)
-        ct_result = read_ct_result(self.uid)
+        ct_result = snomed_ct_dict(self.file)
         
         # line id
         finding_id = 0
