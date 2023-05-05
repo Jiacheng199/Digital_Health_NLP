@@ -1,0 +1,79 @@
+version: '3'
+volumes:
+  onto:
+    driver: local
+  pgdata:
+    driver: local
+services:
+  db:
+    image: postgres:12
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    networks:
+      - dinetwork
+  ontoserver:
+    image: quay.io/aehrc/ontoserver:ctsa-6
+    container_name: ontoserver
+    security_opt:
+      - no-new-privileges
+    depends_on:
+      - db
+    ports:
+      - "8443:8443"
+      - "8080:8080"
+    environment:
+      - ONTOSERVER_INSECURE=true
+      - spring.datasource.url=jdbc:postgresql://db/postgres
+      - authentication.oauth.endpoint.client_id.0=7hfb44obsntes5v6rk7kvhjc8g         # Replace with appropriate value
+      - authentication.oauth.endpoint.client_secret.0=r6rkf4jv6ccd2asfrduuv0l93c16k2i3qr9vqbfqcs7ao85m1kn # Replace with appropriate value
+      - JAVA_OPTS=-Xmx8G       # Minimum
+    volumes:
+      - onto:/var/onto
+      - /tmp
+      - /var/log
+    networks:
+      - dinetwork
+  node:
+    build:
+      context: .
+      dockerfile: Dockerfile-frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - dinetwork
+  flask:
+    build:
+      context: .
+      dockerfile: Dockerfile-backend
+    ports:
+      - "5000:5000"
+    environment:
+      MYSQL_DATABASE: 'mapping_system'
+      MYSQL_ROOT_PASSWORD: '123456'
+    networks:
+      - dinetwork
+    expose:
+      - "5000"
+  mysql:
+    build:
+      context: .
+      dockerfile: Dockerfile-mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: 'mapping_system'
+      MYSQL_ROOT_PASSWORD: '123456'
+    networks:
+      - dinetwork
+
+networks:
+  dinetwork:
+    driver: bridge

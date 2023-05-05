@@ -15,6 +15,7 @@ CREATE TABLE Mappings(
     username VARCHAR(255),
     Commt VARCHAR(255),
     Editdate DATETIME,
+    Status VARCHAR(255),
     PRIMARY KEY (id),
     CONSTRAINT FOREIGN KEY (user_id) REFERENCES users(id)
 );

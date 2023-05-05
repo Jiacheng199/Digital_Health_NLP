@@ -3,7 +3,6 @@ from flask_cors import CORS
 from flask_cors import cross_origin
 import pymysql
 import bcrypt
-import jwt
 import datetime
 import time 
 from functools import wraps
@@ -17,7 +16,7 @@ import json
 # app = Flask(__name__)
 app = Flask(__name__, static_folder='static', static_url_path='/static/dist')
 app.config.from_object(__name__)
-CORS(app,resources={r"/*":{"origins":"*"}})
+CORS(app,resources={r"/*"  :{"origins":"*"}})
 app.config["SECRET_KEY"] = "thisisasecretkey"
 app.secret_key = "hdiu21y3y4yhr3294"
 app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days=7)
@@ -96,17 +95,6 @@ def register():
         return jsonify({'message': 'User created successfully'}), 200
 
 
-@app.route("/getuserinfo",methods=["GET"])
-def getuserinfo():
-    data = request.headers.get('Authorization').split(' ')[1]
-    username = jwt.decode(data, app.config['SECRET_KEY'],algorithms=["HS256"])['username']
-    cursor.execute('SELECT * FROM users WHERE username=%s', username)
-    result = cursor.fetchone()
-    if result:
-        return jsonify({'message': 'User found','userid':result[0], 'username':result[1],'firstname':result[2],'lastname':result[3],'email':result[4]}), 200
-    else:
-        return jsonify({'message': 'User not found'}), 403
-
 @app.route("/process",methods=["POST"])
 def process():
     data = request.get_json()
@@ -122,7 +110,9 @@ def process():
         os.makedirs(save_path)
     # pending_check = False
     for i in fileid:
-        map = map_sys('uploads/'+userid+'/'+i+'.txt', 'process/'+userid+'/'+i)
+        cmd = 'mpiexec -n 12 python snomed_ct.py ' + str(i) + ' ' + 'uploads/'+userid+'/'+i+'.txt'
+        os.system(cmd)
+        map = map_sys('uploads/'+userid+'/'+i+'.txt', 'process/'+userid+'/'+i,str(i))
         map.mapping()
         cursor.execute('UPDATE Mappings SET Status=%s WHERE id=%s', ('Completed', i))
         con.commit()
@@ -234,4 +224,4 @@ def download_file():
     return send_file(path, as_attachment=True)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='127.0.0.1', port='5000')
