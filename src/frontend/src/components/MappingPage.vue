@@ -19,6 +19,7 @@
         <el-main>
             <el-table 
             :data="mappings.filter(data => !search || data.comment.toLowerCase().includes(search.toLowerCase()))"
+            :default-sort = "{prop: 'editdate', order: 'descending'}"
             style="width: 100%"
             border
             stripe>
