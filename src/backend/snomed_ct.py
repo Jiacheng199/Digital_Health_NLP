@@ -13,7 +13,7 @@ import csv
 class snomed:
     def __init__(self):
         self.name = ""
-        self.url = "http://ontoserver:8080/fhir/ValueSet/$expand?url=http://snomed.info/sct?fhir_vs=refset/32570071000036102&count=10&filter="
+        self.url = "http://localhost:8080/fhir/ValueSet/$expand?url=http://snomed.info/sct?fhir_vs=refset/32570071000036102&count=10&filter="
         self.payload={}
         self.headers = {
             'Accept': 'application/fhir+json',
@@ -59,3 +59,40 @@ class snomed:
         self.name = string_for_ct[:-1]
         # print(self.)
         return self.ct_search(self.name)
+
+# following for boost
+# import sys
+# file_name = sys.argv[1]
+
+# ex = sys.argv[2]
+# import pandas as pd
+# read_raw = read_data()
+# ct = snomed()
+# raw = read_raw.read_raw(ex)
+# count = 0
+# final_result = {}
+# for i in raw.keys():
+#     count += 1
+#     if count % size != rank:
+#         continue
+#     pre_data = raw[i]['processed']
+#     final_result[i] = ct.ct_string_process(pre_data)
+
+# final_result_to = comm.gather(final_result, root = 0)
+# writing_result = []
+# if rank == 0:
+#     datas = []
+#     for i in range(12):
+#         for all_keys in final_result_to[i].keys():
+#             tmp = {}
+#             tmp['left'] = all_keys
+#             tmp['right'] = final_result_to[i][all_keys]
+#             writing_result.append(tmp)
+    
+#     name = file_name+'.csv'
+#     with open(name,'w',encoding='utf8', newline='') as f: 
+#         w = csv.writer(f) 
+        
+#         w.writerow(writing_result[0].keys()) 
+#         for x in writing_result: 
+#             w.writerow(x.values())
