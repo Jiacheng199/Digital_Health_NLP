@@ -13,7 +13,7 @@ import csv
 class snomed:
     def __init__(self):
         self.name = ""
-        self.url = "http://localhost:8080/fhir/ValueSet/$expand?url=http://snomed.info/sct?fhir_vs=refset/32570071000036102&count=10&filter="
+        self.url = "http://ontoserver:8080/fhir/ValueSet/$expand?url=http://snomed.info/sct?fhir_vs=refset/32570071000036102&count=10&filter="
         self.payload={}
         self.headers = {
             'Accept': 'application/fhir+json',

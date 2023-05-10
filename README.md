@@ -31,6 +31,16 @@ serve -s dist
 
 python main.py
 
+# Setup for delivery
+1. Install Docker Desktop and change the container path
+2. Go to 'src' directory
+3. Using following cmd 'docker login quay.io' and then type user name and password. 
+4. Using the following cmd 'docker-compose up -d'
+5. Using the following cmd 'docker exec ontoserver /index.sh', if error, try multiply times. If 100% and then appear error, ignore it. 
+6. Go to docker desktop and make sure the 'ontoserver' container is running. Paste the following to browser for testing 'http://ontoserver:8080/fhir/ValueSet/$expand?url=http://snomed.info/sct?fhir_vs=refset/32570071000036102&count=10&filter=Cough'. If there are words return, means install success. If it is not, back to step 5 and do it again(SNOMED CT is not very stable).
+7. Running all of the container. Click the container call 'node-1' and then click the port '3000' to open in browser or 'https://localhost:3000'.
+
+
 # Goals
 ![ExpectedOutcomes.png](https://imgpile.com/images/hNyBe1.png)
 The core functionality of the project is to allow users to upload CSV files, algorithmically map the raw data files (CSV) to a list of common indications, and host this functionality through a local interface. The customer wishes to implement the system in two modes. One model is for researchers to directly upload data and then download transformed data from the system. Another mode is that after the researchers upload the data, they modify the wrongly mapped data through the interface to improve the system algorithm. In order to ensure that only relevant researchers can use the system, user login and registration are required. But only a handful of researchers will use the system, so it requires no administrators.
