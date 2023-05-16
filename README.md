@@ -32,7 +32,8 @@ serve -s dist
 python main.py
 
 # Setup for delivery
-run the **setup.bat**. 
+Run the **setup.bat**. 
+
 or step by stey:
 
 1. Install Docker Desktop and change the container path
