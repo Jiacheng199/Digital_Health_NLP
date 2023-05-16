@@ -32,6 +32,8 @@ serve -s dist
 python main.py
 
 # Setup for delivery
+Run **Setup.bat**
+Or step by step:
 1. Install Docker Desktop and change the container path
 2. Go to 'src' directory
 3. Using following cmd 'docker login quay.io' and then type user name and password. 
