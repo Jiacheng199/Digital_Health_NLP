@@ -20,7 +20,7 @@ docker login quay.io
 
 user name: unimelbproject2023
 
-password: In Email
+password: 20232023di
 
 docker-compose up -d
 
@@ -32,22 +32,13 @@ serve -s dist
 python main.py
 
 # Setup for delivery
-Run the **setup.bat**. 
-
-or step by stey:
-
 1. Install Docker Desktop and change the container path
 2. Go to 'src' directory
 3. Using following cmd 'docker login quay.io' and then type user name and password. 
 4. Using the following cmd 'docker-compose up -d'
-5. Making sure the container 'ontoserver is running'. Using the following cmd 'docker exec ontoserver /index.sh', if error, try multiply times. If 100% and then appear error, ignore it. 
-6. Go to docker desktop and make sure the 'ontoserver' container is running. Paste the following to browser for testing 'http://localhost:8443/fhir/ValueSet/$expand?url=http://snomed.info/sct?fhir_vs=refset/32570071000036102&count=10&filter=Cough'. If there are words return, means install success. If it is not, back to step 5 and do it again(SNOMED CT is not very stable).
+5. Using the following cmd 'docker exec ontoserver /index.sh', if error, try multiply times. If 100% and then appear error, ignore it. 
+6. Go to docker desktop and make sure the 'ontoserver' container is running. Paste the following to browser for testing 'http://ontoserver:8080/fhir/ValueSet/$expand?url=http://snomed.info/sct?fhir_vs=refset/32570071000036102&count=10&filter=Cough'. If there are words return, means install success. If it is not, back to step 5 and do it again(SNOMED CT is not very stable).
 7. Running all of the container. Click the container call 'node-1' and then click the port '3000' to open in browser or 'https://localhost:3000'.
-
-# Change install Location
-1. move C:\Users\USER\AppData\Local\Docker E:\Docker ('USER' means the current user name, 'E:\Docker' means the location want to install)
-2. mklink /J C:\Users\USER\AppData\Local\Docker E:\Docker
-3. New-Item -Path C:\Users\USER\AppData\Local\Docker -ItemType SymbolicLink -Value E:\Docker
 
 
 # Goals
