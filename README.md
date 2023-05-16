@@ -33,7 +33,7 @@ python main.py
 
 # Setup for delivery
 run the **setup.bat**. 
-or step by set:
+or step by stey:
 
 1. Install Docker Desktop and change the container path
 2. Go to 'src' directory
