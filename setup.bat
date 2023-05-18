@@ -7,7 +7,7 @@ cmd /C docker login -u unimelbproject2023 -p 20232023di quay.io
 
 docker-compose up -d
 
-echo progressing
+echo Processing.....................
 
 timeout /T 60
 
