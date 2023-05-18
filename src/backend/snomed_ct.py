@@ -3,10 +3,6 @@ import contextlib
 import requests
 from urllib3.exceptions import InsecureRequestWarning
 from read_data import read_data
-from mpi4py import MPI
-comm = MPI.COMM_WORLD
-rank = comm.Get_rank()
-size = comm.Get_size()
 import time
 start_time = time.time()
 import csv

@@ -4,7 +4,6 @@ tokenizer = AutoTokenizer.from_pretrained("medicalai/ClinicalBERT")
 model = AutoModel.from_pretrained("medicalai/ClinicalBERT")
 import torch
 from read_data import read_data
-from mpi4py import MPI
 import time
 # comm = MPI.COMM_WORLD
 # rank = comm.Get_rank()
