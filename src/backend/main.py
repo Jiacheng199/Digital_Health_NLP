@@ -1,7 +1,6 @@
 from flask import Flask, request, render_template, jsonify,send_file
 from flask_cors import CORS
 from flask_cors import cross_origin
-import subprocess
 import pymysql
 import bcrypt
 import datetime

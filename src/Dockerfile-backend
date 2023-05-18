@@ -1,24 +1,9 @@
 FROM python:3.7
-ENV USER mpitest
-ENV HOME /home/$USER
-ENV MPI_DIR=/opt/ompi
-ENV PATH="$MPI_DIR/bin:$HOME/.local/bin:$PATH"
-ENV LD_LIBRARY_PATH="$MPI_DIR/lib:$LD_LIBRARY_PATH"
-WORKDIR $HOME
-
-ADD https://download.open-mpi.org/release/open-mpi/v3.1/openmpi-3.1.4.tar.bz2 .
-RUN tar xf openmpi-3.1.4.tar.bz2 \
-    && cd openmpi-3.1.4 \
-    && ./configure --prefix=$MPI_DIR \
-    && make -j4 all \
-    && make install \
-    && cd .. && rm -rf \
-    openmpi-3.1.4 openmpi-3.1.4.tar.bz2 /tmp/*
 
 WORKDIR /app
 
 
-RUN pip install mpi4py transformers bcrypt flask flask-cors pymysql spacy scipy torch requests pandas scikit-learn cryptography editdistance openpyxl editdistance scikit-learn https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.1/en_ner_bionlp13cg_md-0.5.1.tar.gz
+RUN pip install transformers bcrypt flask flask-cors pymysql spacy scipy torch requests pandas scikit-learn cryptography editdistance openpyxl editdistance scikit-learn https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.1/en_ner_bionlp13cg_md-0.5.1.tar.gz
 
 
 
