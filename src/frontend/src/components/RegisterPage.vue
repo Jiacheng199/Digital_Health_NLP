@@ -1,6 +1,7 @@
 <template>
   <div class="login-container">
     <div class="login-box">
+      <el-alert style="margin-bottom: 10px;" v-if="registerMessage" :title="registerMessage" :type="`${registerError ? 'error':'success'}`" show-icon></el-alert>
       <a href="/home">
         <img src="../img/unimelb-logo.png"  alt="LOGO" class="uni-logo">
       </a>
