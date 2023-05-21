@@ -53,7 +53,6 @@ class snomed:
             string_for_ct += ct_i[0]
             string_for_ct += " "
         self.name = string_for_ct[:-1]
-        # print(self.)
         return self.ct_search(self.name)
 
 # following for boost
