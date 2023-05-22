@@ -26,6 +26,11 @@ docker-compose up -d
 
 docker exec ontoserver /index.sh -v 20230328
 
+# System Requirements
+1. 8GB memory at least
+2. At least 10GB of storage space is required
+3. Need Internet for the first time install everything.
+
 # Running setup 
 serve -s dist
 
