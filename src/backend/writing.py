@@ -11,7 +11,6 @@ class writing:
         dataframe.to_csv(file, index= False)
         processed_csv = dataframe.to_csv(index=False)
         return processed_csv
-        # return processed_csv
 
     def transform_to_json(self,input_data):
         columns = ["raw_data", "out_put_data", "distance", "uil_possible_list", "snomed_ct_possible_list", "result_from"]
