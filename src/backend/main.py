@@ -42,7 +42,7 @@ cursor=con.cursor()
 @app.route("/")
 def index():
     return "Hello World!"
-# login
+# login 
 @app.route("/login", methods=["POST"])
 def login():
     data = request.get_json()
@@ -66,6 +66,7 @@ def login():
 # upload
 @app.route("/upload",methods=["POST"])
 def upload():
+
     file = request.files['file']
     if file.filename == '':
         return jsonify({'message': 'No selected file'}), 400
@@ -208,7 +209,7 @@ def editmapping():
         writer = csv.writer(file)
         writer.writerows(rows)
     return jsonify({'message': 'Map edited successfully'}), 200
-
+# delete mapping
 @app.route("/deletemapping",methods=["POST"])
 def deletemapping():
     data = request.get_json()
