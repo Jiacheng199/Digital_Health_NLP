@@ -27,6 +27,7 @@ if not os.path.exists(app.config["UPLOAD_FOLDER"]):
 
 if not os.path.exists(app.config["PROCESS_FOLDER"]):
     os.makedirs(app.config["PROCESS_FOLDER"])
+# db connection
 pymysql.install_as_MySQLdb()
 con = pymysql.connect(
     host='mysql',
@@ -41,7 +42,7 @@ cursor=con.cursor()
 @app.route("/")
 def index():
     return "Hello World!"
-
+# login
 @app.route("/login", methods=["POST"])
 def login():
     data = request.get_json()
@@ -62,7 +63,7 @@ def login():
     else:
         # Passwords do not match
         return jsonify({'message': 'Invalid credentials'}), 403
-
+# upload
 @app.route("/upload",methods=["POST"])
 def upload():
     file = request.files['file']
@@ -77,7 +78,7 @@ def upload():
     return jsonify({'message': 'File uploaded successfully','file_id':uuid_str}), 200
 
 
-
+# register
 @app.route("/register", methods=["POST"])
 def register():
     data = request.get_json()
@@ -94,7 +95,7 @@ def register():
         con.commit()
         return jsonify({'message': 'User created successfully'}), 200
 
-
+# mapping
 @app.route("/process",methods=["POST"])
 def process():
     data = request.get_json()
@@ -123,6 +124,7 @@ def process():
         os.remove(os.path.join(app.config["UPLOAD_FOLDER"], userid, i+'.txt'))
     return jsonify({'message': 'File processed successfully'}), 200
 
+# get mapping
 @app.route("/getmaps",methods=["GET"])
 def getmap():
     userid = request.headers.get('Getmapping').split(' ')[1]
@@ -135,7 +137,8 @@ def getmap():
         return jsonify({'message': 'Map found','map':temp}), 200
     else:
         return jsonify({'message': 'Map not found'}), 403
-    
+
+# delete mapping   
 @app.route("/deletemap/<string:mapping_id>/<user_id>",methods=["DELETE"])
 def deleteMap(mapping_id,user_id):
     # return jsonify({'message': mapping_id}), 200
@@ -147,7 +150,7 @@ def deleteMap(mapping_id,user_id):
     os.remove(file_path)
     return jsonify({'message': 'Map deleted successfully'}), 200
 
-
+# get mapping results
 @app.route("/getmapresult/<user_id>/<string:mapping_id>",methods=["GET"])
 def getmapresult(user_id,mapping_id):
     path = os.path.join(app.config["PROCESS_FOLDER"], user_id, mapping_id+'.json')
@@ -159,6 +162,7 @@ def getmapresult(user_id,mapping_id):
     #     data = json.dumps([row for row in csv_reader])
     return data, 200
 
+# edit mapping
 @app.route("/editmapping",methods=["POST"])
 def editmapping():
     data = request.get_json()
@@ -204,6 +208,7 @@ def editmapping():
         writer = csv.writer(file)
         writer.writerows(rows)
     return jsonify({'message': 'Map edited successfully'}), 200
+
 @app.route("/deletemapping",methods=["POST"])
 def deletemapping():
     data = request.get_json()
@@ -220,6 +225,7 @@ def deletemapping():
         writer.writerows(rows)
     return jsonify({'message': 'Map deleted successfully'}), 200
 
+# download mapping results
 @app.route("/download", methods=["POST"])
 def download_file():
     file_id = request.json['file_id']

@@ -66,6 +66,7 @@ export default {
     };
   },
   methods: {
+    // register
     async submitForm (event) {
       if (this.registerForm.password != this.registerForm.confirmPassword) {
         alert("Passwords do not match!");
@@ -158,69 +159,5 @@ h3 {
   border-color: #061d3c;
   color: #ffffff;
 }
-/* .login-container {
-  width: 550px;
-  padding: 30px;
-  background-color: white;
-  margin: 100px auto;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-}
-
-.uni-logo {
-  display: block;
-  width: 100px;
-  height: auto;
-  margin: 0 auto 20px;
-}
-
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-button {
-  background-color: #007bff;
-  color: white;
-  padding: 10px;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-button:hover {
-  background-color: #0056b3;
-}
-
-.form-floating label {
-  color: #6c757d;
-}
-
-.form-floating input {
-  border-radius: 10px;
-  border: none;
-  padding-left: 12px;
-  box-shadow: none;
-  background-color: #f2f2f2;
-}
-
-.form-check-input {
-  border-radius: 10px;
-}
-
-
-.link-primary {
-  color: #0078d4;
-}
-
-.link-primary:hover {
-  text-decoration: underline;
-} */
 </style>
   

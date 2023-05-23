@@ -71,41 +71,6 @@ export default {
     if (key == 1) this.$router.push("/home");
     else if (key == 2) this.$router.push("/mapping");
     }
-    // getmappinginfo(){
-    //     console.log(localStorage.getItem('userid'));
-    //     const path = 'http://127.0.0.1:5000/getmaps';
-    //     axios.get(path,{
-    //         headers:{
-    //             'Getmapping': 'Bearer ' + localStorage.getItem('userid')
-    //         }
-    //     })
-    //     .then(response => {
-    //         console.log(response.data.map);
-    //         this.mappings = response.data.map;
-    //     })
-    //     .catch(error => {
-    //         this.mappings=[];
-    //         console.log(error);
-    //     });
-    // },
-    // deleteMapping(id){
-    //     const temp = id.toString()
-    //     console.log(temp)
-    //     const path = 'http://127.0.0.1:5000/deletemap/'+temp;
-    //     axios.delete(path)
-    //     .then(response => {
-    //         console.log(response.message);
-    //         this.getmappinginfo();
-    //     })
-    //     .catch(error => {
-    //         console.log(error.message);
-    //         console.log(error);
-    //     });
-    // },
-    // viewMapping(id){
-    //   localStorage.setItem('mapid', id);
-    //   this.$router.push("/viewmapping");
-    // }
   }
 };
 </script>

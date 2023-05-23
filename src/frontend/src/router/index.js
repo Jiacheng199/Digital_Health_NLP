@@ -13,11 +13,6 @@ const routes = [
     name: 'index',
     component: HomePage
   },
-  // {
-  //   path: '/upload',
-  //   name: 'upload',
-  //   component: Upload
-  // },
   {
     path: '/home',
     name: 'HomePage',
@@ -45,12 +40,7 @@ const routes = [
     name:'ViewMapping',
     component: ViewMapping,
     meta: { requiresAuth: true }
-  },
-  // {
-  //   path: '/chart',
-  //   name: 'Chart',
-  //   component: Charts
-  // }
+  }
 ];
 
 const router = new VueRouter({
@@ -58,6 +48,7 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
+// authentication check
 router.beforeEach((to, from, next) => {
   const loggedIn = localStorage.getItem('token');
   if (to.matched.some(record => record.meta.requiresAuth) && !loggedIn) next('/login')

@@ -69,6 +69,7 @@ data() {
     };
 },
 methods: {
+    // check token
     checktoken(event){
         const tokenStr = localStorage.getItem('token');
         if (tokenStr !== null) {
@@ -91,7 +92,7 @@ methods: {
         localStorage.removeItem('token');
         this.$router.push("/login");
     },
-
+    // get mapping info
     getmappinginfo(){
         const path = 'http://127.0.0.1:5000/getmaps';
         axios.get(path,{
@@ -107,6 +108,7 @@ methods: {
             console.log(error);
         });
     },
+    // delete mapping
     deleteMapping(id){
         const path = 'http://127.0.0.1:5000/deletemap/'+id+'/'+this.userinfo['userid'];
         axios.delete(path)
@@ -118,12 +120,14 @@ methods: {
             console.log(error);
         });
     },
+    // view mapping
     viewMapping(id){
     console.log(id);
     localStorage.setItem('mapid', id.mapid);
     localStorage.setItem('mapuserid', id.userid);
     this.$router.push("/viewmapping");
     },
+    // download mapping
     downloadMapping(id)
     {
         axios({
@@ -144,7 +148,7 @@ methods: {
             link.click()
         })
     },
-
+    // router change
     handleSelect(key, keyPath) {
     console.log(key, keyPath);
     if (key == 1) this.$router.push("/home");
