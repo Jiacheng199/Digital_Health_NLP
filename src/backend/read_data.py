@@ -11,7 +11,6 @@ class read_data:
         with open(file, 'r') as ex:
             while True:
                 current_line = ex.readline().strip()
-                # print(current_line)
                 count_bit = 0
                 for i in current_line:
                     count_bit+=1
@@ -19,7 +18,6 @@ class read_data:
                         break
                 
                 line = current_line[count_bit:]
-                # print(line)
                 if not line:
                     break
                 all_line = re.split('-|,|/| ', line)
@@ -50,7 +48,6 @@ class read_data:
                 
                 line = current_line[count_bit:]
                 example.append(line)
-
         return example
     
     def read_uil_list(self):
@@ -89,15 +86,7 @@ class read_data:
                 str44 += word1
             data[i][4] = str4
             data2[i][4] = str44
-
-        # print(data2)
         return data, data2
-    
-    # def read_comp(self):
-    #     df = pd.read_excel('human_match.xlsx', header=None)
-    #     data=df.values
-    #     # print(data[0][3])
-    #     return data
     
     def read_his(self):
         result_dic = {}
