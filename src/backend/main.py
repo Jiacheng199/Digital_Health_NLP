@@ -13,6 +13,8 @@ import json
 from matching import map_sys
 from read_data import read_data
 import json
+# This is the py program running on the backend
+# In the future, some specific parameters need to be extracted and stored in a file dedicated to parameters.
 # app = Flask(__name__)
 app = Flask(__name__, static_folder='static', static_url_path='/static/dist')
 app.config.from_object(__name__)
@@ -41,7 +43,7 @@ cursor=con.cursor()
 
 @app.route("/")
 def index():
-    return "Hello World!"
+    return "THIS IS DI PROJECT FILE! HELLLLLLLO!"
 # login 
 @app.route("/login", methods=["POST"])
 def login():
