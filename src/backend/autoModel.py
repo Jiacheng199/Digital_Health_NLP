@@ -5,6 +5,9 @@ model = AutoModel.from_pretrained("medicalai/ClinicalBERT")
 import torch
 from read_data import read_data
 import time
+# this is the transformer model  ClinicalBERT F1 = 82.
+
+
 # comm = MPI.COMM_WORLD
 # rank = comm.Get_rank()
 # size = comm.Get_size()
@@ -16,6 +19,7 @@ def autoModel(inputs):
     # for i in inputs.keys():
     #     source.append(i)
 
+    # use this model to predict if the input is medical word.
     start_time = time.time()
     # print(len(inputs))
     tmp_input = tokenizer(inputs, padding=True, truncation=True, return_tensors="pt")
