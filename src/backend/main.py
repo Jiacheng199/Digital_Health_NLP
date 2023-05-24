@@ -72,6 +72,7 @@ def upload():
         return jsonify({'message': 'No selected file'}), 400
     user_id = request.headers.get('Authorization').split(' ')[1]
     save_path = os.path.join(app.config["UPLOAD_FOLDER"], user_id)
+    # save file in the server.
     if not os.path.exists(save_path):
         os.makedirs(save_path)
     uuid_str = str(uuid.uuid4())
@@ -86,6 +87,7 @@ def register():
     username = data.get("username")
     password = data.get("password")
     email = data.get("email")
+    # use sql to check if there is already a user has the same name or not.
     cursor.execute('SELECT * FROM users WHERE username=%s OR email=%s', (username, email))
     result = cursor.fetchone()
     if result:
@@ -104,6 +106,7 @@ def process():
     username = data.get("userid")['username']
     fileid = data.get("file_id")
     comment = data.get("comment")
+    # processing the file and upload the upload history database.
     for i in fileid:
         cursor.execute('INSERT INTO Mappings(id,user_id,username,Commt,Editdate,Status) VALUES(%s, %s,%s, %s,%s,%s)', (i, userid, username, comment, time.strftime('%Y-%m-%d %H:%M:%S'),'Pending'))
         con.commit()
@@ -132,6 +135,7 @@ def getmap():
     cursor.execute("SELECT * FROM Mappings")
     result = cursor.fetchall()
     temp = []
+    # get all the mapping result and get back to front to display.
     if result:
         for i in result:
             temp.append({'mapid':i[0],'userid':i[1],'username':i[2],'comment':i[3],'editdate':i[4].strftime('%Y-%m-%d %H:%M:%S'),'status':i[5]})
@@ -193,7 +197,7 @@ def editmapping():
     with open(path, mode='w', newline='') as f:
         writer = csv.writer(f)
         writer.writerows(rows)
-    
+    #  modify the modify csv file
     with open('modify.csv', mode='r', newline='') as f:
         reader = csv.reader(f)
         rows = list(reader)

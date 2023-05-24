@@ -2,6 +2,7 @@ import os
 import uuid
 from read_data import read_data
 from snomed_ct import snomed
+# this python file is use for SNOMED-CT TEST.
 def snomed_ct_dict(exa):
     read_raw = read_data()
     ct = snomed()
