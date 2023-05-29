@@ -190,7 +190,7 @@ def editmapping():
         json.dump(data, file, indent=4)
     # Edit data
     path = os.path.join(app.config["PROCESS_FOLDER"], userid, mapid+'.csv')
-    newrow = [editinfo['raw_data'], editinfo['out_put_data'], editinfo['result_from']]
+    newrow = [editinfo['raw_data'], editinfo['out_put_data'], editinfo['distance'],editinfo['result_from']]
     # Edit the process csv file
     with open(path, mode='r', newline='') as f:
         reader = csv.reader(f)

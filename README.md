@@ -8,12 +8,12 @@ make corrections, and feed these back to re-train the system. This tool will be 
 Analysis of clinical documentation is critical for many digital health projects but extracting information from free-text clinical notes can be difficult. Typically, the rationale for prescribing a particular medication – the reason for prescription – is commonly provided by clinical practitioners in short free-text strings. We are interested in normalising those short strings by mapping them onto a knowledge base of canonical clinical terms, known as SNOMED CT (https://www.snomed.org/).
 When a patient sees a doctor, the doctor records the patient's symptoms. However, doctors will abbreviate or modify it for the convenience of recording according to personal habits. The description of the symptoms that led to these symptoms is not part of the Universal Indication List. This makes it difficult to count and analyze symptoms. Therefore, it is necessary to turn the original file into a Universal Indication List.
 
-# Running Enriovemnt
+# Running Enriovemnt (development only)
 pip install nltk pymysql bcrypt jwt torch scipy
 pip install spacy
 pip install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.1/en_ner_bionlp13cg_md-0.5.1.tar.gz
 
-# OntoServer install
+# OntoServer install (development only)
 Download the Docker Desktop
 
 docker login quay.io 
@@ -26,19 +26,19 @@ docker-compose up -d
 
 docker exec ontoserver /index.sh -v 20230328
 
-# System Requirements
-1. 8GB memory at least
+# System Requirements (for delivery)
+1. 8GB memory, at least
 2. At least 10GB of storage space is required
 3. Need Internet for the first time install everything.
 
-# Running setup 
+# Running setup for deploy (development only)
 serve -s dist
-
 python main.py
 
 # Setup for delivery
 Run **Setup.bat**
-Or step by step:
+
+Or using following steps:
 1. Install Docker Desktop and change the container path
 2. Go to 'src' directory
 3. Using following cmd 'docker login quay.io' and then type user name and password. 
@@ -46,6 +46,10 @@ Or step by step:
 5. Using the following cmd 'docker exec ontoserver /index.sh', if error, try multiply times. If 100% and then appear error, ignore it. 
 6. Go to docker desktop and make sure the 'ontoserver' container is running. Paste the following to browser for testing 'http://ontoserver:8080/fhir/ValueSet/$expand?url=http://snomed.info/sct?fhir_vs=refset/32570071000036102&count=10&filter=Cough'. If there are words return, means install success. If it is not, back to step 5 and do it again(SNOMED CT is not very stable).
 7. Running all of the container. Click the container call 'node-1' and then click the port '3000' to open in browser or 'https://localhost:3000'.
+
+# TIPS
+1. Replace the UIL.xlxs with the new UIL and rename it as the same and then delete ONLY the container in Docker to update.
+2. SNOMED CT update is very frequency. In order to update SNOMED CT, delete everything in Docker (containers, images and volumes) and then click Setup.bat (The same as setup for delivery).
 
 
 # Goals
