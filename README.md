@@ -35,7 +35,7 @@ docker exec ontoserver /index.sh -v 20230328
 serve -s dist
 python main.py
 
-# Setup for delivery
+# Setup for delivery (Video in Product page in confluence)
 Run **Setup.bat**
 
 Or using following steps:
