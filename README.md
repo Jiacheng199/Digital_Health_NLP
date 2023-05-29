@@ -48,7 +48,7 @@ Or using following steps:
 7. Running all of the container. Click the container call 'node-1' and then click the port '3000' to open in browser or 'https://localhost:3000'.
 
 # TIPS
-1. Replace the UIL.xlxs with the new UIL and rename it as the same and then delete ONLY the container in Docker to update.
+1. Replace the UIL.xlsx(In src/backend) with the new UIL and rename it as the same and then delete ONLY the container in Docker to update.
 2. SNOMED CT update is very frequency. In order to update SNOMED CT, delete everything in Docker (containers, images and volumes) and then click Setup.bat (The same as setup for delivery).
 
 
