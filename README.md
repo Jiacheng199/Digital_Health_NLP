@@ -36,10 +36,10 @@ serve -s dist
 python main.py
 
 # Setup for delivery (Video in Product page in confluence)
-Run **Setup.bat**
+Install and run Docker Desktop and Run **Setup.bat**
 
 Or using following steps:
-1. Install Docker Desktop and change the container path
+1. Install Docker Desktop
 2. Go to 'src' directory
 3. Using following cmd 'docker login quay.io' and then type user name and password. 
 4. Using the following cmd 'docker-compose up -d'
