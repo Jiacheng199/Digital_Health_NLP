@@ -13,6 +13,7 @@ import json
 from matching import map_sys
 from read_data import read_data
 import json
+
 # This is the py program running on the backend
 # In the future, some specific parameters need to be extracted and stored in a file dedicated to parameters.
 # app = Flask(__name__)
@@ -215,6 +216,7 @@ def editmapping():
         writer = csv.writer(file)
         writer.writerows(rows)
     return jsonify({'message': 'Map edited successfully'}), 200
+    
 # delete mapping
 @app.route("/deletemapping",methods=["POST"])
 def deletemapping():

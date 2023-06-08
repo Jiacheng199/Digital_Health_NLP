@@ -10,6 +10,7 @@ import editdistance
 import MedicalDataClassifier as mdc
 from MedicalDataClassifier.med_data_cls import train_nb_classifier, predict_medical_text
 import copy
+
 # detail process Flowchart can go to https://confluence.cis.unimelb.edu.au:8443/display/COMP900822023SM1DIRedBack/Mapping+analysis 
 class map_sys:
     def __init__(self, file_name, write_file_name):
@@ -129,6 +130,7 @@ class map_sys:
                         self.search(1)
 
                 candid_result_in_condition = []
+
                 # being search in some place
                 if self.statement_check:
                     re_cover_text = self.re_organ(pre_data)
@@ -445,7 +447,7 @@ class map_sys:
         distance_result, distance_number = self.edit_distance(candid, candi_base)
         return distance_result, distance_number
 
-# search edit distance between a and b word.
+    # search edit distance between a and b word.
     def edit_distance(self, a, b):
 
         min_dist = 999
