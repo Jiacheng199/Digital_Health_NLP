@@ -3,12 +3,6 @@
 
 import pandas as pd
 import csv
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, confusion_matrix
-from sklearn.feature_extraction.text import TfidfVectorizer
-import numpy as np
 import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
@@ -78,7 +72,7 @@ def save_to_csv(data, file_name):
         writer.writerows(data)
 
 
-
+# Generate medical data
 non_medical_words = generate_keywords(generate_non_medical_data())
 
 # Create a dictionary to store the tokens and labels

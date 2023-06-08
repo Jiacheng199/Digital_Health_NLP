@@ -26,9 +26,9 @@ def train_nb_classifier():
     y_pred = clf.predict(X_test_vec)
     accuracy = accuracy_score(y_test, y_pred)
     f1 = f1_score(y_test, y_pred, average='weighted')
-    # print('Accuracy: ', accuracy)
-    # print('F1 score: ', f1)
-
+    print('Accuracy: ', accuracy)
+    print('F1 score: ', f1)
+    
     return clf, vectorizer
 
 # Predict the label for a raw text
