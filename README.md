@@ -52,10 +52,6 @@ Or using following steps:
 The core functionality of the project is to allow users to upload CSV files, algorithmically map the raw data files (CSV) to a list of common indications, and host this functionality through a local interface. The customer wishes to implement the system in two modes. One model is for researchers to directly upload data and then download transformed data from the system. Another mode is that after the researchers upload the data, they modify the wrongly mapped data through the interface to improve the system algorithm. In order to ensure that only relevant researchers can use the system, user login and registration are required. But only a handful of researchers will use the system, so it requires no administrators.
 
 
-## How to test the front-dev of this project
-Since we need to load the mock data to perform the mapping data modification testing, so one way to testing the current branch is to run 
-python code: `python -m http.server`; This will allow you to run the project on localhost:8000.
-
 ## How to use the medical data classification function in other code
 First, ensure that you have the required Python libraries installed:
 
