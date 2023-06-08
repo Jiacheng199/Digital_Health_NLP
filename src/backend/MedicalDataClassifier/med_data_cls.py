@@ -22,7 +22,13 @@ def train_nb_classifier():
     #using the Multinomial Naive Bayes classifier
     clf = MultinomialNB()
     clf.fit(X_train_vec, y_train)
-    
+
+    y_pred = clf.predict(X_test_vec)
+    accuracy = accuracy_score(y_test, y_pred)
+    f1 = f1_score(y_test, y_pred, average='weighted')
+    # print('Accuracy: ', accuracy)
+    # print('F1 score: ', f1)
+
     return clf, vectorizer
 
 # Predict the label for a raw text
@@ -30,25 +36,6 @@ def predict_medical_text(clf, vectorizer, raw_text):
     raw_text_vec = vectorizer.transform([raw_text])
     label = clf.predict(raw_text_vec)
     return bool(label[0])
-
-# Run tests on the trained model
-def run_tests(clf, vectorizer):
-    test_data = pd.read_csv('MedicalDataClassifier/Medical_data/med_cls_test.csv')
-    X_test = test_data['text']
-    y_test = test_data['label']
-
-    # Vectorize the test text
-    X_test_vec = vectorizer.transform(X_test)
-
-    # Make predictions
-    y_pred = clf.predict(X_test_vec)
-
-    # Calculate accuracy and f1 score
-    accuracy = accuracy_score(y_test, y_pred)
-    f1 = f1_score(y_test, y_pred, average='weighted')
-
-    print('Test Accuracy: ', accuracy)
-    print('Test F1 score: ', f1)
 
 # Usage example
 if __name__ == '__main__':
