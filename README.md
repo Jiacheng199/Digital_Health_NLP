@@ -1,12 +1,7 @@
-# Digital Health
-#### DI-RedBack
-# Project Overview
-The project aims to set up and customise a tool and design a platform that will allow a human-in-the-loop to manually review the mapping results (between short free-text strings provided by clinical practitioners and SNOMED CT),
-make corrections, and feed these back to re-train the system. This tool will be deployed using Docker inside an existing virtual machine..
+# Development for sprint2(will switch to sptrint3 after the end of sprint2)
 
-# Background
-Analysis of clinical documentation is critical for many digital health projects but extracting information from free-text clinical notes can be difficult. Typically, the rationale for prescribing a particular medication – the reason for prescription – is commonly provided by clinical practitioners in short free-text strings. We are interested in normalising those short strings by mapping them onto a knowledge base of canonical clinical terms, known as SNOMED CT (https://www.snomed.org/).
-When a patient sees a doctor, the doctor records the patient's symptoms. However, doctors will abbreviate or modify it for the convenience of recording according to personal habits. The description of the symptoms that led to these symptoms is not part of the Universal Indication List. This makes it difficult to count and analyze symptoms. Therefore, it is necessary to turn the original file into a Universal Indication List.
+This branch is for developing mapping data modification,login/register pages for now(US05 and US08) and medical data classification using Naive Bayes classifier.
+
 
 # Running Enriovemnt (development only)
 pip install nltk pymysql bcrypt jwt torch scipy
@@ -56,20 +51,20 @@ Or using following steps:
 ![ExpectedOutcomes.png](https://imgpile.com/images/hNyBe1.png)
 The core functionality of the project is to allow users to upload CSV files, algorithmically map the raw data files (CSV) to a list of common indications, and host this functionality through a local interface. The customer wishes to implement the system in two modes. One model is for researchers to directly upload data and then download transformed data from the system. Another mode is that after the researchers upload the data, they modify the wrongly mapped data through the interface to improve the system algorithm. In order to ensure that only relevant researchers can use the system, user login and registration are required. But only a handful of researchers will use the system, so it requires no administrators.
 
-# Branching
-## Quick Legend
-|Instance|Branch|Description|
-|:--:|:--:|:--:|
-|Stable|main|Accepts merges from Sprint1-3|
-|Working|sprint1|Always branch off Stable|
-|Sprint2|sprint2|Always branch off Stable|
-|Sprint3|sprint3|Always branch off Stable|
 
-# Repository explanation
+## How to test the front-dev of this project
+Since we need to load the mock data to perform the mapping data modification testing, so one way to testing the current branch is to run 
+python code: `python -m http.server`; This will allow you to run the project on localhost:8000.
 
-├── docs/                    # Documentation files
+## How to use the medical data classification function in other code
+First, ensure that you have the required Python libraries installed:
 
-├── src/                       # src code
+`pip install pandas scikit-learn nltk rake_nltk numpy`
+
+Usage:
+Train the classifier using the training dataset:
+`classifier, text_vectorizer = train_nb_classifier()`
+
 
 ├── src/backend    # backend code and mapping algorithm
     
@@ -85,10 +80,7 @@ The core functionality of the project is to allow users to upload CSV files, alg
 
 ├── prototypes/low fidelity/     # low fidelity files (prototype screens)
 
-├── prototypes/high fidelity/     # high fidelity files (FIGMA source filesn)
 
-├── ui/                        # All the images created for the prototypes
+`result = predict_medical_text(classifier, text_vectorizer, test_text)`
 
-├── data samples/      
-
-└── README.md
+`print('Is the text medical-related? :', result)`
