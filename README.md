@@ -1,8 +1,3 @@
-# Development for sprint2(will switch to sptrint3 after the end of sprint2)
-
-This branch is for developing mapping data modification,login/register pages for now(US05 and US08) and medical data classification using Naive Bayes classifier.
-
-
 # Running Enriovemnt (development only)
 pip install nltk pymysql bcrypt jwt torch scipy
 pip install spacy
