@@ -8,8 +8,9 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.corpus import brown
 from rake_nltk import Rake
-
+#Brown corpus will be used to generate non-medical data
 nltk.download('brown')
+
 # Generate medical data
 def generate_medical_data():
     #Get the original notes
