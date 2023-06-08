@@ -1,0 +1,24 @@
+FROM python:3.7
+
+WORKDIR /app
+
+
+RUN pip install --upgrade pip
+
+RUN pip install transformers bcrypt flask flask-cors pymysql spacy scipy torch requests pandas scikit-learn cryptography editdistance openpyxl editdistance scikit-learn https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.1/en_ner_bionlp13cg_md-0.5.1.tar.gz
+
+
+
+COPY ./backend /app
+
+
+ENV FLASK_APP=main.py
+ENV FLASK_ENV=production
+
+
+EXPOSE 5000
+
+
+CMD ["python", "main.py"]
+
+# CMD ["flask", "run", "--host=0.0.0.0"]
