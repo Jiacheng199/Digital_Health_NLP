@@ -1,0 +1,16 @@
+services:
+  mysql:
+      build:
+        context: .
+        dockerfile: Dockerfile-mysql
+      restart: always
+      ports:
+        - "3306:3306"
+      environment:
+        MYSQL_DATABASE: 'mapping_system'
+        MYSQL_ROOT_PASSWORD: '123456'
+      networks:
+        - dinetwork
+networks:
+  dinetwork:
+    driver: bridge
