@@ -18,9 +18,9 @@ Download the Docker Desktop
 
 docker login quay.io 
 
-user name: unimelbproject2023
+user name: *************
 
-password: 20232023di
+password: ************
 
 docker-compose up -d
 
